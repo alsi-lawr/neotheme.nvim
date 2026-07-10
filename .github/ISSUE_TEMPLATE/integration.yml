@@ -1,0 +1,39 @@
+name: Integration request
+description: Request support for another Neovim plugin
+title: "[Integration]: "
+labels:
+  - integration
+body:
+  - type: input
+    id: repository
+    attributes:
+      label: Plugin repository
+      placeholder: owner/repository
+    validations:
+      required: true
+  - type: textarea
+    id: surface
+    attributes:
+      label: UI surface
+      description: Which windows, components, or states need Neotheme highlights?
+    validations:
+      required: true
+  - type: textarea
+    id: groups
+    attributes:
+      label: Relevant highlight groups
+      description: List documented highlight groups or link to their source.
+    validations:
+      required: true
+  - type: textarea
+    id: configuration
+    attributes:
+      label: Minimal plugin configuration
+      render: lua
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Add screenshots or links showing the expected states.
