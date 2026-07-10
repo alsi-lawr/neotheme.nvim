@@ -3,7 +3,7 @@ local M = {}
 ---@param p NeothemePalette
 function M.apply(p)
 	local paths = {
-		{ "surface", "raised" },
+		{ "surface", "base" },
 		{ "version_control", "conflict" },
 		{ "diagnostic", "success" },
 		{ "diagnostic", "warning" },
@@ -11,7 +11,7 @@ function M.apply(p)
 		{ "diagnostic", "hint" },
 		{ "text", "muted" },
 		{ "text", "primary" },
-		{ "surface", "raised" },
+		{ "surface", "base" },
 		{ "diagnostic", "error" },
 		{ "diagnostic", "success" },
 		{ "diagnostic", "warning" },
@@ -25,7 +25,7 @@ function M.apply(p)
 		vim.g["terminal_color_" .. (index - 1)] = p[path[1]][path[2]]
 	end
 
-	vim.g.terminal_color_background = p.surface.raised
+	vim.g.terminal_color_background = p.surface.base
 	vim.g.terminal_color_foreground = p.text.primary
 end
 
