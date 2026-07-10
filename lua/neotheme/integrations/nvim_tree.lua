@@ -31,11 +31,11 @@ function M.get(p)
 
 		NvimTreeFileIcon = { fg = p.text.primary },
 		NvimTreeSymlinkIcon = { fg = p.text.muted },
-		NvimTreeFolderIcon = { fg = p.syntax.property },
+		NvimTreeFolderIcon = { fg = p.ui.directory },
 		NvimTreeOpenedFolderIcon = { fg = p.ui.directory },
-		NvimTreeClosedFolderIcon = { fg = p.syntax.property },
-		NvimTreeFolderArrowClosed = { fg = p.surface.muted },
-		NvimTreeFolderArrowOpen = { fg = p.syntax.property },
+		NvimTreeClosedFolderIcon = { fg = p.ui.directory },
+		NvimTreeFolderArrowClosed = { fg = p.text.muted },
+		NvimTreeFolderArrowOpen = { fg = p.text.muted },
 		NvimTreeIndentMarker = { fg = p.surface.border },
 
 		NvimTreeWindowPicker = { fg = p.text.on_accent, bg = p.ui.accent, bold = true },

@@ -56,6 +56,16 @@ local nvim_tree_definitions = require("neotheme.integrations.nvim_tree").get(eng
 for _, group in ipairs(nvim_tree_groups) do
 	h.truthy(nvim_tree_definitions[group], "nvim-tree category coverage is missing " .. group)
 end
+h.eq(
+	nvim_tree_definitions.NvimTreeClosedFolderIcon,
+	nvim_tree_definitions.NvimTreeOpenedFolderIcon,
+	"nvim-tree folder icon color must not change when opened"
+)
+h.eq(
+	nvim_tree_definitions.NvimTreeFolderArrowClosed,
+	nvim_tree_definitions.NvimTreeFolderArrowOpen,
+	"nvim-tree folder arrow color must not change when opened"
+)
 
 h.load({
 	configure_palette = function(configured)
