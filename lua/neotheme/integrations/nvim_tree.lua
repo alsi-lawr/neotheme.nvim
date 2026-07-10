@@ -4,16 +4,16 @@ local M = {}
 ---@return table<string, NeothemeHighlight>
 function M.get(p)
 	return {
-		NvimTreeNormal = { fg = p.text.primary, bg = p.surface.raised },
+		NvimTreeNormal = { fg = p.text.primary, bg = p.surface.base },
 		NvimTreeNormalFloat = { link = "NormalFloat" },
-		NvimTreeNormalNC = { fg = p.text.primary, bg = p.surface.raised },
+		NvimTreeNormalNC = { fg = p.text.primary, bg = p.surface.base },
 		NvimTreeLineNr = { link = "LineNr" },
-		NvimTreeWinSeparator = { fg = p.surface.border, bg = p.surface.raised },
-		NvimTreeEndOfBuffer = { fg = p.surface.raised, bg = p.surface.raised },
+		NvimTreeWinSeparator = { fg = p.surface.border, bg = p.surface.base },
+		NvimTreeEndOfBuffer = { fg = p.surface.base, bg = p.surface.base },
 		NvimTreePopup = { link = "NormalFloat" },
-		NvimTreeSignColumn = { fg = p.surface.muted, bg = p.surface.raised },
-		NvimTreeCursorColumn = { bg = p.surface.selected },
-		NvimTreeCursorLine = { bg = p.surface.selected },
+		NvimTreeSignColumn = { fg = p.surface.muted, bg = p.surface.base },
+		NvimTreeCursorColumn = { bg = p.surface.raised },
+		NvimTreeCursorLine = { bg = p.surface.raised },
 		NvimTreeCursorLineNr = { link = "CursorLineNr" },
 		NvimTreeStatusLine = { link = "StatusLine" },
 		NvimTreeStatusLineNC = { link = "StatusLineNC" },

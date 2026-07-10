@@ -64,9 +64,9 @@ for _, group in ipairs({
 	"NvimTreeEndOfBuffer",
 	"NvimTreeSignColumn",
 }) do
-	h.eq(palette.surface.raised, nvim_tree_definitions[group].bg, "nvim-tree canvas: " .. group)
+	h.eq(palette.surface.base, nvim_tree_definitions[group].bg, "nvim-tree canvas: " .. group)
 end
-h.eq(palette.surface.selected, nvim_tree_definitions.NvimTreeCursorLine.bg, "nvim-tree cursor line")
+h.eq(palette.surface.raised, nvim_tree_definitions.NvimTreeCursorLine.bg, "nvim-tree cursor line")
 h.eq(
 	nvim_tree_definitions.NvimTreeClosedFolderIcon,
 	nvim_tree_definitions.NvimTreeOpenedFolderIcon,
