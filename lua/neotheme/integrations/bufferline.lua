@@ -11,19 +11,21 @@ function M.get(p)
 		BufferLineTab = { fg = p.text.muted, bg = p.surface.dark },
 		BufferLineTabSelected = { fg = p.ui.accent, bg = p.surface.base, bold = true },
 		BufferLineTabSeparator = { fg = p.surface.dark, bg = p.surface.dark },
-		BufferLineTabSeparatorSelected = { fg = p.surface.base, bg = p.surface.base },
+		BufferLineTabSeparatorSelected = { fg = p.surface.dark, bg = p.surface.base },
 		BufferLineTabClose = { fg = p.diagnostic.error, bg = p.surface.dark },
 		BufferLineOffsetSeparator = { fg = p.surface.border, bg = p.surface.dark },
 		BufferLineTruncMarker = { fg = p.text.muted, bg = p.surface.dark },
 		BufferLineGroupLabel = { fg = p.text.on_accent, bg = p.ui.directory },
 		BufferLineGroupSeparator = { fg = p.ui.directory, bg = p.surface.dark },
+		BufferLineSeparator = { fg = p.surface.dark, bg = p.surface.dark },
+		BufferLineSeparatorVisible = { fg = p.surface.dark, bg = p.surface.raised },
+		BufferLineSeparatorSelected = { fg = p.surface.dark, bg = p.surface.base },
 	}
 
 	local variants = {
 		CloseButton = p.diagnostic.error,
 		Modified = p.version_control.changed,
 		Duplicate = p.text.muted,
-		Separator = p.surface.border,
 		Indicator = p.ui.accent,
 		Pick = p.diagnostic.hint,
 		Numbers = p.text.muted,

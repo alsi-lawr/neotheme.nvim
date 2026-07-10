@@ -78,6 +78,18 @@ h.eq(
 	"nvim-tree folder arrow color must not change when opened"
 )
 
+local bufferline_definitions = require("neotheme.integrations.bufferline").get(palette)
+for name, background in pairs({
+	BufferLineSeparator = palette.surface.dark,
+	BufferLineSeparatorVisible = palette.surface.raised,
+	BufferLineSeparatorSelected = palette.surface.base,
+	BufferLineTabSeparator = palette.surface.dark,
+	BufferLineTabSeparatorSelected = palette.surface.base,
+}) do
+	h.eq(palette.surface.dark, bufferline_definitions[name].fg, "bufferline separator foreground: " .. name)
+	h.eq(background, bufferline_definitions[name].bg, "bufferline separator background: " .. name)
+end
+
 h.load({
 	configure_palette = function(configured)
 		configured.ui.search = configured.diagnostic.error
