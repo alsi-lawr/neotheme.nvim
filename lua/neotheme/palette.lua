@@ -217,8 +217,7 @@ function M.resolve(base, options)
 	if #missing > 0 then
 		vim.notify(
 			string.format("neotheme: theme '%s' palette is missing entries: %s", options.theme, table.concat(missing, ", ")),
-			vim.log.levels.WARN,
-			{ title = "neotheme" }
+			vim.log.levels.WARN
 		)
 	end
 	return copy(palette)

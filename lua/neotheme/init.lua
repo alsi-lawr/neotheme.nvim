@@ -2,6 +2,7 @@ local config = require("neotheme.config")
 
 local M = {}
 local augroup_name = "Neotheme"
+---@type NeothemePalette?
 local resolved_palette = nil
 
 local function copy(value)
@@ -16,17 +17,21 @@ local function copy(value)
 	return result
 end
 
+---@return NeothemePalette
 local function resolve_theme()
 	local options = config.get()
 	local palette = require("neotheme.palette")
 	local base = options.theme == "custom" and palette.empty() or require("neotheme.themes").get(options.theme)
 	resolved_palette = palette.resolve(base, options)
+	return resolved_palette
 end
 
+---@return NeothemePalette
 local function ensure_theme()
 	if resolved_palette == nil then
-		resolve_theme()
+		return resolve_theme()
 	end
+	return resolved_palette
 end
 
 local function configure_sidebars(event)
@@ -74,8 +79,8 @@ end
 
 ---@return NeothemePalette
 function M.palette()
-	ensure_theme()
-	return copy(resolved_palette)
+	local palette = ensure_theme()
+	return copy(palette)
 end
 
 ---@return string[]
@@ -95,8 +100,8 @@ function M.load()
 	vim.o.termguicolors = true
 	vim.g.colors_name = "neotheme"
 
-	ensure_theme()
-	require("neotheme.highlights").apply(config.get(), resolved_palette)
+	local palette = ensure_theme()
+	require("neotheme.highlights").apply(config.get(), palette)
 	create_autocmds()
 end
 
