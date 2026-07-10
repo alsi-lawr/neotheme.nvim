@@ -167,10 +167,24 @@ local function validate(palette)
 		end
 		for field, color in pairs(values) do
 			if not known[field] then
-				error(string.format("neotheme: unknown palette entry %s.%s", category, tostring(field)), 3)
+				error(
+					string.format(
+						"neotheme: unknown palette entry %s.%s",
+						category,
+						tostring(field)
+					),
+					3
+				)
 			end
 			if type(color) ~= "string" or not color:match("^#%x%x%x%x%x%x$") then
-				error(string.format("neotheme: palette.%s.%s must be a #RRGGBB color", category, field), 3)
+				error(
+					string.format(
+						"neotheme: palette.%s.%s must be a #RRGGBB color",
+						category,
+						field
+					),
+					3
+				)
 			end
 		end
 	end
@@ -216,7 +230,11 @@ function M.resolve(base, options)
 	local missing = missing_paths(palette)
 	if #missing > 0 then
 		vim.notify(
-			string.format("neotheme: theme '%s' palette is missing entries: %s", options.theme, table.concat(missing, ", ")),
+			string.format(
+				"neotheme: theme '%s' palette is missing entries: %s",
+				options.theme,
+				table.concat(missing, ", ")
+			),
 			vim.log.levels.WARN
 		)
 	end

@@ -25,7 +25,10 @@ for _, case in ipairs(cases) do
 	end
 	h.falsy(h.group_exists(case.group), "integration group exists before enable: " .. case.group)
 	h.load({ integrations = { [case.option] = true } })
-	h.truthy(h.group_exists(case.group), "integration group is missing after enable: " .. case.group)
+	h.truthy(
+		h.group_exists(case.group),
+		"integration group is missing after enable: " .. case.group
+	)
 	h.eq(nil, package.loaded[case.plugin], "theme must not load plugin module " .. case.plugin)
 end
 
@@ -86,7 +89,11 @@ for name, background in pairs({
 	BufferLineTabSeparator = palette.surface.dark,
 	BufferLineTabSeparatorSelected = palette.surface.base,
 }) do
-	h.eq(palette.surface.dark, bufferline_definitions[name].fg, "bufferline separator foreground: " .. name)
+	h.eq(
+		palette.surface.dark,
+		bufferline_definitions[name].fg,
+		"bufferline separator foreground: " .. name
+	)
 	h.eq(background, bufferline_definitions[name].bg, "bufferline separator background: " .. name)
 end
 

@@ -39,7 +39,11 @@ function M.get(p)
 
 		TelescopePreviewNormal = { fg = p.text.primary, bg = p.surface.dark },
 		TelescopePreviewBorder = { fg = p.surface.border, bg = p.surface.dark },
-		TelescopePreviewTitle = { fg = p.text.on_accent, bg = p.diagnostic.information, bold = true },
+		TelescopePreviewTitle = {
+			fg = p.text.on_accent,
+			bg = p.diagnostic.information,
+			bold = true,
+		},
 		TelescopePreviewDirectory = { link = "Directory" },
 		TelescopePreviewGroup = { fg = p.text.muted },
 		TelescopePreviewCharDev = { fg = p.diagnostic.warning },

@@ -54,8 +54,20 @@ for changed, options in pairs(cases) do
 			expected_attribute = not expected_attribute
 		end
 		h.eq(expected_attribute, definition.attribute, changed .. " must not alter " .. name)
-		h.eq(baseline[name].fg, definition.fg, changed .. " must not alter " .. name .. " foreground")
-		h.eq(baseline[name].bg, definition.bg, changed .. " must not alter " .. name .. " background")
-		h.eq(baseline[name].sp, definition.sp, changed .. " must not alter " .. name .. " special color")
+		h.eq(
+			baseline[name].fg,
+			definition.fg,
+			changed .. " must not alter " .. name .. " foreground"
+		)
+		h.eq(
+			baseline[name].bg,
+			definition.bg,
+			changed .. " must not alter " .. name .. " background"
+		)
+		h.eq(
+			baseline[name].sp,
+			definition.sp,
+			changed .. " must not alter " .. name .. " special color"
+		)
 	end
 end

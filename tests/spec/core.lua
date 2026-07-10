@@ -134,14 +134,22 @@ end
 
 h.eq(true, lsp["@lsp.mod.deprecated"].strikethrough, "deprecated semantic modifier")
 h.eq("@constant", lsp["@lsp.typemod.variable.readonly"].link, "readonly semantic modifier")
-h.eq("@function.builtin", lsp["@lsp.typemod.function.defaultLibrary"].link, "default-library modifier")
+h.eq(
+	"@function.builtin",
+	lsp["@lsp.typemod.function.defaultLibrary"].link,
+	"default-library modifier"
+)
 
 for _, severity in ipairs({ "Error", "Warn", "Info", "Hint", "Ok" }) do
 	for _, kind in ipairs({ "", "VirtualText", "VirtualLines", "Underline", "Floating", "Sign" }) do
 		h.truthy(lsp["Diagnostic" .. kind .. severity], "diagnostic definition is missing")
 	end
 end
-h.eq(h.color(palette.diagnostic.information), h.highlight("DiagnosticInfo").fg, "information diagnostic")
+h.eq(
+	h.color(palette.diagnostic.information),
+	h.highlight("DiagnosticInfo").fg,
+	"information diagnostic"
+)
 
 local terminal = {
 	[0] = palette.surface.base,

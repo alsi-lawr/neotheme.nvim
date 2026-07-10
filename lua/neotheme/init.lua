@@ -21,7 +21,8 @@ end
 local function resolve_theme()
 	local options = config.get()
 	local palette = require("neotheme.palette")
-	local base = options.theme == "custom" and palette.empty() or require("neotheme.themes").get(options.theme)
+	local base = options.theme == "custom" and palette.empty()
+		or require("neotheme.themes").get(options.theme)
 	resolved_palette = palette.resolve(base, options)
 	return resolved_palette
 end

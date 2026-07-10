@@ -13,9 +13,17 @@ engine.setup({
 	end,
 })
 h.eq(built_in.diagnostic.error, engine.palette().syntax.string, "base-theme palette mutation")
-h.eq(built_in.syntax.string, require("neotheme.themes").get("gruber-muted").syntax.string, "base theme isolation")
+h.eq(
+	built_in.syntax.string,
+	require("neotheme.themes").get("gruber-muted").syntax.string,
+	"base theme isolation"
+)
 engine.load()
-h.eq(h.color(built_in.diagnostic.error), h.highlight("String").fg, "configured palette reaches core highlights")
+h.eq(
+	h.color(built_in.diagnostic.error),
+	h.highlight("String").fg,
+	"configured palette reaches core highlights"
+)
 h.eq(0, #notifications, "complete base theme should not warn")
 
 local ok = pcall(engine.setup, { theme = "missing" })
@@ -53,7 +61,15 @@ notifications = {}
 engine.setup({
 	theme = "custom",
 	configure_palette = function(palette)
-		for _, category in ipairs({ "surface", "text", "syntax", "diagnostic", "markup", "version_control", "ui" }) do
+		for _, category in ipairs({
+			"surface",
+			"text",
+			"syntax",
+			"diagnostic",
+			"markup",
+			"version_control",
+			"ui",
+		}) do
 			h.eq({}, palette[category], "custom theme starts blank: " .. category)
 		end
 		palette.surface.base = built_in.surface.base
@@ -64,8 +80,14 @@ h.eq(built_in.surface.base, engine.palette().surface.base, "partial custom surfa
 h.eq(built_in.text.primary, engine.palette().text.primary, "partial custom text")
 h.eq(1, #notifications, "partial custom theme emits one warning")
 h.eq(vim.log.levels.WARN, notifications[1].level, "missing-palette warning level")
-h.truthy(notifications[1].message:find("diagnostic.error", 1, true), "warning identifies missing semantic paths")
-h.falsy(notifications[1].message:find("surface.base", 1, true), "warning excludes configured semantic paths")
+h.truthy(
+	notifications[1].message:find("diagnostic.error", 1, true),
+	"warning identifies missing semantic paths"
+)
+h.falsy(
+	notifications[1].message:find("surface.base", 1, true),
+	"warning excludes configured semantic paths"
+)
 engine.load()
 h.eq(h.color(built_in.surface.base), h.highlight("Normal").bg, "partial custom theme still loads")
 

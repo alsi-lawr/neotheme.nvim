@@ -43,7 +43,8 @@ function M.get(p)
 	for name, color in pairs(variants) do
 		groups["BufferLine" .. name] = { fg = color, bg = p.surface.dark }
 		groups["BufferLine" .. name .. "Visible"] = { fg = color, bg = p.surface.raised }
-		groups["BufferLine" .. name .. "Selected"] = { fg = color, bg = p.surface.base, bold = true }
+		groups["BufferLine" .. name .. "Selected"] =
+			{ fg = color, bg = p.surface.base, bold = true }
 	end
 
 	return groups

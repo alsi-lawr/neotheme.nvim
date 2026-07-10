@@ -21,7 +21,11 @@ for _, name in ipairs(engine.themes()) do
 
 		engine.setup({ theme = name })
 		h.eq(theme, engine.palette(), "selectable built-in theme: " .. name)
-		h.eq("", vim.fn.globpath(NEOTHEME_TEST_ROOT, "colors/" .. name .. ".*"), "theme-specific colorscheme entrypoint")
+		h.eq(
+			"",
+			vim.fn.globpath(NEOTHEME_TEST_ROOT, "colors/" .. name .. ".*"),
+			"theme-specific colorscheme entrypoint"
+		)
 	end
 end
 engine.setup()
@@ -33,6 +37,10 @@ h.eq(default_theme, engine.palette(), "palette mutation must not leak")
 
 local names = engine.themes()
 table.insert(names, "injected")
-h.eq({ "custom", "gruber-darker", "gruber-muted" }, engine.themes(), "theme-list mutation must not leak")
+h.eq(
+	{ "custom", "gruber-darker", "gruber-muted" },
+	engine.themes(),
+	"theme-list mutation must not leak"
+)
 
 h.eq(nil, engine.roles, "semantic palette replaces the separate roles API")

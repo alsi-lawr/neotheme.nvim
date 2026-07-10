@@ -41,7 +41,11 @@ function M.get(options, p)
 		LspSignatureActiveParameter = { fg = p.ui.accent, bold = options.bold },
 
 		DiagnosticDeprecated = { fg = p.text.muted, strikethrough = true },
-		DiagnosticUnnecessary = { fg = p.text.muted, sp = p.text.muted, undercurl = options.undercurl },
+		DiagnosticUnnecessary = {
+			fg = p.text.muted,
+			sp = p.text.muted,
+			undercurl = options.undercurl,
+		},
 
 		["@lsp.mod.abstract"] = { italic = true },
 		["@lsp.mod.async"] = { italic = true },

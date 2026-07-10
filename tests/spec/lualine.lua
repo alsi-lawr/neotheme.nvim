@@ -34,6 +34,14 @@ end
 
 for _, section in ipairs({ "a", "b", "c" }) do
 	h.truthy(type(explicit.inactive[section]) == "table", "inactive Lualine section " .. section)
-	h.eq(palette.text.muted, explicit.inactive[section].fg, "inactive Lualine foreground " .. section)
-	h.eq(palette.surface.base, explicit.inactive[section].bg, "inactive Lualine background " .. section)
+	h.eq(
+		palette.text.muted,
+		explicit.inactive[section].fg,
+		"inactive Lualine foreground " .. section
+	)
+	h.eq(
+		palette.surface.base,
+		explicit.inactive[section].bg,
+		"inactive Lualine background " .. section
+	)
 end
