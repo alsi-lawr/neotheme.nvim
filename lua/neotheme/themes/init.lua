@@ -1,4 +1,5 @@
 local modules = {
+	["gruber-darker"] = "neotheme.themes.gruber-darker",
 	["gruber-muted"] = "neotheme.themes.gruber-muted",
 }
 
