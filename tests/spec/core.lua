@@ -144,13 +144,14 @@ end
 h.eq(h.color(palette.diagnostic.information), h.highlight("DiagnosticInfo").fg, "information diagnostic")
 
 local terminal = {
-	[0] = palette.surface.deepest,
+	[0] = palette.surface.raised,
 	[1] = palette.version_control.conflict,
 	[2] = palette.diagnostic.success,
+	[8] = palette.surface.raised,
 	[15] = palette.text.on_error,
 }
 for index, color in pairs(terminal) do
 	h.eq(color, vim.g["terminal_color_" .. index], "terminal color " .. index)
 end
-h.eq(palette.surface.base, vim.g.terminal_color_background, "terminal background")
+h.eq(palette.surface.raised, vim.g.terminal_color_background, "terminal background")
 h.eq(palette.text.primary, vim.g.terminal_color_foreground, "terminal foreground")
