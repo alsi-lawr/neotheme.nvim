@@ -26,7 +26,7 @@ for mode, color in pairs(mode_colors) do
 	h.eq(color, explicit[mode].a.bg, mode .. " Lualine color")
 	h.eq(palette.text.on_accent, explicit[mode].a.fg, mode .. " Lualine contrast")
 	h.eq(palette.surface.selected, explicit[mode].b.bg, mode .. " Lualine selected surface")
-	h.eq(palette.surface.raised, explicit[mode].c.bg, mode .. " Lualine background")
+	h.eq(palette.surface.base, explicit[mode].c.bg, mode .. " Lualine background")
 	for _, section in ipairs({ "a", "b", "c" }) do
 		h.truthy(type(explicit[mode][section]) == "table", mode .. " Lualine section " .. section)
 	end
@@ -34,5 +34,6 @@ end
 
 for _, section in ipairs({ "a", "b", "c" }) do
 	h.truthy(type(explicit.inactive[section]) == "table", "inactive Lualine section " .. section)
-	h.eq(palette.surface.raised, explicit.inactive[section].bg, "inactive Lualine background " .. section)
+	h.eq(palette.text.muted, explicit.inactive[section].fg, "inactive Lualine foreground " .. section)
+	h.eq(palette.surface.base, explicit.inactive[section].bg, "inactive Lualine background " .. section)
 end

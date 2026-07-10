@@ -4,7 +4,7 @@ local function mode(color)
 	return {
 		a = { fg = p.text.on_accent, bg = color, gui = "bold" },
 		b = { fg = p.text.strong, bg = p.surface.selected },
-		c = { fg = p.text.primary, bg = p.surface.raised },
+		c = { fg = p.text.primary, bg = p.surface.base },
 	}
 end
 
@@ -15,8 +15,8 @@ return {
 	replace = mode(p.diagnostic.error),
 	command = mode(p.diagnostic.information),
 	inactive = {
-		a = { fg = p.text.muted, bg = p.surface.raised },
-		b = { fg = p.text.muted, bg = p.surface.raised },
-		c = { fg = p.surface.muted, bg = p.surface.raised },
+		a = { fg = p.text.muted, bg = p.surface.base },
+		b = { fg = p.text.muted, bg = p.surface.base },
+		c = { fg = p.text.muted, bg = p.surface.base },
 	},
 }
