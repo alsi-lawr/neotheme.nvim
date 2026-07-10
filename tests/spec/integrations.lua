@@ -52,10 +52,21 @@ local nvim_tree_groups = {
 	"NvimTreeWindowPicker",
 }
 
-local nvim_tree_definitions = require("neotheme.integrations.nvim_tree").get(engine.palette())
+local palette = engine.palette()
+local nvim_tree_definitions = require("neotheme.integrations.nvim_tree").get(palette)
 for _, group in ipairs(nvim_tree_groups) do
 	h.truthy(nvim_tree_definitions[group], "nvim-tree category coverage is missing " .. group)
 end
+for _, group in ipairs({
+	"NvimTreeNormal",
+	"NvimTreeNormalNC",
+	"NvimTreeWinSeparator",
+	"NvimTreeEndOfBuffer",
+	"NvimTreeSignColumn",
+}) do
+	h.eq(palette.surface.raised, nvim_tree_definitions[group].bg, "nvim-tree canvas: " .. group)
+end
+h.eq(palette.surface.selected, nvim_tree_definitions.NvimTreeCursorLine.bg, "nvim-tree cursor line")
 h.eq(
 	nvim_tree_definitions.NvimTreeClosedFolderIcon,
 	nvim_tree_definitions.NvimTreeOpenedFolderIcon,
