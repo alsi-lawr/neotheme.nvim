@@ -1,0 +1,35 @@
+local h = dofile(NEOTHEME_TEST_ROOT .. "/tests/helpers.lua")
+local engine = require("neotheme")
+
+engine.setup({
+	configure_palette = function(palette)
+		palette.ui.accent = palette.diagnostic.error
+	end,
+})
+
+local palette = engine.palette()
+local discovered = require("lualine.themes.neotheme")
+local explicit = require("neotheme.lualine")
+
+h.eq(explicit, discovered, "Lualine module discovery")
+h.truthy(explicit == discovered, "Lualine modules should return the same cached table")
+
+local mode_colors = {
+	normal = palette.ui.accent,
+	insert = palette.diagnostic.success,
+	visual = palette.diagnostic.hint,
+	replace = palette.diagnostic.error,
+	command = palette.diagnostic.information,
+}
+
+for mode, color in pairs(mode_colors) do
+	h.eq(color, explicit[mode].a.bg, mode .. " Lualine color")
+	h.eq(palette.text.on_accent, explicit[mode].a.fg, mode .. " Lualine contrast")
+	for _, section in ipairs({ "a", "b", "c" }) do
+		h.truthy(type(explicit[mode][section]) == "table", mode .. " Lualine section " .. section)
+	end
+end
+
+for _, section in ipairs({ "a", "b", "c" }) do
+	h.truthy(type(explicit.inactive[section]) == "table", "inactive Lualine section " .. section)
+end
