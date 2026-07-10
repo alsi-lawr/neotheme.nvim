@@ -97,6 +97,11 @@ for name, background in pairs({
 	h.eq(background, bufferline_definitions[name].bg, "bufferline separator background: " .. name)
 end
 
+local telescope_definitions = require("neotheme.integrations.telescope").get(palette)
+for _, name in ipairs({ "TelescopePreviewNormal", "TelescopePreviewBorder" }) do
+	h.eq(palette.surface.base, telescope_definitions[name].bg, "Telescope preview canvas: " .. name)
+end
+
 h.load({
 	configure_palette = function(configured)
 		configured.ui.search = configured.diagnostic.error

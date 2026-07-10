@@ -37,8 +37,8 @@ function M.get(p)
 		TelescopeResultsDiffChange = { link = "Changed" },
 		TelescopeResultsDiffDelete = { link = "Removed" },
 
-		TelescopePreviewNormal = { fg = p.text.primary, bg = p.surface.dark },
-		TelescopePreviewBorder = { fg = p.surface.border, bg = p.surface.dark },
+		TelescopePreviewNormal = { fg = p.text.primary, bg = p.surface.base },
+		TelescopePreviewBorder = { fg = p.surface.border, bg = p.surface.base },
 		TelescopePreviewTitle = {
 			fg = p.text.on_accent,
 			bg = p.diagnostic.information,
