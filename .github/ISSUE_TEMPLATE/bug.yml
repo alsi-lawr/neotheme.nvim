@@ -20,8 +20,12 @@ body:
     attributes:
       label: Theme
       options:
-        - gruber-muted
+        - gruber-dark
+        - gruber-dark-muted
         - gruber-darker
+        - gruber-light
+        - gruber-light-muted
+        - gruber-lighter
         - custom
     validations:
       required: true
