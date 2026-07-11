@@ -2,7 +2,7 @@ local h = dofile(NEOTHEME_TEST_ROOT .. "/tests/helpers.lua")
 local config = require("neotheme.config")
 
 local defaults = config.get()
-h.eq("gruber-muted", defaults.theme, "default theme")
+h.eq("gruber-dark-muted", defaults.theme, "default theme")
 h.eq(nil, defaults.configure_palette, "default palette configurator")
 h.eq(true, defaults.bold, "default bold")
 h.eq(true, defaults.italic.comments, "default comment italics")

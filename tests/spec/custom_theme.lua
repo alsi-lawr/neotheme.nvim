@@ -1,5 +1,5 @@
 local h = dofile(NEOTHEME_TEST_ROOT .. "/tests/helpers.lua")
-local built_in = require("neotheme.themes").get("gruber-muted")
+local built_in = require("neotheme.themes").get("gruber-dark-muted")
 local engine = require("neotheme")
 
 local notifications = {}
@@ -15,7 +15,7 @@ engine.setup({
 h.eq(built_in.diagnostic.error, engine.palette().syntax.string, "base-theme palette mutation")
 h.eq(
 	built_in.syntax.string,
-	require("neotheme.themes").get("gruber-muted").syntax.string,
+	require("neotheme.themes").get("gruber-dark-muted").syntax.string,
 	"base theme isolation"
 )
 engine.load()

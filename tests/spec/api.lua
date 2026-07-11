@@ -1,10 +1,18 @@
 local h = dofile(NEOTHEME_TEST_ROOT .. "/tests/helpers.lua")
-local default_theme = require("neotheme.themes").get("gruber-muted")
+local default_theme = require("neotheme.themes").get("gruber-dark-muted")
 local engine = require("neotheme")
 local palette_module = require("neotheme.palette")
 local themes = require("neotheme.themes")
 
-h.eq({ "custom", "gruber-darker", "gruber-muted" }, engine.themes(), "available themes")
+h.eq({
+	"custom",
+	"gruber-dark",
+	"gruber-dark-muted",
+	"gruber-darker",
+	"gruber-light",
+	"gruber-light-muted",
+	"gruber-lighter",
+}, engine.themes(), "available themes")
 h.eq(default_theme, engine.palette(), "default theme palette")
 
 for _, name in ipairs(engine.themes()) do
@@ -21,6 +29,8 @@ for _, name in ipairs(engine.themes()) do
 
 		engine.setup({ theme = name })
 		h.eq(theme, engine.palette(), "selectable built-in theme: " .. name)
+		engine.load()
+		h.eq(themes.background(name), vim.o.background, "theme background: " .. name)
 		h.eq(
 			"",
 			vim.fn.globpath(NEOTHEME_TEST_ROOT, "colors/" .. name .. ".*"),
@@ -37,10 +47,14 @@ h.eq(default_theme, engine.palette(), "palette mutation must not leak")
 
 local names = engine.themes()
 table.insert(names, "injected")
-h.eq(
-	{ "custom", "gruber-darker", "gruber-muted" },
-	engine.themes(),
-	"theme-list mutation must not leak"
-)
+h.eq({
+	"custom",
+	"gruber-dark",
+	"gruber-dark-muted",
+	"gruber-darker",
+	"gruber-light",
+	"gruber-light-muted",
+	"gruber-lighter",
+}, engine.themes(), "theme-list mutation must not leak")
 
 h.eq(nil, engine.roles, "semantic palette replaces the separate roles API")

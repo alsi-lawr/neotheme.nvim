@@ -45,3 +45,14 @@ for _, section in ipairs({ "a", "b", "c" }) do
 		"inactive Lualine background " .. section
 	)
 end
+
+engine.setup({ theme = "gruber-light" })
+engine.load()
+
+local refreshed_palette = engine.palette()
+local refreshed = require("neotheme.lualine")
+
+h.falsy(refreshed == explicit, "Lualine theme must refresh after a colorscheme change")
+h.eq(refreshed, require("lualine.themes.neotheme"), "refreshed Lualine module discovery")
+h.eq(refreshed_palette.ui.accent, refreshed.normal.a.bg, "refreshed Lualine mode color")
+h.eq(refreshed_palette.surface.base, refreshed.normal.c.bg, "refreshed Lualine background")

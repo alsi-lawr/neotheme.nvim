@@ -22,7 +22,7 @@
 ---@field snacks boolean
 
 ---@class NeothemeOptions
----@field theme "gruber-darker"|"gruber-muted"|"custom"
+---@field theme "gruber-dark"|"gruber-dark-muted"|"gruber-darker"|"gruber-light"|"gruber-light-muted"|"gruber-lighter"|"custom"
 ---@field configure_palette? NeothemePaletteConfigurator
 ---@field bold boolean
 ---@field italic NeothemeItalicOptions
@@ -32,7 +32,7 @@
 
 ---@type NeothemeOptions
 local defaults = {
-	theme = "gruber-muted",
+	theme = "gruber-dark-muted",
 	configure_palette = nil,
 	bold = true,
 	italic = {

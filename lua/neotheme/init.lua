@@ -70,6 +70,11 @@ local function create_autocmds()
 	})
 end
 
+local function invalidate_lualine_theme()
+	package.loaded["neotheme.lualine"] = nil
+	package.loaded["lualine.themes.neotheme"] = nil
+end
+
 ---@param options? NeothemeOptions
 ---@return table
 function M.setup(options)
@@ -94,7 +99,7 @@ function M.load()
 		error("neotheme requires Neovim 0.12 or newer")
 	end
 
-	vim.o.background = "dark"
+	vim.o.background = require("neotheme.themes").background(config.get().theme)
 	if vim.g.colors_name then
 		vim.cmd("highlight clear")
 	end
@@ -103,6 +108,7 @@ function M.load()
 
 	local palette = ensure_theme()
 	require("neotheme.highlights").apply(config.get(), palette)
+	invalidate_lualine_theme()
 	create_autocmds()
 end
 
