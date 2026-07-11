@@ -2,16 +2,23 @@
 
 # neotheme.nvim
 
-A semantic, palette-driven theming engine for Neovim 0.12+, with a curated six-theme Gruber family.
+A semantic, palette-driven colorscheme for Neovim 0.12+ with six curated Gruber variants.
 
 [![CI](https://github.com/alsi-lawr/neotheme.nvim/actions/workflows/ci.yml/badge.svg)](https://github.com/alsi-lawr/neotheme.nvim/actions/workflows/ci.yml)
 [![Neovim 0.12+](https://img.shields.io/badge/Neovim-0.12%2B-57A143?logo=neovim&logoColor=white)](https://neovim.io/)
 [![MIT](https://img.shields.io/github/license/alsi-lawr/neotheme.nvim)](LICENSE)
-<a href="https://dotfyle.com/plugins/alsi-lawr/neotheme.nvim"><img src="https://dotfyle.com/plugins/alsi-lawr/neotheme.nvim/shield" alt="Dotfyle usage" /></a>
 
 </div>
 
-`neotheme.nvim` separates a theme’s colors from the places Neovim uses them. A semantic palette drives core, Tree-sitter, LSP, terminal, and opt-in plugin highlights, so every variant stays coherent without sacrificing room for deliberate customization.
+Neotheme separates colors from the places Neovim uses them. A complete semantic palette drives editor UI, syntax, Tree-sitter, LSP, diagnostics, terminal colors, version control, markup, and opt-in plugin integrations. Themes stay coherent while individual roles remain easy to customize.
+
+## Why Neotheme
+
+- Six coordinated dark and light Gruber variants.
+- One `:colorscheme neotheme` entrypoint for every built-in and custom theme.
+- Semantic palette customization without copying a full colorscheme.
+- Core Neovim, Tree-sitter, LSP, terminal, and Lualine support.
+- Opt-in highlights for 15 plugins.
 
 ## Quick start
 
@@ -29,14 +36,7 @@ With [lazy.nvim](https://github.com/folke/lazy.nvim):
 }
 ```
 
-> [!WARNING]
-> **Breaking change:** `gruber-muted` has been renamed to `gruber-dark-muted`. It has no compatibility alias; update your configuration to the new name.
-
-Complete installation, configuration, customization, integration, and API guidance lives in the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki).
-
-## The Gruber family
-
-`gruber-dark-muted` is the default. Choose another variant during setup, then continue using Neotheme’s single colorscheme entrypoint:
+The default theme is `gruber-dark-muted`. Select another theme during setup and keep the same colorscheme command:
 
 ```lua
 require("neotheme").setup({
@@ -46,102 +46,125 @@ require("neotheme").setup({
 vim.cmd.colorscheme("neotheme")
 ```
 
-| Theme | Character |
-| --- | --- |
-| `gruber-dark-muted` | Restrained warm dark palette for long sessions. |
-| `gruber-dark` | Balanced canonical dark variant. |
-| `gruber-darker` | Deep, high-contrast Gruber variant. |
-| `gruber-light` | Warm paper-like light variant. |
-| `gruber-lighter` | Brighter, clearer light variant. |
-| `gruber-light-muted` | Softer, lower-chroma light variant. |
+See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for installation alternatives, every option, integrations, palette customization, and the public API.
 
-There are no per-theme `:colorscheme` entrypoints: select a theme with `setup`, then load `neotheme`.
+## Themes
+
+| Theme | Character | Background |
+| --- | --- | --- |
+| `gruber-dark-muted` | Restrained and warm. The default. | Dark |
+| `gruber-dark` | Balanced with clear contrast. | Dark |
+| `gruber-darker` | Deep and high contrast. | Dark |
+| `gruber-light` | Warm and paper-like. | Light |
+| `gruber-lighter` | Bright and crisp. | Light |
+| `gruber-light-muted` | Soft and lower chroma. | Light |
 
 ## Visual inventory
 
-Each preview uses the same Neovim configuration with NvimTree, Bufferline, and Lualine enabled. Its companion card shows only the simplified palette configured for that theme: one square and a short semantic label per color.
+Every editor preview uses the same integrated Neovim configuration. Each palette card shows the compact colors configured by that theme exactly once. Expanded semantic aliases are intentionally omitted.
 
-### `gruber-dark-muted` — default
+### Gruber Dark Muted (default)
 
-<table>
-  <tr>
-    <td width="62%" valign="top"><img src="assets/gruber-dark-muted.png" alt="Gruber Dark Muted in Neovim" /></td>
-    <td width="38%" valign="top"><img src="assets/gruber-dark-muted.svg" alt="Gruber Dark Muted simplified palette" /></td>
-  </tr>
-</table>
+**Editor preview**
 
-### `gruber-dark`
+![Gruber Dark Muted in Neovim](assets/gruber-dark-muted.png)
 
-<table>
-  <tr>
-    <td width="62%" valign="top"><img src="assets/gruber-dark.png" alt="Gruber Dark in Neovim" /></td>
-    <td width="38%" valign="top"><img src="assets/gruber-dark.svg" alt="Gruber Dark simplified palette" /></td>
-  </tr>
-</table>
+**Simplified palette**
 
-### `gruber-darker`
+![Gruber Dark Muted simplified palette](assets/gruber-dark-muted.svg)
 
-<table>
-  <tr>
-    <td width="62%" valign="top"><img src="assets/gruber-darker.png" alt="Gruber Darker in Neovim" /></td>
-    <td width="38%" valign="top"><img src="assets/gruber-darker.svg" alt="Gruber Darker simplified palette" /></td>
-  </tr>
-</table>
+### Gruber Dark
 
-### `gruber-light`
+**Editor preview**
 
-<table>
-  <tr>
-    <td width="62%" valign="top"><img src="assets/gruber-light.png" alt="Gruber Light in Neovim" /></td>
-    <td width="38%" valign="top"><img src="assets/gruber-light.svg" alt="Gruber Light simplified palette" /></td>
-  </tr>
-</table>
+![Gruber Dark in Neovim](assets/gruber-dark.png)
 
-### `gruber-lighter`
+**Simplified palette**
 
-<table>
-  <tr>
-    <td width="62%" valign="top"><img src="assets/gruber-lighter.png" alt="Gruber Lighter in Neovim" /></td>
-    <td width="38%" valign="top"><img src="assets/gruber-lighter.svg" alt="Gruber Lighter simplified palette" /></td>
-  </tr>
-</table>
+![Gruber Dark simplified palette](assets/gruber-dark.svg)
 
-### `gruber-light-muted`
+### Gruber Darker
 
-<table>
-  <tr>
-    <td width="62%" valign="top"><img src="assets/gruber-light-muted.png" alt="Gruber Light Muted in Neovim" /></td>
-    <td width="38%" valign="top"><img src="assets/gruber-light-muted.svg" alt="Gruber Light Muted simplified palette" /></td>
-  </tr>
-</table>
+**Editor preview**
 
-## Asset tools
+![Gruber Darker in Neovim](assets/gruber-darker.png)
 
-The checked-in previews are reproducible with the portable generators in [assets/scripts](assets/scripts/README.md):
+**Simplified palette**
 
-```sh
-./assets/scripts/generate-palette-cards.sh
-./assets/scripts/capture-theme-screenshots.sh
+![Gruber Darker simplified palette](assets/gruber-darker.svg)
+
+### Gruber Light
+
+**Editor preview**
+
+![Gruber Light in Neovim](assets/gruber-light.png)
+
+**Simplified palette**
+
+![Gruber Light simplified palette](assets/gruber-light.svg)
+
+### Gruber Lighter
+
+**Editor preview**
+
+![Gruber Lighter in Neovim](assets/gruber-lighter.png)
+
+**Simplified palette**
+
+![Gruber Lighter simplified palette](assets/gruber-lighter.svg)
+
+### Gruber Light Muted
+
+**Editor preview**
+
+![Gruber Light Muted in Neovim](assets/gruber-light-muted.png)
+
+**Simplified palette**
+
+![Gruber Light Muted simplified palette](assets/gruber-light-muted.svg)
+
+## Customize semantic roles
+
+`configure_palette` receives the selected theme's complete semantic palette before highlights are applied:
+
+```lua
+require("neotheme").setup({
+	theme = "gruber-dark",
+	configure_palette = function(palette)
+		palette.ui.accent = palette.syntax.function_name
+		palette.diagnostic.warning = palette.syntax.keyword
+	end,
+	integrations = {
+		gitsigns = true,
+		nvim_tree = true,
+		telescope = true,
+	},
+})
 ```
 
-The screenshot tool uses your normal Neovim configuration and applies only a temporary selected-theme override. See its [usage and dependencies](assets/scripts/README.md).
+The configurator mutates its argument and returns nothing. Neotheme validates supplied categories, fields, and `#RRGGBB` values.
 
 ## Development
 
-Run the formatter check and headless Neovim test suite from the repository root:
+Run the formatter and headless Neovim test suite from the repository root:
 
 ```sh
 stylua --check .
 ./tests/run.sh
 ```
 
-Tests target behavior and semantic palette contracts rather than exact built-in theme color values.
+Documentation previews are reproducible with the portable tools in [assets/scripts](assets/scripts/README.md):
+
+```sh
+./assets/scripts/generate-palette-cards.sh
+./assets/scripts/capture-theme-screenshots.sh
+```
 
 ## Acknowledgements
 
-The first `neotheme.nvim` library theme, now `gruber-dark-muted`, began from [blazkowolf/gruber-darker.nvim](https://github.com/blazkowolf/gruber-darker.nvim). Thank you to Blazko Wolf and every contributor whose work established its Neovim foundation.
+The Gruber family builds on [blazkowolf/gruber-darker.nvim](https://github.com/blazkowolf/gruber-darker.nvim) and the work that established its Neovim foundation.
 
-The project also owes its lineage to [rexim/gruber-darker-theme](https://github.com/rexim/gruber-darker-theme), [drsooch/gruber-darker-vim](https://github.com/drsooch/gruber-darker-vim), [Jim Blevins’ Emacs port](https://jblevins.org/projects/emacs-color-themes/gruber-darker-theme.el.html), and John Gruber’s original [BBEdit Gruber Dark scheme](https://daringfireball.net/projects/bbcolors/schemes/).
+The palette lineage also includes [rexim/gruber-darker-theme](https://github.com/rexim/gruber-darker-theme), [drsooch/gruber-darker-vim](https://github.com/drsooch/gruber-darker-vim), [Jim Blevins' Emacs port](https://jblevins.org/projects/emacs-color-themes/gruber-darker-theme.el.html), and John Gruber's original [BBEdit Gruber Dark scheme](https://daringfireball.net/projects/bbcolors/schemes/).
 
 ## License
 
