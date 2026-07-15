@@ -54,7 +54,7 @@ The supported public names are arcfield-graphite, arcfield-porcelain,
 arcfield-surge, gruber-dark-muted, gruber-dark, gruber-darker, gruber-light,
 gruber-lighter, gruber-light-muted, neritic-night, neritic-day,
 neritic-bleached-night, neritic-bleached-day, bathyal-bioluminescence,
-bathyal-marine-snow, and bathyal-midwater.
+bathyal-marine-snow, bathyal-midwater, typeset-ink, and typeset-paper.
 EOF
 }
 
@@ -86,7 +86,7 @@ is_nonnegative_integer() {
 
 validate_theme() {
 	case "$1" in
-		arcfield-graphite | arcfield-porcelain | arcfield-surge | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day | bathyal-bioluminescence | bathyal-marine-snow | bathyal-midwater) ;;
+		arcfield-graphite | arcfield-porcelain | arcfield-surge | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day | bathyal-bioluminescence | bathyal-marine-snow | bathyal-midwater | typeset-ink | typeset-paper) ;;
 		*) die "Unknown theme: $1" ;;
 	esac
 }
@@ -119,6 +119,8 @@ title_for() {
 		bathyal-bioluminescence) printf '%s\n' 'Bathyal Bioluminescence' ;;
 		bathyal-marine-snow) printf '%s\n' 'Bathyal Marine Snow' ;;
 		bathyal-midwater) printf '%s\n' 'Bathyal Midwater' ;;
+		typeset-ink) printf '%s\n' 'Typeset Ink' ;;
+		typeset-paper) printf '%s\n' 'Typeset Paper' ;;
 	esac
 }
 
@@ -236,7 +238,7 @@ is_positive_integer "$timeout" || die '--timeout must be a positive integer'
 is_nonnegative_integer "$settle" || die '--settle must be a non-negative integer'
 
 if [ -z "$requested_themes" ]; then
-	set -- arcfield-graphite arcfield-porcelain arcfield-surge gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day bathyal-bioluminescence bathyal-marine-snow bathyal-midwater
+	set -- arcfield-graphite arcfield-porcelain arcfield-surge gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day bathyal-bioluminescence bathyal-marine-snow bathyal-midwater typeset-ink typeset-paper
 else
 	# Each value was validated above and public theme names do not contain spaces.
 	set -- $requested_themes
