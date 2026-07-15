@@ -59,6 +59,7 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 | Arcfield | `arcfield-graphite` | Two dark and one light variant | [Themes and examples](docs/themes/arcfield/README.md) |
 | Bathyal | `bathyal-midwater` | Two dark and one light variant | [Themes and examples](docs/themes/bathyal/README.md) |
 | Ferric | `ferric-forge` | One dark and one light variant | [Themes and examples](docs/themes/ferric/README.md) |
+| Grove | `grove-campfire` | One dark and one light variant | [Themes and examples](docs/themes/grove/README.md) |
 | Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes, examples, and lineage](docs/themes/gruber/README.md) |
 | Neritic | `neritic-day` | Two dark and two light variants | [Themes and examples](docs/themes/neritic/README.md) |
 | Typeset | `typeset-paper` | One light and one dark variant | [Themes and examples](docs/themes/typeset/README.md) |
@@ -106,6 +107,20 @@ An industrial dark theme with charcoal and steel surfaces, pale metal text, iron
 ![Ferric Forge simplified palette](docs/themes/ferric/ferric-forge.svg)
 
 Explore both variants in the [Ferric family inventory](docs/themes/ferric/README.md).
+
+### Grove - Campfire
+
+A forest-dark fantasy-adventure theme with parchment text, oxblood control flow and UI accents, aged-gold navigation, moss additions, ember signals, and restrained arcane violet.
+
+**Editor preview**
+
+![Grove Campfire in Neovim](docs/themes/grove/grove-campfire.png)
+
+**Simplified palette**
+
+![Grove Campfire simplified palette](docs/themes/grove/grove-campfire.svg)
+
+Explore both variants in the [Grove family inventory](docs/themes/grove/README.md).
 
 ### Gruber - Dark Muted
 

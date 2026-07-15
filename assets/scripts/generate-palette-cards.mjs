@@ -22,6 +22,16 @@ const themes = {
 		displayName: "Arcfield Surge",
 		source: "lua/neotheme/themes/arcfield/surge.lua",
 	},
+	"grove-campfire": {
+		assetDirectory: "docs/themes/grove",
+		displayName: "Grove Campfire",
+		source: "lua/neotheme/themes/grove/campfire.lua",
+	},
+	"grove-parchment": {
+		assetDirectory: "docs/themes/grove",
+		displayName: "Grove Parchment",
+		source: "lua/neotheme/themes/grove/parchment.lua",
+	},
 	"gruber-dark-muted": {
 		assetDirectory: "docs/themes/gruber",
 		displayName: "Gruber Dark Muted",
