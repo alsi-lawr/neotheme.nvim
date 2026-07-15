@@ -53,7 +53,8 @@ Options:
 The supported public names are arcfield-graphite, arcfield-porcelain,
 arcfield-surge, gruber-dark-muted, gruber-dark, gruber-darker, gruber-light,
 gruber-lighter, gruber-light-muted, neritic-night, neritic-day,
-neritic-bleached-night, and neritic-bleached-day.
+neritic-bleached-night, neritic-bleached-day, bathyal-bioluminescence,
+bathyal-marine-snow, and bathyal-midwater.
 EOF
 }
 
@@ -85,7 +86,7 @@ is_nonnegative_integer() {
 
 validate_theme() {
 	case "$1" in
-		arcfield-graphite | arcfield-porcelain | arcfield-surge | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day) ;;
+		arcfield-graphite | arcfield-porcelain | arcfield-surge | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day | bathyal-bioluminescence | bathyal-marine-snow | bathyal-midwater) ;;
 		*) die "Unknown theme: $1" ;;
 	esac
 }
@@ -115,6 +116,9 @@ title_for() {
 		neritic-day) printf '%s\n' 'Neritic Day' ;;
 		neritic-bleached-night) printf '%s\n' 'Neritic Bleached Night' ;;
 		neritic-bleached-day) printf '%s\n' 'Neritic Bleached Day' ;;
+		bathyal-bioluminescence) printf '%s\n' 'Bathyal Bioluminescence' ;;
+		bathyal-marine-snow) printf '%s\n' 'Bathyal Marine Snow' ;;
+		bathyal-midwater) printf '%s\n' 'Bathyal Midwater' ;;
 	esac
 }
 
@@ -232,7 +236,7 @@ is_positive_integer "$timeout" || die '--timeout must be a positive integer'
 is_nonnegative_integer "$settle" || die '--settle must be a non-negative integer'
 
 if [ -z "$requested_themes" ]; then
-	set -- arcfield-graphite arcfield-porcelain arcfield-surge gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day
+	set -- arcfield-graphite arcfield-porcelain arcfield-surge gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day bathyal-bioluminescence bathyal-marine-snow bathyal-midwater
 else
 	# Each value was validated above and public theme names do not contain spaces.
 	set -- $requested_themes
