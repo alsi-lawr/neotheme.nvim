@@ -33,61 +33,61 @@ Every editor preview uses the same integrated Neovim configuration. Each palette
 
 **Editor preview**
 
-![Gruber Dark Muted in Neovim](../../../../assets/gruber-dark-muted.png)
+![Gruber Dark Muted in Neovim](../../../../docs/theme/gruber/gruber-dark-muted.png)
 
 **Simplified palette**
 
-![Gruber Dark Muted simplified palette](../../../../assets/gruber-dark-muted.svg)
+![Gruber Dark Muted simplified palette](../../../../docs/theme/gruber/gruber-dark-muted.svg)
 
 ### Gruber Dark
 
 **Editor preview**
 
-![Gruber Dark in Neovim](../../../../assets/gruber-dark.png)
+![Gruber Dark in Neovim](../../../../docs/theme/gruber/gruber-dark.png)
 
 **Simplified palette**
 
-![Gruber Dark simplified palette](../../../../assets/gruber-dark.svg)
+![Gruber Dark simplified palette](../../../../docs/theme/gruber/gruber-dark.svg)
 
 ### Gruber Darker
 
 **Editor preview**
 
-![Gruber Darker in Neovim](../../../../assets/gruber-darker.png)
+![Gruber Darker in Neovim](../../../../docs/theme/gruber/gruber-darker.png)
 
 **Simplified palette**
 
-![Gruber Darker simplified palette](../../../../assets/gruber-darker.svg)
+![Gruber Darker simplified palette](../../../../docs/theme/gruber/gruber-darker.svg)
 
 ### Gruber Light
 
 **Editor preview**
 
-![Gruber Light in Neovim](../../../../assets/gruber-light.png)
+![Gruber Light in Neovim](../../../../docs/theme/gruber/gruber-light.png)
 
 **Simplified palette**
 
-![Gruber Light simplified palette](../../../../assets/gruber-light.svg)
+![Gruber Light simplified palette](../../../../docs/theme/gruber/gruber-light.svg)
 
 ### Gruber Lighter
 
 **Editor preview**
 
-![Gruber Lighter in Neovim](../../../../assets/gruber-lighter.png)
+![Gruber Lighter in Neovim](../../../../docs/theme/gruber/gruber-lighter.png)
 
 **Simplified palette**
 
-![Gruber Lighter simplified palette](../../../../assets/gruber-lighter.svg)
+![Gruber Lighter simplified palette](../../../../docs/theme/gruber/gruber-lighter.svg)
 
 ### Gruber Light Muted
 
 **Editor preview**
 
-![Gruber Light Muted in Neovim](../../../../assets/gruber-light-muted.png)
+![Gruber Light Muted in Neovim](../../../../docs/theme/gruber/gruber-light-muted.png)
 
 **Simplified palette**
 
-![Gruber Light Muted simplified palette](../../../../assets/gruber-light-muted.svg)
+![Gruber Light Muted simplified palette](../../../../docs/theme/gruber/gruber-light-muted.svg)
 
 The previews and palette cards can be reproduced with the repository's [asset scripts](../../../../assets/scripts/README.md).
 

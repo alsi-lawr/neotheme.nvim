@@ -12,6 +12,10 @@ h.eq({
 	"gruber-light",
 	"gruber-light-muted",
 	"gruber-lighter",
+	"neritic-bleached-day",
+	"neritic-bleached-night",
+	"neritic-day",
+	"neritic-night",
 }, engine.themes(), "available themes")
 h.eq(default_theme, engine.palette(), "default theme palette")
 
@@ -45,6 +49,20 @@ palette.surface.base = palette.diagnostic.error
 palette.syntax.injected = palette.diagnostic.success
 h.eq(default_theme, engine.palette(), "palette mutation must not leak")
 
+for name, background in pairs({
+	["neritic-bleached-day"] = "light",
+	["neritic-bleached-night"] = "dark",
+	["neritic-day"] = "light",
+	["neritic-night"] = "dark",
+}) do
+	local original = themes.get(name)
+	local mutated = themes.get(name)
+	mutated.surface.base = mutated.diagnostic.error
+	mutated.syntax.injected = mutated.diagnostic.success
+	h.eq(original, themes.get(name), name .. " palette mutation must not leak")
+	h.eq(background, themes.background(name), name .. " background metadata")
+end
+
 local names = engine.themes()
 table.insert(names, "injected")
 h.eq({
@@ -55,6 +73,10 @@ h.eq({
 	"gruber-light",
 	"gruber-light-muted",
 	"gruber-lighter",
+	"neritic-bleached-day",
+	"neritic-bleached-night",
+	"neritic-day",
+	"neritic-night",
 }, engine.themes(), "theme-list mutation must not leak")
 
 h.eq(nil, engine.roles, "semantic palette replaces the separate roles API")

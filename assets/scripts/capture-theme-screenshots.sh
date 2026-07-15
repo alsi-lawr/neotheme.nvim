@@ -7,7 +7,7 @@ repository_root=$(CDPATH= cd -- "$script_dir/../.." && pwd)
 invocation_directory=$(pwd -P)
 helper="$script_dir/capture-regular-config.lua"
 
-output_directory="$repository_root/assets"
+output_directory=""
 capture_file="$repository_root/lua/neotheme/init.lua"
 config_file=""
 nvim_command="nvim"
@@ -30,13 +30,13 @@ usage() {
 	cat <<'EOF'
 Usage: assets/scripts/capture-theme-screenshots.sh [options] [theme ...]
 
-Capture live PNG previews for all current Gruber themes, or only the named
+Capture live PNG previews for all current built-in themes, or only the named
 public theme(s). Neovim loads its normal configuration unless --config is set;
 the selected theme is changed only inside the capture process.
 
 Options:
   --config PATH             Use this Neovim init.lua instead of the normal config.
-  --output-dir PATH         Write PNGs here (default: <checkout>/assets).
+  --output-dir PATH         Write all PNGs here instead of docs/theme/<family>.
   --file PATH               Open this file in the capture (default: neotheme init.lua).
   --columns NUMBER          Alacritty width in columns (default: 148).
   --lines NUMBER            Alacritty height in lines (default: 52).
@@ -51,7 +51,8 @@ Options:
   -h, --help                Show this help.
 
 The supported public names are gruber-dark-muted, gruber-dark, gruber-darker,
-gruber-light, gruber-lighter, and gruber-light-muted.
+gruber-light, gruber-lighter, gruber-light-muted, neritic-night, neritic-day,
+neritic-bleached-night, and neritic-bleached-day.
 EOF
 }
 
@@ -83,9 +84,19 @@ is_nonnegative_integer() {
 
 validate_theme() {
 	case "$1" in
-		gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted) ;;
+		gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day) ;;
 		*) die "Unknown theme: $1" ;;
 	esac
+}
+
+output_file_for() {
+	theme=$1
+	if [ -n "$output_directory" ]; then
+		printf '%s/%s.png\n' "$output_directory" "$theme"
+	else
+		family=${theme%%-*}
+		printf '%s/docs/theme/%s/%s.png\n' "$repository_root" "$family" "$theme"
+	fi
 }
 
 title_for() {
@@ -96,6 +107,10 @@ title_for() {
 		gruber-light) printf '%s\n' 'Gruber Light' ;;
 		gruber-lighter) printf '%s\n' 'Gruber Lighter' ;;
 		gruber-light-muted) printf '%s\n' 'Gruber Light Muted' ;;
+		neritic-night) printf '%s\n' 'Neritic Night' ;;
+		neritic-day) printf '%s\n' 'Neritic Day' ;;
+		neritic-bleached-night) printf '%s\n' 'Neritic Bleached Night' ;;
+		neritic-bleached-day) printf '%s\n' 'Neritic Bleached Day' ;;
 	esac
 }
 
@@ -213,7 +228,7 @@ is_positive_integer "$timeout" || die '--timeout must be a positive integer'
 is_nonnegative_integer "$settle" || die '--settle must be a non-negative integer'
 
 if [ -z "$requested_themes" ]; then
-	set -- gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted
+	set -- gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day
 else
 	# Each value was validated above and public theme names do not contain spaces.
 	set -- $requested_themes
@@ -222,8 +237,9 @@ fi
 if [ "$check" = true ]; then
 	missing=false
 	for theme in "$@"; do
-		if [ ! -s "$output_directory/$theme.png" ]; then
-			printf 'Missing screenshot: %s\n' "$output_directory/$theme.png" >&2
+		output_file=$(output_file_for "$theme")
+		if [ ! -s "$output_file" ]; then
+			printf 'Missing screenshot: %s\n' "$output_file" >&2
 			missing=true
 		fi
 	done
@@ -232,7 +248,7 @@ if [ "$check" = true ]; then
 		exit 1
 	fi
 
-	printf 'Requested screenshots exist in %s.\n' "$output_directory"
+	printf 'Requested screenshots exist.\n'
 	exit 0
 fi
 
@@ -247,7 +263,6 @@ require_executable "$nvim_command"
 require_executable "$alacritty_command"
 require_executable "$spectacle_command"
 require_executable "$qdbus_command"
-mkdir -p "$output_directory"
 
 focus_capture_window() {
 	focus_plugin="neotheme-capture-focus-$1"
@@ -265,7 +280,8 @@ focus_capture_window() {
 capture_theme() {
 	theme=$1
 	title=$(title_for "$theme")
-	output_file="$output_directory/$theme.png"
+	output_file=$(output_file_for "$theme")
+	mkdir -p "$(dirname -- "$output_file")"
 	ready_file=$(mktemp "${TMPDIR:-/tmp}/neotheme-capture-ready.XXXXXX")
 	error_file="$ready_file.error"
 	log_file=$(mktemp "${TMPDIR:-/tmp}/neotheme-capture-$theme.XXXXXX.log")
@@ -321,8 +337,16 @@ capture_theme() {
 
 	sleep "$settle"
 	focus_capture_window "$theme"
+	rm -f "$output_file"
 	"$spectacle_command" --activewindow --background --nonotify --output "$output_file"
-	[ -s "$output_file" ] || die "Screenshot was not written for $theme"
+	remaining=$timeout
+	while [ ! -s "$output_file" ]; do
+		if [ "$remaining" -eq 0 ]; then
+			die "Screenshot was not written for $theme"
+		fi
+		sleep 1
+		remaining=$((remaining - 1))
+	done
 	stop_preview
 	rm -f "$ready_file" "$error_file" "$log_file"
 	ready_file=""
