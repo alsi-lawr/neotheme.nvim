@@ -58,7 +58,7 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 | --- | --- | --- | --- |
 | Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes, examples, and lineage](lua/neotheme/themes/gruber/README.md) |
 
-### Gruber — Dark Muted
+### Gruber - Dark Muted
 
 The current default: a restrained, warm dark theme with softened syntax colors and measured contrast.
 

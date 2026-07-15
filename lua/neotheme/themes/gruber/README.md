@@ -1,6 +1,6 @@
 # Gruber theme family
 
-[← neotheme.nvim](../../../../README.md)
+[<- neotheme.nvim](../../../../README.md)
 
 The Gruber family gives Neotheme six coordinated dark and light variants. They share a warm foundation and semantic structure, then vary brightness, contrast, and chroma to cover muted, balanced, and high-clarity environments.
 
