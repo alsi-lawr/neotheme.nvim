@@ -56,8 +56,23 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 
 | Family | Stand-out theme | Range | Full inventory |
 | --- | --- | --- | --- |
+| Arcfield | `arcfield-graphite` | Two dark and one light variant | [Themes and examples](lua/neotheme/themes/arcfield/README.md) |
 | Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes, examples, and lineage](lua/neotheme/themes/gruber/README.md) |
 | Neritic | `neritic-day` | Two dark and two light variants | [Themes and examples](lua/neotheme/themes/neritic/README.md) |
+
+### Arcfield - Graphite
+
+An electrified storm-dark theme with graphite-blue fields, cyan control flow, blue-white callables, and restrained strike-yellow member and literal flashes.
+
+**Editor preview**
+
+![Arcfield Graphite in Neovim](docs/theme/arcfield/arcfield-graphite.png)
+
+**Simplified palette**
+
+![Arcfield Graphite simplified palette](docs/theme/arcfield/arcfield-graphite.svg)
+
+Explore all three variants in the [Arcfield family inventory](lua/neotheme/themes/arcfield/README.md).
 
 ### Gruber - Dark Muted
 

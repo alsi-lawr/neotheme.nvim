@@ -5,6 +5,9 @@ local palette_module = require("neotheme.palette")
 local themes = require("neotheme.themes")
 
 h.eq({
+	"arcfield-graphite",
+	"arcfield-porcelain",
+	"arcfield-surge",
 	"custom",
 	"gruber-dark",
 	"gruber-dark-muted",
@@ -50,6 +53,19 @@ palette.syntax.injected = palette.diagnostic.success
 h.eq(default_theme, engine.palette(), "palette mutation must not leak")
 
 for name, background in pairs({
+	["arcfield-graphite"] = "dark",
+	["arcfield-porcelain"] = "light",
+	["arcfield-surge"] = "dark",
+}) do
+	local original = themes.get(name)
+	local mutated = themes.get(name)
+	mutated.surface.base = mutated.diagnostic.error
+	mutated.syntax.injected = mutated.diagnostic.success
+	h.eq(original, themes.get(name), name .. " palette mutation must not leak")
+	h.eq(background, themes.background(name), name .. " background metadata")
+end
+
+for name, background in pairs({
 	["neritic-bleached-day"] = "light",
 	["neritic-bleached-night"] = "dark",
 	["neritic-day"] = "light",
@@ -66,6 +82,9 @@ end
 local names = engine.themes()
 table.insert(names, "injected")
 h.eq({
+	"arcfield-graphite",
+	"arcfield-porcelain",
+	"arcfield-surge",
 	"custom",
 	"gruber-dark",
 	"gruber-dark-muted",
