@@ -15,18 +15,18 @@ Typeset treats code as one blue-black ink ageing across a printed page. Dense in
 
 **Editor preview**
 
-![Typeset Paper in Neovim](../../theme/typeset/typeset-paper.png)
+![Typeset Paper in Neovim](./typeset-paper.png)
 
 **Simplified palette**
 
-![Typeset Paper simplified palette](../../theme/typeset/typeset-paper.svg)
+![Typeset Paper simplified palette](./typeset-paper.svg)
 
 ### Typeset Ink
 
 **Editor preview**
 
-![Typeset Ink in Neovim](../../theme/typeset/typeset-ink.png)
+![Typeset Ink in Neovim](./typeset-ink.png)
 
 **Simplified palette**
 
-![Typeset Ink simplified palette](../../theme/typeset/typeset-ink.svg)
+![Typeset Ink simplified palette](./typeset-ink.svg)

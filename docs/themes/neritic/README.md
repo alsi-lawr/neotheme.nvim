@@ -17,38 +17,38 @@ Neritic brings a shallow-ocean and coral-reef identity to two vivid coastal them
 
 **Editor preview**
 
-![Neritic Night in Neovim](../../theme/neritic/neritic-night.png)
+![Neritic Night in Neovim](./neritic-night.png)
 
 **Simplified palette**
 
-![Neritic Night simplified palette](../../theme/neritic/neritic-night.svg)
+![Neritic Night simplified palette](./neritic-night.svg)
 
 ### Neritic Day
 
 **Editor preview**
 
-![Neritic Day in Neovim](../../theme/neritic/neritic-day.png)
+![Neritic Day in Neovim](./neritic-day.png)
 
 **Simplified palette**
 
-![Neritic Day simplified palette](../../theme/neritic/neritic-day.svg)
+![Neritic Day simplified palette](./neritic-day.svg)
 
 ### Neritic Bleached Night
 
 **Editor preview**
 
-![Neritic Bleached Night in Neovim](../../theme/neritic/neritic-bleached-night.png)
+![Neritic Bleached Night in Neovim](./neritic-bleached-night.png)
 
 **Simplified palette**
 
-![Neritic Bleached Night simplified palette](../../theme/neritic/neritic-bleached-night.svg)
+![Neritic Bleached Night simplified palette](./neritic-bleached-night.svg)
 
 ### Neritic Bleached Day
 
 **Editor preview**
 
-![Neritic Bleached Day in Neovim](../../theme/neritic/neritic-bleached-day.png)
+![Neritic Bleached Day in Neovim](./neritic-bleached-day.png)
 
 **Simplified palette**
 
-![Neritic Bleached Day simplified palette](../../theme/neritic/neritic-bleached-day.svg)
+![Neritic Bleached Day simplified palette](./neritic-bleached-day.svg)

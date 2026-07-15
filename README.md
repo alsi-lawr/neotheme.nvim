@@ -71,11 +71,11 @@ An electrified storm-dark theme with graphite-blue fields, cyan control flow, bl
 
 **Editor preview**
 
-![Arcfield Graphite in Neovim](docs/theme/arcfield/arcfield-graphite.png)
+![Arcfield Graphite in Neovim](docs/themes/arcfield/arcfield-graphite.png)
 
 **Simplified palette**
 
-![Arcfield Graphite simplified palette](docs/theme/arcfield/arcfield-graphite.svg)
+![Arcfield Graphite simplified palette](docs/themes/arcfield/arcfield-graphite.svg)
 
 Explore all three variants in the [Arcfield family inventory](docs/themes/arcfield/README.md).
 
@@ -85,11 +85,11 @@ A near-black pressure-blue theme with cold pale text and sparse cyan, violet, gr
 
 **Editor preview**
 
-![Bathyal Midwater in Neovim](docs/theme/bathyal/bathyal-midwater.png)
+![Bathyal Midwater in Neovim](docs/themes/bathyal/bathyal-midwater.png)
 
 **Simplified palette**
 
-![Bathyal Midwater simplified palette](docs/theme/bathyal/bathyal-midwater.svg)
+![Bathyal Midwater simplified palette](docs/themes/bathyal/bathyal-midwater.svg)
 
 Explore all three variants in the [Bathyal family inventory](docs/themes/bathyal/README.md).
 
@@ -99,11 +99,11 @@ An industrial dark theme with charcoal and steel surfaces, pale metal text, iron
 
 **Editor preview**
 
-![Ferric Forge in Neovim](docs/theme/ferric/ferric-forge.png)
+![Ferric Forge in Neovim](docs/themes/ferric/ferric-forge.png)
 
 **Simplified palette**
 
-![Ferric Forge simplified palette](docs/theme/ferric/ferric-forge.svg)
+![Ferric Forge simplified palette](docs/themes/ferric/ferric-forge.svg)
 
 Explore both variants in the [Ferric family inventory](docs/themes/ferric/README.md).
 
@@ -113,11 +113,11 @@ The current default: a restrained, warm dark theme with softened syntax colors a
 
 **Editor preview**
 
-![Gruber Dark Muted in Neovim](docs/theme/gruber/gruber-dark-muted.png)
+![Gruber Dark Muted in Neovim](docs/themes/gruber/gruber-dark-muted.png)
 
 **Simplified palette**
 
-![Gruber Dark Muted simplified palette](docs/theme/gruber/gruber-dark-muted.svg)
+![Gruber Dark Muted simplified palette](docs/themes/gruber/gruber-dark-muted.svg)
 
 Explore all six variants in the [Gruber family inventory](docs/themes/gruber/README.md).
 
@@ -127,11 +127,11 @@ A clear coastal light theme with turquoise and fog surfaces, deep-ocean text, se
 
 **Editor preview**
 
-![Neritic Day in Neovim](docs/theme/neritic/neritic-day.png)
+![Neritic Day in Neovim](docs/themes/neritic/neritic-day.png)
 
 **Simplified palette**
 
-![Neritic Day simplified palette](docs/theme/neritic/neritic-day.svg)
+![Neritic Day simplified palette](docs/themes/neritic/neritic-day.svg)
 
 Explore all four variants in the [Neritic family inventory](docs/themes/neritic/README.md).
 
@@ -141,11 +141,11 @@ A warm newsprint theme whose ordinary syntax follows one ageing blue-black ink t
 
 **Editor preview**
 
-![Typeset Paper in Neovim](docs/theme/typeset/typeset-paper.png)
+![Typeset Paper in Neovim](docs/themes/typeset/typeset-paper.png)
 
 **Simplified palette**
 
-![Typeset Paper simplified palette](docs/theme/typeset/typeset-paper.svg)
+![Typeset Paper simplified palette](docs/themes/typeset/typeset-paper.svg)
 
 Explore both variants in the [Typeset family inventory](docs/themes/typeset/README.md).
 
@@ -155,11 +155,11 @@ A crisp paper light theme with near-black ink, strong neutral separation, and re
 
 **Editor preview**
 
-![Typewriter Ink in Neovim](docs/theme/typewriter/typewriter-ink.png)
+![Typewriter Ink in Neovim](docs/themes/typewriter/typewriter-ink.png)
 
 **Simplified palette**
 
-![Typewriter Ink simplified palette](docs/theme/typewriter/typewriter-ink.svg)
+![Typewriter Ink simplified palette](docs/themes/typewriter/typewriter-ink.svg)
 
 Explore all five variants in the [Typewriter family inventory](docs/themes/typewriter/README.md).
 
@@ -169,11 +169,11 @@ A canopy-filtered dark theme with cool forest shadows, pine-green structure, and
 
 **Editor preview**
 
-![Understory Canopy in Neovim](docs/theme/understory/understory-canopy.png)
+![Understory Canopy in Neovim](docs/themes/understory/understory-canopy.png)
 
 **Simplified palette**
 
-![Understory Canopy simplified palette](docs/theme/understory/understory-canopy.svg)
+![Understory Canopy simplified palette](docs/themes/understory/understory-canopy.svg)
 
 Explore all four variants in the [Understory family inventory](docs/themes/understory/README.md).
 
