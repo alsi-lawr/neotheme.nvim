@@ -29,6 +29,16 @@ local modules = {
 	["neritic-night"] = { module = "neotheme.themes.neritic.night", background = "dark" },
 	["typeset-ink"] = { module = "neotheme.themes.typeset.ink", background = "dark" },
 	["typeset-paper"] = { module = "neotheme.themes.typeset.paper", background = "light" },
+	["understory-canopy"] = {
+		module = "neotheme.themes.understory.canopy",
+		background = "dark",
+	},
+	["understory-clearing"] = {
+		module = "neotheme.themes.understory.clearing",
+		background = "light",
+	},
+	["understory-dusk"] = { module = "neotheme.themes.understory.dusk", background = "dark" },
+	["understory-mist"] = { module = "neotheme.themes.understory.mist", background = "light" },
 }
 
 local function copy(value)

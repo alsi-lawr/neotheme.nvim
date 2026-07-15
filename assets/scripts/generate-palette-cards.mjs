@@ -97,6 +97,26 @@ const themes = {
 		displayName: "Typeset Paper",
 		source: "lua/neotheme/themes/typeset/paper.lua",
 	},
+	"understory-canopy": {
+		assetDirectory: "docs/theme/understory",
+		displayName: "Understory Canopy",
+		source: "lua/neotheme/themes/understory/canopy.lua",
+	},
+	"understory-clearing": {
+		assetDirectory: "docs/theme/understory",
+		displayName: "Understory Clearing",
+		source: "lua/neotheme/themes/understory/clearing.lua",
+	},
+	"understory-dusk": {
+		assetDirectory: "docs/theme/understory",
+		displayName: "Understory Dusk",
+		source: "lua/neotheme/themes/understory/dusk.lua",
+	},
+	"understory-mist": {
+		assetDirectory: "docs/theme/understory",
+		displayName: "Understory Mist",
+		source: "lua/neotheme/themes/understory/mist.lua",
+	},
 };
 
 const labels = {
