@@ -13,42 +13,27 @@ Understory is a naturalistic forest family designed for long editing sessions. C
 
 ## Previews
 
-### Understory Canopy
-
-**Editor preview**
-
-![Understory Canopy in Neovim](./understory-canopy.png)
-
-**Simplified palette**
-
-![Understory Canopy simplified palette](./understory-canopy.svg)
-
-### Understory Clearing
-
-**Editor preview**
-
-![Understory Clearing in Neovim](./understory-clearing.png)
-
-**Simplified palette**
-
-![Understory Clearing simplified palette](./understory-clearing.svg)
-
-### Understory Dusk
-
-**Editor preview**
-
-![Understory Dusk in Neovim](./understory-dusk.png)
-
-**Simplified palette**
-
-![Understory Dusk simplified palette](./understory-dusk.svg)
-
-### Understory Mist
-
-**Editor preview**
-
-![Understory Mist in Neovim](./understory-mist.png)
-
-**Simplified palette**
-
-![Understory Mist simplified palette](./understory-mist.svg)
+<table>
+<tr>
+<td align="center" valign="top">
+<strong>Understory Canopy</strong><br><br>
+<a href="./understory-canopy.png"><img src="./understory-canopy.png" width="320" alt="Understory Canopy editor preview"></a>
+<a href="./understory-canopy.svg"><img src="./understory-canopy.svg" width="240" alt="Understory Canopy simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Understory Clearing</strong><br><br>
+<a href="./understory-clearing.png"><img src="./understory-clearing.png" width="320" alt="Understory Clearing editor preview"></a>
+<a href="./understory-clearing.svg"><img src="./understory-clearing.svg" width="240" alt="Understory Clearing simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Understory Dusk</strong><br><br>
+<a href="./understory-dusk.png"><img src="./understory-dusk.png" width="320" alt="Understory Dusk editor preview"></a>
+<a href="./understory-dusk.svg"><img src="./understory-dusk.svg" width="240" alt="Understory Dusk simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Understory Mist</strong><br><br>
+<a href="./understory-mist.png"><img src="./understory-mist.png" width="320" alt="Understory Mist editor preview"></a>
+<a href="./understory-mist.svg"><img src="./understory-mist.svg" width="240" alt="Understory Mist simplified palette"></a>
+</td>
+</tr>
+</table>

@@ -12,32 +12,34 @@ Typewriter evokes paper, ink, carbon, smudges, and worn ribbon through predomina
 | `typewriter-carbon` | Carbon-black surfaces and crisp paper-white text at high contrast. | Dark |
 | `typewriter-ribbon` | Soft worn charcoal with warm gray text and gentler separation. | Dark |
 
-## Typewriter Smudge
+## Previews
 
-![Typewriter Smudge editor screenshot](./typewriter-smudge.png)
-
-![Typewriter Smudge palette card](./typewriter-smudge.svg)
-
-## Typewriter Ink
-
-![Typewriter Ink editor screenshot](./typewriter-ink.png)
-
-![Typewriter Ink palette card](./typewriter-ink.svg)
-
-## Typewriter Low
-
-![Typewriter Low editor screenshot](./typewriter-low.png)
-
-![Typewriter Low palette card](./typewriter-low.svg)
-
-## Typewriter Carbon
-
-![Typewriter Carbon editor screenshot](./typewriter-carbon.png)
-
-![Typewriter Carbon palette card](./typewriter-carbon.svg)
-
-## Typewriter Ribbon
-
-![Typewriter Ribbon editor screenshot](./typewriter-ribbon.png)
-
-![Typewriter Ribbon palette card](./typewriter-ribbon.svg)
+<table>
+<tr>
+<td align="center" valign="top">
+<strong>Typewriter Smudge</strong><br><br>
+<a href="./typewriter-smudge.png"><img src="./typewriter-smudge.png" width="320" alt="Typewriter Smudge editor preview"></a>
+<a href="./typewriter-smudge.svg"><img src="./typewriter-smudge.svg" width="240" alt="Typewriter Smudge simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Typewriter Ink</strong><br><br>
+<a href="./typewriter-ink.png"><img src="./typewriter-ink.png" width="320" alt="Typewriter Ink editor preview"></a>
+<a href="./typewriter-ink.svg"><img src="./typewriter-ink.svg" width="240" alt="Typewriter Ink simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Typewriter Low</strong><br><br>
+<a href="./typewriter-low.png"><img src="./typewriter-low.png" width="320" alt="Typewriter Low editor preview"></a>
+<a href="./typewriter-low.svg"><img src="./typewriter-low.svg" width="240" alt="Typewriter Low simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Typewriter Carbon</strong><br><br>
+<a href="./typewriter-carbon.png"><img src="./typewriter-carbon.png" width="320" alt="Typewriter Carbon editor preview"></a>
+<a href="./typewriter-carbon.svg"><img src="./typewriter-carbon.svg" width="240" alt="Typewriter Carbon simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Typewriter Ribbon</strong><br><br>
+<a href="./typewriter-ribbon.png"><img src="./typewriter-ribbon.png" width="320" alt="Typewriter Ribbon editor preview"></a>
+<a href="./typewriter-ribbon.svg"><img src="./typewriter-ribbon.svg" width="240" alt="Typewriter Ribbon simplified palette"></a>
+</td>
+</tr>
+</table>

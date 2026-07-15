@@ -12,32 +12,22 @@ Bathyal evokes the permanently dark, cold, high-pressure deep ocean. Near-black 
 
 ## Previews
 
-### Bathyal Midwater
-
-**Editor preview**
-
-![Bathyal Midwater in Neovim](./bathyal-midwater.png)
-
-**Simplified palette**
-
-![Bathyal Midwater simplified palette](./bathyal-midwater.svg)
-
-### Bathyal Marine Snow
-
-**Editor preview**
-
-![Bathyal Marine Snow in Neovim](./bathyal-marine-snow.png)
-
-**Simplified palette**
-
-![Bathyal Marine Snow simplified palette](./bathyal-marine-snow.svg)
-
-### Bathyal Bioluminescence
-
-**Editor preview**
-
-![Bathyal Bioluminescence in Neovim](./bathyal-bioluminescence.png)
-
-**Simplified palette**
-
-![Bathyal Bioluminescence simplified palette](./bathyal-bioluminescence.svg)
+<table>
+<tr>
+<td align="center" valign="top">
+<strong>Bathyal Midwater</strong><br><br>
+<a href="./bathyal-midwater.png"><img src="./bathyal-midwater.png" width="320" alt="Bathyal Midwater editor preview"></a>
+<a href="./bathyal-midwater.svg"><img src="./bathyal-midwater.svg" width="240" alt="Bathyal Midwater simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Bathyal Marine Snow</strong><br><br>
+<a href="./bathyal-marine-snow.png"><img src="./bathyal-marine-snow.png" width="320" alt="Bathyal Marine Snow editor preview"></a>
+<a href="./bathyal-marine-snow.svg"><img src="./bathyal-marine-snow.svg" width="240" alt="Bathyal Marine Snow simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Bathyal Bioluminescence</strong><br><br>
+<a href="./bathyal-bioluminescence.png"><img src="./bathyal-bioluminescence.png" width="320" alt="Bathyal Bioluminescence editor preview"></a>
+<a href="./bathyal-bioluminescence.svg"><img src="./bathyal-bioluminescence.svg" width="240" alt="Bathyal Bioluminescence simplified palette"></a>
+</td>
+</tr>
+</table>

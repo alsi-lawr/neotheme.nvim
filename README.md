@@ -14,7 +14,7 @@ A semantic, palette-driven colorscheme for Neovim 0.12+.
 
 Neotheme separates a theme's colors from the places Neovim uses them. A complete semantic palette drives editor UI, syntax, Tree-sitter, LSP, diagnostics, terminal colors, version control, markup, and opt-in plugin integrations. Themes stay coherent while individual roles remain easy to customize.
 
-Built-in themes are organized into families. Each family keeps its complete inventory, visual examples, and lineage beside its source, while this README highlights one stand-out theme from every family.
+Built-in themes are organized into families. Each family keeps its complete inventory and visual examples under `docs/themes/`; Gruber also preserves its lineage attribution. This README highlights one stand-out theme from every family.
 
 ## Why Neotheme
 
@@ -66,131 +66,66 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 | Typewriter | `typewriter-ink` | Three light and two dark variants | [Themes and examples](docs/themes/typewriter/README.md) |
 | Understory | `understory-canopy` | Two dark and two light variants | [Themes and examples](docs/themes/understory/README.md) |
 
-### Arcfield - Graphite
+## Family previews
 
-An electrified storm-dark theme with graphite-blue fields, cyan control flow, blue-white callables, and restrained strike-yellow member and literal flashes.
-
-**Editor preview**
-
-![Arcfield Graphite in Neovim](docs/themes/arcfield/arcfield-graphite.png)
-
-**Simplified palette**
-
-![Arcfield Graphite simplified palette](docs/themes/arcfield/arcfield-graphite.svg)
-
-Explore all three variants in the [Arcfield family inventory](docs/themes/arcfield/README.md).
-
-### Bathyal - Midwater
-
-A near-black pressure-blue theme with cold pale text and sparse cyan, violet, green, and muted-red accents.
-
-**Editor preview**
-
-![Bathyal Midwater in Neovim](docs/themes/bathyal/bathyal-midwater.png)
-
-**Simplified palette**
-
-![Bathyal Midwater simplified palette](docs/themes/bathyal/bathyal-midwater.svg)
-
-Explore all three variants in the [Bathyal family inventory](docs/themes/bathyal/README.md).
-
-### Ferric - Forge
-
-An industrial dark theme with charcoal and steel surfaces, pale metal text, iron-rust accents, rusty copper details, and restrained verdigris.
-
-**Editor preview**
-
-![Ferric Forge in Neovim](docs/themes/ferric/ferric-forge.png)
-
-**Simplified palette**
-
-![Ferric Forge simplified palette](docs/themes/ferric/ferric-forge.svg)
-
-Explore both variants in the [Ferric family inventory](docs/themes/ferric/README.md).
-
-### Grove - Campfire
-
-A forest-dark fantasy-adventure theme with parchment text, oxblood control flow and UI accents, aged-gold navigation, moss additions, ember signals, and restrained arcane violet.
-
-**Editor preview**
-
-![Grove Campfire in Neovim](docs/themes/grove/grove-campfire.png)
-
-**Simplified palette**
-
-![Grove Campfire simplified palette](docs/themes/grove/grove-campfire.svg)
-
-Explore both variants in the [Grove family inventory](docs/themes/grove/README.md).
-
-### Gruber - Dark Muted
-
-The current default: a restrained, warm dark theme with softened syntax colors and measured contrast.
-
-**Editor preview**
-
-![Gruber Dark Muted in Neovim](docs/themes/gruber/gruber-dark-muted.png)
-
-**Simplified palette**
-
-![Gruber Dark Muted simplified palette](docs/themes/gruber/gruber-dark-muted.svg)
-
-Explore all six variants in the [Gruber family inventory](docs/themes/gruber/README.md).
-
-### Neritic - Day
-
-A clear coastal light theme with turquoise and fog surfaces, deep-ocean text, sea-glass greens, and sunlit coral accents.
-
-**Editor preview**
-
-![Neritic Day in Neovim](docs/themes/neritic/neritic-day.png)
-
-**Simplified palette**
-
-![Neritic Day simplified palette](docs/themes/neritic/neritic-day.svg)
-
-Explore all four variants in the [Neritic family inventory](docs/themes/neritic/README.md).
-
-### Typeset - Paper
-
-A warm newsprint theme whose ordinary syntax follows one ageing blue-black ink through violet-grey oxidation, dried sepia edges, and muted residue. Stronger proofing color remains sparse.
-
-**Editor preview**
-
-![Typeset Paper in Neovim](docs/themes/typeset/typeset-paper.png)
-
-**Simplified palette**
-
-![Typeset Paper simplified palette](docs/themes/typeset/typeset-paper.svg)
-
-Explore both variants in the [Typeset family inventory](docs/themes/typeset/README.md).
-
-### Typewriter - Ink
-
-A crisp paper light theme with near-black ink, strong neutral separation, and restrained color reserved for focused signals.
-
-**Editor preview**
-
-![Typewriter Ink in Neovim](docs/themes/typewriter/typewriter-ink.png)
-
-**Simplified palette**
-
-![Typewriter Ink simplified palette](docs/themes/typewriter/typewriter-ink.svg)
-
-Explore all five variants in the [Typewriter family inventory](docs/themes/typewriter/README.md).
-
-### Understory - Canopy
-
-A canopy-filtered dark theme with cool forest shadows, pine-green structure, and distinct moss, fern, lichen, bark, and amber details.
-
-**Editor preview**
-
-![Understory Canopy in Neovim](docs/themes/understory/understory-canopy.png)
-
-**Simplified palette**
-
-![Understory Canopy simplified palette](docs/themes/understory/understory-canopy.svg)
-
-Explore all four variants in the [Understory family inventory](docs/themes/understory/README.md).
+<table>
+<tr>
+<td align="center" valign="top">
+<strong><a href="docs/themes/arcfield/README.md">Arcfield - Graphite</a></strong><br>
+<sub>An electrified storm-dark theme with near-black fields, cyan discharge, blue-white callables, and strike-yellow details.</sub><br><br>
+<a href="docs/themes/arcfield/arcfield-graphite.png"><img src="docs/themes/arcfield/arcfield-graphite.png" width="320" alt="Arcfield - Graphite editor preview"></a>
+<a href="docs/themes/arcfield/arcfield-graphite.svg"><img src="docs/themes/arcfield/arcfield-graphite.svg" width="240" alt="Arcfield - Graphite simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong><a href="docs/themes/bathyal/README.md">Bathyal - Midwater</a></strong><br>
+<sub>A near-black pressure-blue theme with cold pale text and sparse deep-ocean signals.</sub><br><br>
+<a href="docs/themes/bathyal/bathyal-midwater.png"><img src="docs/themes/bathyal/bathyal-midwater.png" width="320" alt="Bathyal - Midwater editor preview"></a>
+<a href="docs/themes/bathyal/bathyal-midwater.svg"><img src="docs/themes/bathyal/bathyal-midwater.svg" width="240" alt="Bathyal - Midwater simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong><a href="docs/themes/ferric/README.md">Ferric - Forge</a></strong><br>
+<sub>Charcoal iron and steel with rust, copper, and restrained verdigris.</sub><br><br>
+<a href="docs/themes/ferric/ferric-forge.png"><img src="docs/themes/ferric/ferric-forge.png" width="320" alt="Ferric - Forge editor preview"></a>
+<a href="docs/themes/ferric/ferric-forge.svg"><img src="docs/themes/ferric/ferric-forge.svg" width="240" alt="Ferric - Forge simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong><a href="docs/themes/grove/README.md">Grove - Campfire</a></strong><br>
+<sub>Leafy forest-dark fantasy with parchment, marigold, moss, foxglove, mallow, peony, and poppy.</sub><br><br>
+<a href="docs/themes/grove/grove-campfire.png"><img src="docs/themes/grove/grove-campfire.png" width="320" alt="Grove - Campfire editor preview"></a>
+<a href="docs/themes/grove/grove-campfire.svg"><img src="docs/themes/grove/grove-campfire.svg" width="240" alt="Grove - Campfire simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong><a href="docs/themes/gruber/README.md">Gruber - Dark Muted</a></strong><br>
+<sub>The warm, restrained default with softened syntax colors and measured contrast.</sub><br><br>
+<a href="docs/themes/gruber/gruber-dark-muted.png"><img src="docs/themes/gruber/gruber-dark-muted.png" width="320" alt="Gruber - Dark Muted editor preview"></a>
+<a href="docs/themes/gruber/gruber-dark-muted.svg"><img src="docs/themes/gruber/gruber-dark-muted.svg" width="240" alt="Gruber - Dark Muted simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong><a href="docs/themes/neritic/README.md">Neritic - Day</a></strong><br>
+<sub>Turquoise coastal light with deep-ocean text, sea glass, algae, and coral.</sub><br><br>
+<a href="docs/themes/neritic/neritic-day.png"><img src="docs/themes/neritic/neritic-day.png" width="320" alt="Neritic - Day editor preview"></a>
+<a href="docs/themes/neritic/neritic-day.svg"><img src="docs/themes/neritic/neritic-day.svg" width="240" alt="Neritic - Day simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong><a href="docs/themes/typeset/README.md">Typeset - Paper</a></strong><br>
+<sub>Warm newsprint carrying ageing blue-black ink, oxidized violet-grey, sepia, and muted residue.</sub><br><br>
+<a href="docs/themes/typeset/typeset-paper.png"><img src="docs/themes/typeset/typeset-paper.png" width="320" alt="Typeset - Paper editor preview"></a>
+<a href="docs/themes/typeset/typeset-paper.svg"><img src="docs/themes/typeset/typeset-paper.svg" width="240" alt="Typeset - Paper simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong><a href="docs/themes/typewriter/README.md">Typewriter - Ink</a></strong><br>
+<sub>Crisp paper and near-black ink with strong neutral separation.</sub><br><br>
+<a href="docs/themes/typewriter/typewriter-ink.png"><img src="docs/themes/typewriter/typewriter-ink.png" width="320" alt="Typewriter - Ink editor preview"></a>
+<a href="docs/themes/typewriter/typewriter-ink.svg"><img src="docs/themes/typewriter/typewriter-ink.svg" width="240" alt="Typewriter - Ink simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong><a href="docs/themes/understory/README.md">Understory - Canopy</a></strong><br>
+<sub>Canopy-filtered forest shadow with pine, moss, fern, lichen, bark, and amber.</sub><br><br>
+<a href="docs/themes/understory/understory-canopy.png"><img src="docs/themes/understory/understory-canopy.png" width="320" alt="Understory - Canopy editor preview"></a>
+<a href="docs/themes/understory/understory-canopy.svg"><img src="docs/themes/understory/understory-canopy.svg" width="240" alt="Understory - Canopy simplified palette"></a>
+</td>
+</tr>
+</table>
 
 ## Customize semantic roles
 

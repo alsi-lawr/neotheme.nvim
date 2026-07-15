@@ -15,65 +15,40 @@ Gruber is a warm family of six coordinated dark and light variants. A shared sem
 
 ## Previews
 
-### Gruber Dark Muted
-
-**Editor preview**
-
-![Gruber Dark Muted in Neovim](./gruber-dark-muted.png)
-
-**Simplified palette**
-
-![Gruber Dark Muted simplified palette](./gruber-dark-muted.svg)
-
-### Gruber Dark
-
-**Editor preview**
-
-![Gruber Dark in Neovim](./gruber-dark.png)
-
-**Simplified palette**
-
-![Gruber Dark simplified palette](./gruber-dark.svg)
-
-### Gruber Darker
-
-**Editor preview**
-
-![Gruber Darker in Neovim](./gruber-darker.png)
-
-**Simplified palette**
-
-![Gruber Darker simplified palette](./gruber-darker.svg)
-
-### Gruber Light
-
-**Editor preview**
-
-![Gruber Light in Neovim](./gruber-light.png)
-
-**Simplified palette**
-
-![Gruber Light simplified palette](./gruber-light.svg)
-
-### Gruber Lighter
-
-**Editor preview**
-
-![Gruber Lighter in Neovim](./gruber-lighter.png)
-
-**Simplified palette**
-
-![Gruber Lighter simplified palette](./gruber-lighter.svg)
-
-### Gruber Light Muted
-
-**Editor preview**
-
-![Gruber Light Muted in Neovim](./gruber-light-muted.png)
-
-**Simplified palette**
-
-![Gruber Light Muted simplified palette](./gruber-light-muted.svg)
+<table>
+<tr>
+<td align="center" valign="top">
+<strong>Gruber Dark Muted</strong><br><br>
+<a href="./gruber-dark-muted.png"><img src="./gruber-dark-muted.png" width="320" alt="Gruber Dark Muted editor preview"></a>
+<a href="./gruber-dark-muted.svg"><img src="./gruber-dark-muted.svg" width="240" alt="Gruber Dark Muted simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Gruber Dark</strong><br><br>
+<a href="./gruber-dark.png"><img src="./gruber-dark.png" width="320" alt="Gruber Dark editor preview"></a>
+<a href="./gruber-dark.svg"><img src="./gruber-dark.svg" width="240" alt="Gruber Dark simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Gruber Darker</strong><br><br>
+<a href="./gruber-darker.png"><img src="./gruber-darker.png" width="320" alt="Gruber Darker editor preview"></a>
+<a href="./gruber-darker.svg"><img src="./gruber-darker.svg" width="240" alt="Gruber Darker simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Gruber Light</strong><br><br>
+<a href="./gruber-light.png"><img src="./gruber-light.png" width="320" alt="Gruber Light editor preview"></a>
+<a href="./gruber-light.svg"><img src="./gruber-light.svg" width="240" alt="Gruber Light simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Gruber Lighter</strong><br><br>
+<a href="./gruber-lighter.png"><img src="./gruber-lighter.png" width="320" alt="Gruber Lighter editor preview"></a>
+<a href="./gruber-lighter.svg"><img src="./gruber-lighter.svg" width="240" alt="Gruber Lighter simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Gruber Light Muted</strong><br><br>
+<a href="./gruber-light-muted.png"><img src="./gruber-light-muted.png" width="320" alt="Gruber Light Muted editor preview"></a>
+<a href="./gruber-light-muted.svg"><img src="./gruber-light-muted.svg" width="240" alt="Gruber Light Muted simplified palette"></a>
+</td>
+</tr>
+</table>
 
 ## Lineage
 

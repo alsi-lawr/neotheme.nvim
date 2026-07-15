@@ -11,22 +11,17 @@ Ferric pairs dark and light industrial themes shaped by iron, steel, rust, coppe
 
 ## Previews
 
-### Ferric Forge
-
-**Editor preview**
-
-![Ferric Forge in Neovim](./ferric-forge.png)
-
-**Simplified palette**
-
-![Ferric Forge simplified palette](./ferric-forge.svg)
-
-### Ferric Patina
-
-**Editor preview**
-
-![Ferric Patina in Neovim](./ferric-patina.png)
-
-**Simplified palette**
-
-![Ferric Patina simplified palette](./ferric-patina.svg)
+<table>
+<tr>
+<td align="center" valign="top">
+<strong>Ferric Forge</strong><br><br>
+<a href="./ferric-forge.png"><img src="./ferric-forge.png" width="320" alt="Ferric Forge editor preview"></a>
+<a href="./ferric-forge.svg"><img src="./ferric-forge.svg" width="240" alt="Ferric Forge simplified palette"></a>
+</td>
+<td align="center" valign="top">
+<strong>Ferric Patina</strong><br><br>
+<a href="./ferric-patina.png"><img src="./ferric-patina.png" width="320" alt="Ferric Patina editor preview"></a>
+<a href="./ferric-patina.svg"><img src="./ferric-patina.svg" width="240" alt="Ferric Patina simplified palette"></a>
+</td>
+</tr>
+</table>
