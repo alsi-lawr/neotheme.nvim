@@ -58,6 +58,7 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 | --- | --- | --- | --- |
 | Arcfield | `arcfield-graphite` | Two dark and one light variant | [Themes and examples](lua/neotheme/themes/arcfield/README.md) |
 | Bathyal | `bathyal-midwater` | Two dark and one light variant | [Themes and examples](lua/neotheme/themes/bathyal/README.md) |
+| Ferric | `ferric-forge` | One dark and one light variant | [Themes and examples](lua/neotheme/themes/ferric/README.md) |
 | Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes, examples, and lineage](lua/neotheme/themes/gruber/README.md) |
 | Neritic | `neritic-day` | Two dark and two light variants | [Themes and examples](lua/neotheme/themes/neritic/README.md) |
 | Typeset | `typeset-paper` | One light and one dark variant | [Themes and examples](lua/neotheme/themes/typeset/README.md) |
@@ -90,6 +91,20 @@ A near-black pressure-blue theme with cold pale text and sparse cyan, violet, gr
 ![Bathyal Midwater simplified palette](docs/theme/bathyal/bathyal-midwater.svg)
 
 Explore all three variants in the [Bathyal family inventory](lua/neotheme/themes/bathyal/README.md).
+
+### Ferric - Forge
+
+An industrial dark theme with charcoal and steel surfaces, pale metal text, iron-rust accents, rusty copper details, and restrained verdigris.
+
+**Editor preview**
+
+![Ferric Forge in Neovim](docs/theme/ferric/ferric-forge.png)
+
+**Simplified palette**
+
+![Ferric Forge simplified palette](docs/theme/ferric/ferric-forge.svg)
+
+Explore both variants in the [Ferric family inventory](lua/neotheme/themes/ferric/README.md).
 
 ### Gruber - Dark Muted
 

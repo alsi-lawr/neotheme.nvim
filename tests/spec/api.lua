@@ -12,6 +12,8 @@ h.eq({
 	"bathyal-marine-snow",
 	"bathyal-midwater",
 	"custom",
+	"ferric-forge",
+	"ferric-patina",
 	"gruber-dark",
 	"gruber-dark-muted",
 	"gruber-darker",
@@ -88,6 +90,18 @@ for name, background in pairs({
 end
 
 for name, background in pairs({
+	["ferric-forge"] = "dark",
+	["ferric-patina"] = "light",
+}) do
+	local original = themes.get(name)
+	local mutated = themes.get(name)
+	mutated.surface.base = mutated.diagnostic.error
+	mutated.syntax.injected = mutated.diagnostic.success
+	h.eq(original, themes.get(name), name .. " palette mutation must not leak")
+	h.eq(background, themes.background(name), name .. " background metadata")
+end
+
+for name, background in pairs({
 	["neritic-bleached-day"] = "light",
 	["neritic-bleached-night"] = "dark",
 	["neritic-day"] = "light",
@@ -117,6 +131,8 @@ h.eq({
 	"bathyal-marine-snow",
 	"bathyal-midwater",
 	"custom",
+	"ferric-forge",
+	"ferric-patina",
 	"gruber-dark",
 	"gruber-dark-muted",
 	"gruber-darker",

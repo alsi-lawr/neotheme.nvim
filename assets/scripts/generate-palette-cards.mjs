@@ -117,6 +117,16 @@ const themes = {
 		displayName: "Understory Mist",
 		source: "lua/neotheme/themes/understory/mist.lua",
 	},
+	"ferric-forge": {
+		assetDirectory: "docs/theme/ferric",
+		displayName: "Ferric Forge",
+		source: "lua/neotheme/themes/ferric/forge.lua",
+	},
+	"ferric-patina": {
+		assetDirectory: "docs/theme/ferric",
+		displayName: "Ferric Patina",
+		source: "lua/neotheme/themes/ferric/patina.lua",
+	},
 };
 
 const labels = {
