@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -8,28 +8,54 @@ const repositoryRoot = resolve(scriptDirectory, "..", "..");
 
 const themes = {
 	"gruber-dark-muted": {
+		assetDirectory: "docs/theme/gruber",
 		displayName: "Gruber Dark Muted",
 		source: "lua/neotheme/themes/gruber/dark-muted.lua",
 	},
 	"gruber-dark": {
+		assetDirectory: "docs/theme/gruber",
 		displayName: "Gruber Dark",
 		source: "lua/neotheme/themes/gruber/dark.lua",
 	},
 	"gruber-darker": {
+		assetDirectory: "docs/theme/gruber",
 		displayName: "Gruber Darker",
 		source: "lua/neotheme/themes/gruber/darker.lua",
 	},
 	"gruber-light": {
+		assetDirectory: "docs/theme/gruber",
 		displayName: "Gruber Light",
 		source: "lua/neotheme/themes/gruber/light.lua",
 	},
 	"gruber-lighter": {
+		assetDirectory: "docs/theme/gruber",
 		displayName: "Gruber Lighter",
 		source: "lua/neotheme/themes/gruber/lighter.lua",
 	},
 	"gruber-light-muted": {
+		assetDirectory: "docs/theme/gruber",
 		displayName: "Gruber Light Muted",
 		source: "lua/neotheme/themes/gruber/light-muted.lua",
+	},
+	"neritic-night": {
+		assetDirectory: "docs/theme/neritic",
+		displayName: "Neritic Night",
+		source: "lua/neotheme/themes/neritic/night.lua",
+	},
+	"neritic-day": {
+		assetDirectory: "docs/theme/neritic",
+		displayName: "Neritic Day",
+		source: "lua/neotheme/themes/neritic/day.lua",
+	},
+	"neritic-bleached-night": {
+		assetDirectory: "docs/theme/neritic",
+		displayName: "Neritic Bleached Night",
+		source: "lua/neotheme/themes/neritic/bleached-night.lua",
+	},
+	"neritic-bleached-day": {
+		assetDirectory: "docs/theme/neritic",
+		displayName: "Neritic Bleached Day",
+		source: "lua/neotheme/themes/neritic/bleached-day.lua",
 	},
 };
 
@@ -209,7 +235,7 @@ function svgFor(themeName, colors) {
 }
 
 function outputPath(themeName) {
-	return join(repositoryRoot, "assets", `${themeName}.svg`);
+	return join(repositoryRoot, themes[themeName].assetDirectory, `${themeName}.svg`);
 }
 
 function generate({ check, themeNames }) {
@@ -226,6 +252,7 @@ function generate({ check, themeNames }) {
 			continue;
 		}
 
+		mkdirSync(dirname(destination), { recursive: true });
 		writeFileSync(destination, svg, "utf8");
 		console.log(`Generated ${destination}`);
 	}

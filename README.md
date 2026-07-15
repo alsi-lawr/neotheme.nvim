@@ -57,6 +57,7 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 | Family | Stand-out theme | Range | Full inventory |
 | --- | --- | --- | --- |
 | Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes, examples, and lineage](lua/neotheme/themes/gruber/README.md) |
+| Neritic | `neritic-day` | Two dark and two light variants | [Themes and examples](lua/neotheme/themes/neritic/README.md) |
 
 ### Gruber - Dark Muted
 
@@ -64,13 +65,27 @@ The current default: a restrained, warm dark theme with softened syntax colors a
 
 **Editor preview**
 
-![Gruber Dark Muted in Neovim](assets/gruber-dark-muted.png)
+![Gruber Dark Muted in Neovim](docs/theme/gruber/gruber-dark-muted.png)
 
 **Simplified palette**
 
-![Gruber Dark Muted simplified palette](assets/gruber-dark-muted.svg)
+![Gruber Dark Muted simplified palette](docs/theme/gruber/gruber-dark-muted.svg)
 
 Explore all six variants in the [Gruber family inventory](lua/neotheme/themes/gruber/README.md).
+
+### Neritic - Day
+
+A clear coastal light theme with turquoise and fog surfaces, deep-ocean text, sea-glass greens, and sunlit coral accents.
+
+**Editor preview**
+
+![Neritic Day in Neovim](docs/theme/neritic/neritic-day.png)
+
+**Simplified palette**
+
+![Neritic Day simplified palette](docs/theme/neritic/neritic-day.svg)
+
+Explore all four variants in the [Neritic family inventory](lua/neotheme/themes/neritic/README.md).
 
 ## Customize semantic roles
 

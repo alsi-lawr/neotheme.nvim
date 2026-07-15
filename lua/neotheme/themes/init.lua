@@ -5,6 +5,16 @@ local modules = {
 	["gruber-light"] = { module = "neotheme.themes.gruber.light", background = "light" },
 	["gruber-light-muted"] = { module = "neotheme.themes.gruber.light-muted", background = "light" },
 	["gruber-lighter"] = { module = "neotheme.themes.gruber.lighter", background = "light" },
+	["neritic-bleached-day"] = {
+		module = "neotheme.themes.neritic.bleached-day",
+		background = "light",
+	},
+	["neritic-bleached-night"] = {
+		module = "neotheme.themes.neritic.bleached-night",
+		background = "dark",
+	},
+	["neritic-day"] = { module = "neotheme.themes.neritic.day", background = "light" },
+	["neritic-night"] = { module = "neotheme.themes.neritic.night", background = "dark" },
 }
 
 local function copy(value)
