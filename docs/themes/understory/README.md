@@ -17,38 +17,38 @@ Understory is a naturalistic forest family designed for long editing sessions. C
 
 **Editor preview**
 
-![Understory Canopy in Neovim](../../../../docs/theme/understory/understory-canopy.png)
+![Understory Canopy in Neovim](../../theme/understory/understory-canopy.png)
 
 **Simplified palette**
 
-![Understory Canopy simplified palette](../../../../docs/theme/understory/understory-canopy.svg)
+![Understory Canopy simplified palette](../../theme/understory/understory-canopy.svg)
 
 ### Understory Clearing
 
 **Editor preview**
 
-![Understory Clearing in Neovim](../../../../docs/theme/understory/understory-clearing.png)
+![Understory Clearing in Neovim](../../theme/understory/understory-clearing.png)
 
 **Simplified palette**
 
-![Understory Clearing simplified palette](../../../../docs/theme/understory/understory-clearing.svg)
+![Understory Clearing simplified palette](../../theme/understory/understory-clearing.svg)
 
 ### Understory Dusk
 
 **Editor preview**
 
-![Understory Dusk in Neovim](../../../../docs/theme/understory/understory-dusk.png)
+![Understory Dusk in Neovim](../../theme/understory/understory-dusk.png)
 
 **Simplified palette**
 
-![Understory Dusk simplified palette](../../../../docs/theme/understory/understory-dusk.svg)
+![Understory Dusk simplified palette](../../theme/understory/understory-dusk.svg)
 
 ### Understory Mist
 
 **Editor preview**
 
-![Understory Mist in Neovim](../../../../docs/theme/understory/understory-mist.png)
+![Understory Mist in Neovim](../../theme/understory/understory-mist.png)
 
 **Simplified palette**
 
-![Understory Mist simplified palette](../../../../docs/theme/understory/understory-mist.svg)
+![Understory Mist simplified palette](../../theme/understory/understory-mist.svg)
