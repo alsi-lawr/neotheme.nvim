@@ -50,8 +50,9 @@ Options:
   --check                   Verify that the requested PNG assets exist; do not capture.
   -h, --help                Show this help.
 
-The supported public names are gruber-dark-muted, gruber-dark, gruber-darker,
-gruber-light, gruber-lighter, gruber-light-muted, neritic-night, neritic-day,
+The supported public names are arcfield-graphite, arcfield-porcelain,
+arcfield-surge, gruber-dark-muted, gruber-dark, gruber-darker, gruber-light,
+gruber-lighter, gruber-light-muted, neritic-night, neritic-day,
 neritic-bleached-night, and neritic-bleached-day.
 EOF
 }
@@ -84,7 +85,7 @@ is_nonnegative_integer() {
 
 validate_theme() {
 	case "$1" in
-		gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day) ;;
+		arcfield-graphite | arcfield-porcelain | arcfield-surge | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day) ;;
 		*) die "Unknown theme: $1" ;;
 	esac
 }
@@ -101,6 +102,9 @@ output_file_for() {
 
 title_for() {
 	case "$1" in
+		arcfield-graphite) printf '%s\n' 'Arcfield Graphite' ;;
+		arcfield-porcelain) printf '%s\n' 'Arcfield Porcelain' ;;
+		arcfield-surge) printf '%s\n' 'Arcfield Surge' ;;
 		gruber-dark-muted) printf '%s\n' 'Gruber Dark Muted' ;;
 		gruber-dark) printf '%s\n' 'Gruber Dark' ;;
 		gruber-darker) printf '%s\n' 'Gruber Darker' ;;
@@ -228,7 +232,7 @@ is_positive_integer "$timeout" || die '--timeout must be a positive integer'
 is_nonnegative_integer "$settle" || die '--settle must be a non-negative integer'
 
 if [ -z "$requested_themes" ]; then
-	set -- gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day
+	set -- arcfield-graphite arcfield-porcelain arcfield-surge gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day
 else
 	# Each value was validated above and public theme names do not contain spaces.
 	set -- $requested_themes

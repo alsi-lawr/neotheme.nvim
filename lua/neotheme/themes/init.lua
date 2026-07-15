@@ -1,4 +1,7 @@
 local modules = {
+	["arcfield-graphite"] = { module = "neotheme.themes.arcfield.graphite", background = "dark" },
+	["arcfield-porcelain"] = { module = "neotheme.themes.arcfield.porcelain", background = "light" },
+	["arcfield-surge"] = { module = "neotheme.themes.arcfield.surge", background = "dark" },
 	["gruber-dark"] = { module = "neotheme.themes.gruber.dark", background = "dark" },
 	["gruber-dark-muted"] = { module = "neotheme.themes.gruber.dark-muted", background = "dark" },
 	["gruber-darker"] = { module = "neotheme.themes.gruber.darker", background = "dark" },

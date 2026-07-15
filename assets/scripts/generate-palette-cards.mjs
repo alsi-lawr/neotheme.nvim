@@ -7,6 +7,21 @@ const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(scriptDirectory, "..", "..");
 
 const themes = {
+	"arcfield-graphite": {
+		assetDirectory: "docs/theme/arcfield",
+		displayName: "Arcfield Graphite",
+		source: "lua/neotheme/themes/arcfield/graphite.lua",
+	},
+	"arcfield-porcelain": {
+		assetDirectory: "docs/theme/arcfield",
+		displayName: "Arcfield Porcelain",
+		source: "lua/neotheme/themes/arcfield/porcelain.lua",
+	},
+	"arcfield-surge": {
+		assetDirectory: "docs/theme/arcfield",
+		displayName: "Arcfield Surge",
+		source: "lua/neotheme/themes/arcfield/surge.lua",
+	},
 	"gruber-dark-muted": {
 		assetDirectory: "docs/theme/gruber",
 		displayName: "Gruber Dark Muted",
