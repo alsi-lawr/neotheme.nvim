@@ -36,7 +36,7 @@ the selected theme is changed only inside the capture process.
 
 Options:
   --config PATH             Use this Neovim init.lua instead of the normal config.
-  --output-dir PATH         Write all PNGs here instead of docs/theme/<family>.
+  --output-dir PATH         Write all PNGs here instead of docs/themes/<family>.
   --file PATH               Open this file in the capture (default: neotheme init.lua).
   --columns NUMBER          Alacritty width in columns (default: 148).
   --lines NUMBER            Alacritty height in lines (default: 52).
@@ -100,7 +100,7 @@ output_file_for() {
 		printf '%s/%s.png\n' "$output_directory" "$theme"
 	else
 		family=${theme%%-*}
-		printf '%s/docs/theme/%s/%s.png\n' "$repository_root" "$family" "$theme"
+		printf '%s/docs/themes/%s/%s.png\n' "$repository_root" "$family" "$theme"
 	fi
 }
 

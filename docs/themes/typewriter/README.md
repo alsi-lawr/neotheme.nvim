@@ -14,30 +14,30 @@ Typewriter evokes paper, ink, carbon, smudges, and worn ribbon through predomina
 
 ## Typewriter Smudge
 
-![Typewriter Smudge editor screenshot](../../theme/typewriter/typewriter-smudge.png)
+![Typewriter Smudge editor screenshot](./typewriter-smudge.png)
 
-![Typewriter Smudge palette card](../../theme/typewriter/typewriter-smudge.svg)
+![Typewriter Smudge palette card](./typewriter-smudge.svg)
 
 ## Typewriter Ink
 
-![Typewriter Ink editor screenshot](../../theme/typewriter/typewriter-ink.png)
+![Typewriter Ink editor screenshot](./typewriter-ink.png)
 
-![Typewriter Ink palette card](../../theme/typewriter/typewriter-ink.svg)
+![Typewriter Ink palette card](./typewriter-ink.svg)
 
 ## Typewriter Low
 
-![Typewriter Low editor screenshot](../../theme/typewriter/typewriter-low.png)
+![Typewriter Low editor screenshot](./typewriter-low.png)
 
-![Typewriter Low palette card](../../theme/typewriter/typewriter-low.svg)
+![Typewriter Low palette card](./typewriter-low.svg)
 
 ## Typewriter Carbon
 
-![Typewriter Carbon editor screenshot](../../theme/typewriter/typewriter-carbon.png)
+![Typewriter Carbon editor screenshot](./typewriter-carbon.png)
 
-![Typewriter Carbon palette card](../../theme/typewriter/typewriter-carbon.svg)
+![Typewriter Carbon palette card](./typewriter-carbon.svg)
 
 ## Typewriter Ribbon
 
-![Typewriter Ribbon editor screenshot](../../theme/typewriter/typewriter-ribbon.png)
+![Typewriter Ribbon editor screenshot](./typewriter-ribbon.png)
 
-![Typewriter Ribbon palette card](../../theme/typewriter/typewriter-ribbon.svg)
+![Typewriter Ribbon palette card](./typewriter-ribbon.svg)

@@ -19,61 +19,61 @@ Gruber is a warm family of six coordinated dark and light variants. A shared sem
 
 **Editor preview**
 
-![Gruber Dark Muted in Neovim](../../theme/gruber/gruber-dark-muted.png)
+![Gruber Dark Muted in Neovim](./gruber-dark-muted.png)
 
 **Simplified palette**
 
-![Gruber Dark Muted simplified palette](../../theme/gruber/gruber-dark-muted.svg)
+![Gruber Dark Muted simplified palette](./gruber-dark-muted.svg)
 
 ### Gruber Dark
 
 **Editor preview**
 
-![Gruber Dark in Neovim](../../theme/gruber/gruber-dark.png)
+![Gruber Dark in Neovim](./gruber-dark.png)
 
 **Simplified palette**
 
-![Gruber Dark simplified palette](../../theme/gruber/gruber-dark.svg)
+![Gruber Dark simplified palette](./gruber-dark.svg)
 
 ### Gruber Darker
 
 **Editor preview**
 
-![Gruber Darker in Neovim](../../theme/gruber/gruber-darker.png)
+![Gruber Darker in Neovim](./gruber-darker.png)
 
 **Simplified palette**
 
-![Gruber Darker simplified palette](../../theme/gruber/gruber-darker.svg)
+![Gruber Darker simplified palette](./gruber-darker.svg)
 
 ### Gruber Light
 
 **Editor preview**
 
-![Gruber Light in Neovim](../../theme/gruber/gruber-light.png)
+![Gruber Light in Neovim](./gruber-light.png)
 
 **Simplified palette**
 
-![Gruber Light simplified palette](../../theme/gruber/gruber-light.svg)
+![Gruber Light simplified palette](./gruber-light.svg)
 
 ### Gruber Lighter
 
 **Editor preview**
 
-![Gruber Lighter in Neovim](../../theme/gruber/gruber-lighter.png)
+![Gruber Lighter in Neovim](./gruber-lighter.png)
 
 **Simplified palette**
 
-![Gruber Lighter simplified palette](../../theme/gruber/gruber-lighter.svg)
+![Gruber Lighter simplified palette](./gruber-lighter.svg)
 
 ### Gruber Light Muted
 
 **Editor preview**
 
-![Gruber Light Muted in Neovim](../../theme/gruber/gruber-light-muted.png)
+![Gruber Light Muted in Neovim](./gruber-light-muted.png)
 
 **Simplified palette**
 
-![Gruber Light Muted simplified palette](../../theme/gruber/gruber-light-muted.svg)
+![Gruber Light Muted simplified palette](./gruber-light-muted.svg)
 
 ## Lineage
 
