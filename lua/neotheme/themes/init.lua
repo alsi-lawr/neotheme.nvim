@@ -11,6 +11,8 @@ local modules = {
 		background = "light",
 	},
 	["bathyal-midwater"] = { module = "neotheme.themes.bathyal.midwater", background = "dark" },
+	["ferric-forge"] = { module = "neotheme.themes.ferric.forge", background = "dark" },
+	["ferric-patina"] = { module = "neotheme.themes.ferric.patina", background = "light" },
 	["gruber-dark"] = { module = "neotheme.themes.gruber.dark", background = "dark" },
 	["gruber-dark-muted"] = { module = "neotheme.themes.gruber.dark-muted", background = "dark" },
 	["gruber-darker"] = { module = "neotheme.themes.gruber.darker", background = "dark" },

@@ -55,7 +55,8 @@ arcfield-surge, gruber-dark-muted, gruber-dark, gruber-darker, gruber-light,
 gruber-lighter, gruber-light-muted, neritic-night, neritic-day,
 neritic-bleached-night, neritic-bleached-day, bathyal-bioluminescence,
 bathyal-marine-snow, bathyal-midwater, typeset-ink, typeset-paper,
-understory-canopy, understory-clearing, understory-dusk, and understory-mist.
+understory-canopy, understory-clearing, understory-dusk, understory-mist,
+ferric-forge, and ferric-patina.
 EOF
 }
 
@@ -87,7 +88,7 @@ is_nonnegative_integer() {
 
 validate_theme() {
 	case "$1" in
-		arcfield-graphite | arcfield-porcelain | arcfield-surge | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day | bathyal-bioluminescence | bathyal-marine-snow | bathyal-midwater | typeset-ink | typeset-paper | understory-canopy | understory-clearing | understory-dusk | understory-mist) ;;
+		arcfield-graphite | arcfield-porcelain | arcfield-surge | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day | bathyal-bioluminescence | bathyal-marine-snow | bathyal-midwater | typeset-ink | typeset-paper | understory-canopy | understory-clearing | understory-dusk | understory-mist | ferric-forge | ferric-patina) ;;
 		*) die "Unknown theme: $1" ;;
 	esac
 }
@@ -126,6 +127,8 @@ title_for() {
 		understory-clearing) printf '%s\n' 'Understory Clearing' ;;
 		understory-dusk) printf '%s\n' 'Understory Dusk' ;;
 		understory-mist) printf '%s\n' 'Understory Mist' ;;
+		ferric-forge) printf '%s\n' 'Ferric Forge' ;;
+		ferric-patina) printf '%s\n' 'Ferric Patina' ;;
 	esac
 }
 
@@ -244,7 +247,7 @@ is_nonnegative_integer "$settle" || die '--settle must be a non-negative integer
 
 if [ -z "$requested_themes" ]; then
 	set -- arcfield-graphite arcfield-porcelain arcfield-surge gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day bathyal-bioluminescence bathyal-marine-snow bathyal-midwater typeset-ink typeset-paper \
-		understory-canopy understory-clearing understory-dusk understory-mist
+		understory-canopy understory-clearing understory-dusk understory-mist ferric-forge ferric-patina
 else
 	# Each value was validated above and public theme names do not contain spaces.
 	set -- $requested_themes
