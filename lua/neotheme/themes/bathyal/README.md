@@ -1,8 +1,6 @@
 # Bathyal theme family
 
-[<- neotheme.nvim](../../../../README.md)
-
-The Bathyal family takes its identity from the permanently dark, cold, high-pressure deep ocean rather than shallower coastal water. Near-black pressure-blue variants keep luminous accents selective, while Marine Snow translates the same submerged character into a pale blue-gray and off-white palette.
+Bathyal evokes the permanently dark, cold, high-pressure deep ocean. Near-black pressure-blue variants keep luminous accents selective, while Marine Snow translates the submerged character into pale blue-gray and off-white.
 
 ## Themes
 
@@ -12,19 +10,7 @@ The Bathyal family takes its identity from the permanently dark, cold, high-pres
 | `bathyal-marine-snow` | Pale and particulate with subdued organic and mineral colors. | Light |
 | `bathyal-bioluminescence` | Focused blue, cyan, and green signals with strong semantic separation. | Dark |
 
-Select any variant during setup and keep the shared colorscheme entrypoint:
-
-```lua
-require("neotheme").setup({
-	theme = "bathyal-midwater",
-})
-
-vim.cmd.colorscheme("neotheme")
-```
-
-## Visual inventory
-
-Every editor preview uses the same integrated Neovim configuration. Each palette card shows the compact colors configured by that theme exactly once. Expanded semantic aliases are intentionally omitted.
+## Previews
 
 ### Bathyal Midwater
 
@@ -55,5 +41,3 @@ Every editor preview uses the same integrated Neovim configuration. Each palette
 **Simplified palette**
 
 ![Bathyal Bioluminescence simplified palette](../../../../docs/theme/bathyal/bathyal-bioluminescence.svg)
-
-The previews and palette cards can be reproduced with the repository's [asset scripts](../../../../assets/scripts/README.md).

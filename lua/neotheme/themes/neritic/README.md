@@ -1,8 +1,6 @@
 # Neritic theme family
 
-[<- neotheme.nvim](../../../../README.md)
-
-The Neritic family brings a cool shallow-ocean identity to two vivid coastal themes and two independently tuned, lower-chroma bleached variants. Navy, turquoise, sea glass, algae, coral, sand, and moonlit blue move between dark and light surfaces without changing the shared semantic structure.
+Neritic brings a shallow-ocean and coral-reef identity to two vivid coastal themes and two lower-chroma bleached variants. Navy, turquoise, sea glass, algae, coral, sand, and moonlit blue move between dark and light surfaces within one semantic structure.
 
 ## Themes
 
@@ -13,19 +11,7 @@ The Neritic family brings a cool shallow-ocean identity to two vivid coastal the
 | `neritic-bleached-night` | Dark coastal surfaces with faded algae and bone-coral neutrals. | Dark |
 | `neritic-bleached-day` | Chalky coral surfaces with deep-water text and subdued sea glass. | Light |
 
-Select any variant during setup and keep the shared colorscheme entrypoint:
-
-```lua
-require("neotheme").setup({
-	theme = "neritic-day",
-})
-
-vim.cmd.colorscheme("neotheme")
-```
-
-## Visual inventory
-
-Every editor preview uses the same integrated Neovim configuration. Each palette card shows the compact colors configured by that theme exactly once. Expanded semantic aliases are intentionally omitted.
+## Previews
 
 ### Neritic Night
 
@@ -66,5 +52,3 @@ Every editor preview uses the same integrated Neovim configuration. Each palette
 **Simplified palette**
 
 ![Neritic Bleached Day simplified palette](../../../../docs/theme/neritic/neritic-bleached-day.svg)
-
-The previews and palette cards can be reproduced with the repository's [asset scripts](../../../../assets/scripts/README.md).

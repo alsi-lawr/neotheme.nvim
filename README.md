@@ -59,7 +59,7 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 | Arcfield | `arcfield-graphite` | Two dark and one light variant | [Themes and examples](lua/neotheme/themes/arcfield/README.md) |
 | Bathyal | `bathyal-midwater` | Two dark and one light variant | [Themes and examples](lua/neotheme/themes/bathyal/README.md) |
 | Ferric | `ferric-forge` | One dark and one light variant | [Themes and examples](lua/neotheme/themes/ferric/README.md) |
-| Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes, examples, and lineage](lua/neotheme/themes/gruber/README.md) |
+| Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes and examples](lua/neotheme/themes/gruber/README.md) |
 | Neritic | `neritic-day` | Two dark and two light variants | [Themes and examples](lua/neotheme/themes/neritic/README.md) |
 | Typeset | `typeset-paper` | One light and one dark variant | [Themes and examples](lua/neotheme/themes/typeset/README.md) |
 | Understory | `understory-canopy` | Two dark and two light variants | [Themes and examples](lua/neotheme/themes/understory/README.md) |

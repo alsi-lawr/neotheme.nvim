@@ -1,8 +1,6 @@
 # Gruber theme family
 
-[<- neotheme.nvim](../../../../README.md)
-
-The Gruber family gives Neotheme six coordinated dark and light variants. They share a warm foundation and semantic structure, then vary brightness, contrast, and chroma to cover muted, balanced, and high-clarity environments.
+Gruber is a warm family of six coordinated dark and light variants. A shared semantic structure varies in brightness, contrast, and chroma across muted, balanced, and high-clarity environments.
 
 ## Themes
 
@@ -15,19 +13,7 @@ The Gruber family gives Neotheme six coordinated dark and light variants. They s
 | `gruber-lighter` | Bright and crisp. | Light |
 | `gruber-light-muted` | Soft and lower chroma. | Light |
 
-Select any variant during setup and keep the shared colorscheme entrypoint:
-
-```lua
-require("neotheme").setup({
-	theme = "gruber-dark-muted",
-})
-
-vim.cmd.colorscheme("neotheme")
-```
-
-## Visual inventory
-
-Every editor preview uses the same integrated Neovim configuration. Each palette card shows the compact colors configured by that theme exactly once. Expanded semantic aliases are intentionally omitted.
+## Previews
 
 ### Gruber Dark Muted
 
@@ -88,11 +74,3 @@ Every editor preview uses the same integrated Neovim configuration. Each palette
 **Simplified palette**
 
 ![Gruber Light Muted simplified palette](../../../../docs/theme/gruber/gruber-light-muted.svg)
-
-The previews and palette cards can be reproduced with the repository's [asset scripts](../../../../assets/scripts/README.md).
-
-## Lineage
-
-The Gruber family builds on [blazkowolf/gruber-darker.nvim](https://github.com/blazkowolf/gruber-darker.nvim) and the work that established its Neovim foundation.
-
-Its palette lineage also includes [rexim/gruber-darker-theme](https://github.com/rexim/gruber-darker-theme), [drsooch/gruber-darker-vim](https://github.com/drsooch/gruber-darker-vim), [Jim Blevins' Emacs port](https://jblevins.org/projects/emacs-color-themes/gruber-darker-theme.el.html), and John Gruber's original [BBEdit Gruber Dark scheme](https://daringfireball.net/projects/bbcolors/schemes/).
