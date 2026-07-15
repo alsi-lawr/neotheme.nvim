@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="928" height="704" viewBox="0 0 928 704" role="img" aria-labelledby="title description">
+	<title id="title">Typewriter Smudge simplified palette</title>
+	<desc id="description">24 configured colors from the shared simplified palette.</desc>
+	<rect width="100%" height="100%" fill="#1b1b1b" rx="12" />
+	<rect x="24" y="12" width="270" height="58" rx="4" fill="#292929" />
+	<text x="40" y="39" fill="#f5efe6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="700">Typewriter Smudge</text>
+	<text x="40" y="58" fill="#cfc5b8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">Simplified palette</text>
+			<g aria-label="surface_deepest">
+				<rect x="24" y="96" width="140" height="140" rx="4" fill="#AAA69F" />
+				<text x="94" y="160" text-anchor="middle" fill="#211d19" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="94" dy="0">Deepest</tspan></text>
+				<text x="94" y="214" text-anchor="middle" fill="#211d19" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#AAA69F</text>
+			</g>
+			<g aria-label="surface_dark">
+				<rect x="172" y="96" width="140" height="140" rx="4" fill="#C6C2BB" />
+				<text x="242" y="160" text-anchor="middle" fill="#211d19" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="242" dy="0">Dark</tspan></text>
+				<text x="242" y="214" text-anchor="middle" fill="#211d19" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#C6C2BB</text>
+			</g>
+			<g aria-label="surface_base">
+				<rect x="320" y="96" width="140" height="140" rx="4" fill="#DEDBD4" />
+				<text x="390" y="160" text-anchor="middle" fill="#211d19" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="390" dy="0">Base</tspan></text>
+				<text x="390" y="214" text-anchor="middle" fill="#211d19" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#DEDBD4</text>
+			</g>
+			<g aria-label="surface_raised">
+				<rect x="468" y="96" width="140" height="140" rx="4" fill="#EBE8E1" />
+				<text x="538" y="160" text-anchor="middle" fill="#211d19" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="538" dy="0">Raised</tspan></text>
+				<text x="538" y="214" text-anchor="middle" fill="#211d19" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#EBE8E1</text>
+			</g>
+			<g aria-label="surface_selected">
+				<rect x="616" y="96" width="140" height="140" rx="4" fill="#BBB8B2" />
+				<text x="686" y="160" text-anchor="middle" fill="#211d19" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="686" dy="0">Selected</tspan></text>
+				<text x="686" y="214" text-anchor="middle" fill="#211d19" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#BBB8B2</text>
+			</g>
+			<g aria-label="surface_border">
+				<rect x="764" y="96" width="140" height="140" rx="4" fill="#9C9993" />
+				<text x="834" y="160" text-anchor="middle" fill="#211d19" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="834" dy="0">Border</tspan></text>
+				<text x="834" y="214" text-anchor="middle" fill="#211d19" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#9C9993</text>
+			</g>
+			<g aria-label="surface_muted">
+				<rect x="24" y="244" width="140" height="140" rx="4" fill="#85817B" />
+				<text x="94" y="308" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="94" dy="0">Muted</tspan></text>
+				<text x="94" y="362" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#85817B</text>
+			</g>
+			<g aria-label="surface_addition">
+				<rect x="172" y="244" width="140" height="140" rx="4" fill="#C9D1CA" />
+				<text x="242" y="308" text-anchor="middle" fill="#211d19" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="242" dy="0">Addition</tspan></text>
+				<text x="242" y="362" text-anchor="middle" fill="#211d19" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#C9D1CA</text>
+			</g>
+			<g aria-label="surface_error">
+				<rect x="320" y="244" width="140" height="140" rx="4" fill="#D8C2C0" />
+				<text x="390" y="300" text-anchor="middle" fill="#211d19" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="390" dy="0">Surface</tspan><tspan x="390" dy="16">error</tspan></text>
+				<text x="390" y="362" text-anchor="middle" fill="#211d19" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#D8C2C0</text>
+			</g>
+			<g aria-label="text_primary">
+				<rect x="468" y="244" width="140" height="140" rx="4" fill="#504E4A" />
+				<text x="538" y="308" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="538" dy="0">Text</tspan></text>
+				<text x="538" y="362" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#504E4A</text>
+			</g>
+			<g aria-label="text_bright">
+				<rect x="616" y="244" width="140" height="140" rx="4" fill="#383735" />
+				<text x="686" y="300" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="686" dy="0">Bright</tspan><tspan x="686" dy="16">text</tspan></text>
+				<text x="686" y="362" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#383735</text>
+			</g>
+			<g aria-label="text_strong">
+				<rect x="764" y="244" width="140" height="140" rx="4" fill="#222221" />
+				<text x="834" y="300" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="834" dy="0">Strong</tspan><tspan x="834" dy="16">text</tspan></text>
+				<text x="834" y="362" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#222221</text>
+			</g>
+			<g aria-label="text_muted">
+				<rect x="24" y="392" width="140" height="140" rx="4" fill="#706C66" />
+				<text x="94" y="448" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="94" dy="0">Muted</tspan><tspan x="94" dy="16">text</tspan></text>
+				<text x="94" y="510" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#706C66</text>
+			</g>
+			<g aria-label="text_on_accent">
+				<rect x="172" y="392" width="140" height="140" rx="4" fill="#F4F1EA" />
+				<text x="242" y="448" text-anchor="middle" fill="#211d19" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="242" dy="0">On</tspan><tspan x="242" dy="16">accent</tspan></text>
+				<text x="242" y="510" text-anchor="middle" fill="#211d19" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#F4F1EA</text>
+			</g>
+			<g aria-label="text_on_error">
+				<rect x="320" y="392" width="140" height="140" rx="4" fill="#4B2424" />
+				<text x="390" y="448" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="390" dy="0">On</tspan><tspan x="390" dy="16">error</tspan></text>
+				<text x="390" y="510" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#4B2424</text>
+			</g>
+			<g aria-label="syntax_comment">
+				<rect x="468" y="392" width="140" height="140" rx="4" fill="#7D7973" />
+				<text x="538" y="456" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="538" dy="0">Comment</tspan></text>
+				<text x="538" y="510" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#7D7973</text>
+			</g>
+			<g aria-label="syntax_string">
+				<rect x="616" y="392" width="140" height="140" rx="4" fill="#685E56" />
+				<text x="686" y="456" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="686" dy="0">String</tspan></text>
+				<text x="686" y="510" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#685E56</text>
+			</g>
+			<g aria-label="syntax_keyword">
+				<rect x="764" y="392" width="140" height="140" rx="4" fill="#42484B" />
+				<text x="834" y="456" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="834" dy="0">Keyword</tspan></text>
+				<text x="834" y="510" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#42484B</text>
+			</g>
+			<g aria-label="syntax_function_name">
+				<rect x="24" y="540" width="140" height="140" rx="4" fill="#535E64" />
+				<text x="94" y="604" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="94" dy="0">Function</tspan></text>
+				<text x="94" y="658" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#535E64</text>
+			</g>
+			<g aria-label="syntax_type">
+				<rect x="172" y="540" width="140" height="140" rx="4" fill="#726B64" />
+				<text x="242" y="604" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="242" dy="0">Type</tspan></text>
+				<text x="242" y="658" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#726B64</text>
+			</g>
+			<g aria-label="syntax_property">
+				<rect x="320" y="540" width="140" height="140" rx="4" fill="#595653" />
+				<text x="390" y="604" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="390" dy="0">Property</tspan></text>
+				<text x="390" y="658" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#595653</text>
+			</g>
+			<g aria-label="syntax_literal">
+				<rect x="468" y="540" width="140" height="140" rx="4" fill="#677074" />
+				<text x="538" y="604" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="538" dy="0">Literal</tspan></text>
+				<text x="538" y="658" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#677074</text>
+			</g>
+			<g aria-label="diagnostic_error">
+				<rect x="616" y="540" width="140" height="140" rx="4" fill="#9F4E50" />
+				<text x="686" y="604" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="686" dy="0">Diagnostic</tspan></text>
+				<text x="686" y="658" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#9F4E50</text>
+			</g>
+			<g aria-label="version_control_conflict">
+				<rect x="764" y="540" width="140" height="140" rx="4" fill="#825361" />
+				<text x="834" y="604" text-anchor="middle" fill="#fffaf4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="650"><tspan x="834" dy="0">Conflict</tspan></text>
+				<text x="834" y="658" text-anchor="middle" fill="#fffaf4" fill-opacity="0.78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">#825361</text>
+			</g>
+</svg>

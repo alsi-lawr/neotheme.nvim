@@ -62,6 +62,7 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 | Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes, examples, and lineage](docs/themes/gruber/README.md) |
 | Neritic | `neritic-day` | Two dark and two light variants | [Themes and examples](docs/themes/neritic/README.md) |
 | Typeset | `typeset-paper` | One light and one dark variant | [Themes and examples](docs/themes/typeset/README.md) |
+| Typewriter | `typewriter-ink` | Three light and two dark variants | [Themes and examples](docs/themes/typewriter/README.md) |
 | Understory | `understory-canopy` | Two dark and two light variants | [Themes and examples](docs/themes/understory/README.md) |
 
 ### Arcfield - Graphite
@@ -147,6 +148,20 @@ A warm newsprint theme whose ordinary syntax follows one ageing blue-black ink t
 ![Typeset Paper simplified palette](docs/theme/typeset/typeset-paper.svg)
 
 Explore both variants in the [Typeset family inventory](docs/themes/typeset/README.md).
+
+### Typewriter - Ink
+
+A crisp paper light theme with near-black ink, strong neutral separation, and restrained color reserved for focused signals.
+
+**Editor preview**
+
+![Typewriter Ink in Neovim](docs/theme/typewriter/typewriter-ink.png)
+
+**Simplified palette**
+
+![Typewriter Ink simplified palette](docs/theme/typewriter/typewriter-ink.svg)
+
+Explore all five variants in the [Typewriter family inventory](docs/themes/typewriter/README.md).
 
 ### Understory - Canopy
 

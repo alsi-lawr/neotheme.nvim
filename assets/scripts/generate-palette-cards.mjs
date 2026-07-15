@@ -97,6 +97,31 @@ const themes = {
 		displayName: "Typeset Paper",
 		source: "lua/neotheme/themes/typeset/paper.lua",
 	},
+	"typewriter-carbon": {
+		assetDirectory: "docs/theme/typewriter",
+		displayName: "Typewriter Carbon",
+		source: "lua/neotheme/themes/typewriter/carbon.lua",
+	},
+	"typewriter-ink": {
+		assetDirectory: "docs/theme/typewriter",
+		displayName: "Typewriter Ink",
+		source: "lua/neotheme/themes/typewriter/ink.lua",
+	},
+	"typewriter-low": {
+		assetDirectory: "docs/theme/typewriter",
+		displayName: "Typewriter Low",
+		source: "lua/neotheme/themes/typewriter/low.lua",
+	},
+	"typewriter-ribbon": {
+		assetDirectory: "docs/theme/typewriter",
+		displayName: "Typewriter Ribbon",
+		source: "lua/neotheme/themes/typewriter/ribbon.lua",
+	},
+	"typewriter-smudge": {
+		assetDirectory: "docs/theme/typewriter",
+		displayName: "Typewriter Smudge",
+		source: "lua/neotheme/themes/typewriter/smudge.lua",
+	},
 	"understory-canopy": {
 		assetDirectory: "docs/theme/understory",
 		displayName: "Understory Canopy",

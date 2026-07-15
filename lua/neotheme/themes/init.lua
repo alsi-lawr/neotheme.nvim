@@ -31,6 +31,20 @@ local modules = {
 	["neritic-night"] = { module = "neotheme.themes.neritic.night", background = "dark" },
 	["typeset-ink"] = { module = "neotheme.themes.typeset.ink", background = "dark" },
 	["typeset-paper"] = { module = "neotheme.themes.typeset.paper", background = "light" },
+	["typewriter-carbon"] = {
+		module = "neotheme.themes.typewriter.carbon",
+		background = "dark",
+	},
+	["typewriter-ink"] = { module = "neotheme.themes.typewriter.ink", background = "light" },
+	["typewriter-low"] = { module = "neotheme.themes.typewriter.low", background = "light" },
+	["typewriter-ribbon"] = {
+		module = "neotheme.themes.typewriter.ribbon",
+		background = "dark",
+	},
+	["typewriter-smudge"] = {
+		module = "neotheme.themes.typewriter.smudge",
+		background = "light",
+	},
 	["understory-canopy"] = {
 		module = "neotheme.themes.understory.canopy",
 		background = "dark",
