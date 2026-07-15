@@ -56,13 +56,13 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 
 | Family | Stand-out theme | Range | Full inventory |
 | --- | --- | --- | --- |
-| Arcfield | `arcfield-graphite` | Two dark and one light variant | [Themes and examples](lua/neotheme/themes/arcfield/README.md) |
-| Bathyal | `bathyal-midwater` | Two dark and one light variant | [Themes and examples](lua/neotheme/themes/bathyal/README.md) |
-| Ferric | `ferric-forge` | One dark and one light variant | [Themes and examples](lua/neotheme/themes/ferric/README.md) |
-| Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes and examples](lua/neotheme/themes/gruber/README.md) |
-| Neritic | `neritic-day` | Two dark and two light variants | [Themes and examples](lua/neotheme/themes/neritic/README.md) |
-| Typeset | `typeset-paper` | One light and one dark variant | [Themes and examples](lua/neotheme/themes/typeset/README.md) |
-| Understory | `understory-canopy` | Two dark and two light variants | [Themes and examples](lua/neotheme/themes/understory/README.md) |
+| Arcfield | `arcfield-graphite` | Two dark and one light variant | [Themes and examples](docs/themes/arcfield/README.md) |
+| Bathyal | `bathyal-midwater` | Two dark and one light variant | [Themes and examples](docs/themes/bathyal/README.md) |
+| Ferric | `ferric-forge` | One dark and one light variant | [Themes and examples](docs/themes/ferric/README.md) |
+| Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes, examples, and lineage](docs/themes/gruber/README.md) |
+| Neritic | `neritic-day` | Two dark and two light variants | [Themes and examples](docs/themes/neritic/README.md) |
+| Typeset | `typeset-paper` | One light and one dark variant | [Themes and examples](docs/themes/typeset/README.md) |
+| Understory | `understory-canopy` | Two dark and two light variants | [Themes and examples](docs/themes/understory/README.md) |
 
 ### Arcfield - Graphite
 
@@ -76,7 +76,7 @@ An electrified storm-dark theme with graphite-blue fields, cyan control flow, bl
 
 ![Arcfield Graphite simplified palette](docs/theme/arcfield/arcfield-graphite.svg)
 
-Explore all three variants in the [Arcfield family inventory](lua/neotheme/themes/arcfield/README.md).
+Explore all three variants in the [Arcfield family inventory](docs/themes/arcfield/README.md).
 
 ### Bathyal - Midwater
 
@@ -90,7 +90,7 @@ A near-black pressure-blue theme with cold pale text and sparse cyan, violet, gr
 
 ![Bathyal Midwater simplified palette](docs/theme/bathyal/bathyal-midwater.svg)
 
-Explore all three variants in the [Bathyal family inventory](lua/neotheme/themes/bathyal/README.md).
+Explore all three variants in the [Bathyal family inventory](docs/themes/bathyal/README.md).
 
 ### Ferric - Forge
 
@@ -104,7 +104,7 @@ An industrial dark theme with charcoal and steel surfaces, pale metal text, iron
 
 ![Ferric Forge simplified palette](docs/theme/ferric/ferric-forge.svg)
 
-Explore both variants in the [Ferric family inventory](lua/neotheme/themes/ferric/README.md).
+Explore both variants in the [Ferric family inventory](docs/themes/ferric/README.md).
 
 ### Gruber - Dark Muted
 
@@ -118,7 +118,7 @@ The current default: a restrained, warm dark theme with softened syntax colors a
 
 ![Gruber Dark Muted simplified palette](docs/theme/gruber/gruber-dark-muted.svg)
 
-Explore all six variants in the [Gruber family inventory](lua/neotheme/themes/gruber/README.md).
+Explore all six variants in the [Gruber family inventory](docs/themes/gruber/README.md).
 
 ### Neritic - Day
 
@@ -132,7 +132,7 @@ A clear coastal light theme with turquoise and fog surfaces, deep-ocean text, se
 
 ![Neritic Day simplified palette](docs/theme/neritic/neritic-day.svg)
 
-Explore all four variants in the [Neritic family inventory](lua/neotheme/themes/neritic/README.md).
+Explore all four variants in the [Neritic family inventory](docs/themes/neritic/README.md).
 
 ### Typeset - Paper
 
@@ -146,7 +146,7 @@ A warm newsprint theme whose ordinary syntax follows one ageing blue-black ink t
 
 ![Typeset Paper simplified palette](docs/theme/typeset/typeset-paper.svg)
 
-Explore both variants in the [Typeset family inventory](lua/neotheme/themes/typeset/README.md).
+Explore both variants in the [Typeset family inventory](docs/themes/typeset/README.md).
 
 ### Understory - Canopy
 
@@ -160,7 +160,7 @@ A canopy-filtered dark theme with cool forest shadows, pine-green structure, and
 
 ![Understory Canopy simplified palette](docs/theme/understory/understory-canopy.svg)
 
-Explore all four variants in the [Understory family inventory](lua/neotheme/themes/understory/README.md).
+Explore all four variants in the [Understory family inventory](docs/themes/understory/README.md).
 
 ## Customize semantic roles
 

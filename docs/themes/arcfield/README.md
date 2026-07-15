@@ -16,28 +16,28 @@ Arcfield is a storm-field family built around graphite-blue structure and lightn
 
 **Editor preview**
 
-![Arcfield Graphite in Neovim](../../../../docs/theme/arcfield/arcfield-graphite.png)
+![Arcfield Graphite in Neovim](../../theme/arcfield/arcfield-graphite.png)
 
 **Simplified palette**
 
-![Arcfield Graphite simplified palette](../../../../docs/theme/arcfield/arcfield-graphite.svg)
+![Arcfield Graphite simplified palette](../../theme/arcfield/arcfield-graphite.svg)
 
 ### Arcfield Porcelain
 
 **Editor preview**
 
-![Arcfield Porcelain in Neovim](../../../../docs/theme/arcfield/arcfield-porcelain.png)
+![Arcfield Porcelain in Neovim](../../theme/arcfield/arcfield-porcelain.png)
 
 **Simplified palette**
 
-![Arcfield Porcelain simplified palette](../../../../docs/theme/arcfield/arcfield-porcelain.svg)
+![Arcfield Porcelain simplified palette](../../theme/arcfield/arcfield-porcelain.svg)
 
 ### Arcfield Surge
 
 **Editor preview**
 
-![Arcfield Surge in Neovim](../../../../docs/theme/arcfield/arcfield-surge.png)
+![Arcfield Surge in Neovim](../../theme/arcfield/arcfield-surge.png)
 
 **Simplified palette**
 
-![Arcfield Surge simplified palette](../../../../docs/theme/arcfield/arcfield-surge.svg)
+![Arcfield Surge simplified palette](../../theme/arcfield/arcfield-surge.svg)
