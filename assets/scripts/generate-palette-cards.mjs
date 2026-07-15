@@ -72,6 +72,21 @@ const themes = {
 		displayName: "Neritic Bleached Day",
 		source: "lua/neotheme/themes/neritic/bleached-day.lua",
 	},
+	"bathyal-bioluminescence": {
+		assetDirectory: "docs/theme/bathyal",
+		displayName: "Bathyal Bioluminescence",
+		source: "lua/neotheme/themes/bathyal/bioluminescence.lua",
+	},
+	"bathyal-marine-snow": {
+		assetDirectory: "docs/theme/bathyal",
+		displayName: "Bathyal Marine Snow",
+		source: "lua/neotheme/themes/bathyal/marine-snow.lua",
+	},
+	"bathyal-midwater": {
+		assetDirectory: "docs/theme/bathyal",
+		displayName: "Bathyal Midwater",
+		source: "lua/neotheme/themes/bathyal/midwater.lua",
+	},
 };
 
 const labels = {

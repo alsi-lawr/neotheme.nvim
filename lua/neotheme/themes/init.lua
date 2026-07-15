@@ -2,6 +2,15 @@ local modules = {
 	["arcfield-graphite"] = { module = "neotheme.themes.arcfield.graphite", background = "dark" },
 	["arcfield-porcelain"] = { module = "neotheme.themes.arcfield.porcelain", background = "light" },
 	["arcfield-surge"] = { module = "neotheme.themes.arcfield.surge", background = "dark" },
+	["bathyal-bioluminescence"] = {
+		module = "neotheme.themes.bathyal.bioluminescence",
+		background = "dark",
+	},
+	["bathyal-marine-snow"] = {
+		module = "neotheme.themes.bathyal.marine-snow",
+		background = "light",
+	},
+	["bathyal-midwater"] = { module = "neotheme.themes.bathyal.midwater", background = "dark" },
 	["gruber-dark"] = { module = "neotheme.themes.gruber.dark", background = "dark" },
 	["gruber-dark-muted"] = { module = "neotheme.themes.gruber.dark-muted", background = "dark" },
 	["gruber-darker"] = { module = "neotheme.themes.gruber.darker", background = "dark" },
