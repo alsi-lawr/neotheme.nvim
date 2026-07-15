@@ -24,6 +24,10 @@ h.eq({
 	"neritic-night",
 	"typeset-ink",
 	"typeset-paper",
+	"understory-canopy",
+	"understory-clearing",
+	"understory-dusk",
+	"understory-mist",
 }, engine.themes(), "available themes")
 h.eq(default_theme, engine.palette(), "default theme palette")
 
@@ -90,6 +94,10 @@ for name, background in pairs({
 	["neritic-night"] = "dark",
 	["typeset-ink"] = "dark",
 	["typeset-paper"] = "light",
+	["understory-canopy"] = "dark",
+	["understory-clearing"] = "light",
+	["understory-dusk"] = "dark",
+	["understory-mist"] = "light",
 }) do
 	local original = themes.get(name)
 	local mutated = themes.get(name)
@@ -121,6 +129,10 @@ h.eq({
 	"neritic-night",
 	"typeset-ink",
 	"typeset-paper",
+	"understory-canopy",
+	"understory-clearing",
+	"understory-dusk",
+	"understory-mist",
 }, engine.themes(), "theme-list mutation must not leak")
 
 h.eq(nil, engine.roles, "semantic palette replaces the separate roles API")

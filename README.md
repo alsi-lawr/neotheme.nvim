@@ -61,6 +61,7 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 | Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes, examples, and lineage](lua/neotheme/themes/gruber/README.md) |
 | Neritic | `neritic-day` | Two dark and two light variants | [Themes and examples](lua/neotheme/themes/neritic/README.md) |
 | Typeset | `typeset-paper` | One light and one dark variant | [Themes and examples](lua/neotheme/themes/typeset/README.md) |
+| Understory | `understory-canopy` | Two dark and two light variants | [Themes and examples](lua/neotheme/themes/understory/README.md) |
 
 ### Arcfield - Graphite
 
@@ -131,6 +132,20 @@ A warm newsprint theme whose ordinary syntax follows one ageing blue-black ink t
 ![Typeset Paper simplified palette](docs/theme/typeset/typeset-paper.svg)
 
 Explore both variants in the [Typeset family inventory](lua/neotheme/themes/typeset/README.md).
+
+### Understory - Canopy
+
+A canopy-filtered dark theme with cool forest shadows, pine-green structure, and distinct moss, fern, lichen, bark, and amber details.
+
+**Editor preview**
+
+![Understory Canopy in Neovim](docs/theme/understory/understory-canopy.png)
+
+**Simplified palette**
+
+![Understory Canopy simplified palette](docs/theme/understory/understory-canopy.svg)
+
+Explore all four variants in the [Understory family inventory](lua/neotheme/themes/understory/README.md).
 
 ## Customize semantic roles
 
