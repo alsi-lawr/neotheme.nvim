@@ -55,8 +55,9 @@ arcfield-surge, gruber-dark-muted, gruber-dark, gruber-darker, gruber-light,
 gruber-lighter, gruber-light-muted, neritic-night, neritic-day,
 neritic-bleached-night, neritic-bleached-day, bathyal-bioluminescence,
 bathyal-marine-snow, bathyal-midwater, typeset-ink, typeset-paper,
-understory-canopy, understory-clearing, understory-dusk, understory-mist,
-ferric-forge, and ferric-patina.
+typewriter-carbon, typewriter-ink, typewriter-low, typewriter-ribbon,
+typewriter-smudge, understory-canopy, understory-clearing, understory-dusk,
+understory-mist, ferric-forge, and ferric-patina.
 EOF
 }
 
@@ -88,7 +89,7 @@ is_nonnegative_integer() {
 
 validate_theme() {
 	case "$1" in
-		arcfield-graphite | arcfield-porcelain | arcfield-surge | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day | bathyal-bioluminescence | bathyal-marine-snow | bathyal-midwater | typeset-ink | typeset-paper | understory-canopy | understory-clearing | understory-dusk | understory-mist | ferric-forge | ferric-patina) ;;
+		arcfield-graphite | arcfield-porcelain | arcfield-surge | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day | bathyal-bioluminescence | bathyal-marine-snow | bathyal-midwater | typeset-ink | typeset-paper | typewriter-carbon | typewriter-ink | typewriter-low | typewriter-ribbon | typewriter-smudge | understory-canopy | understory-clearing | understory-dusk | understory-mist | ferric-forge | ferric-patina) ;;
 		*) die "Unknown theme: $1" ;;
 	esac
 }
@@ -123,6 +124,11 @@ title_for() {
 		bathyal-midwater) printf '%s\n' 'Bathyal Midwater' ;;
 		typeset-ink) printf '%s\n' 'Typeset Ink' ;;
 		typeset-paper) printf '%s\n' 'Typeset Paper' ;;
+		typewriter-carbon) printf '%s\n' 'Typewriter Carbon' ;;
+		typewriter-ink) printf '%s\n' 'Typewriter Ink' ;;
+		typewriter-low) printf '%s\n' 'Typewriter Low' ;;
+		typewriter-ribbon) printf '%s\n' 'Typewriter Ribbon' ;;
+		typewriter-smudge) printf '%s\n' 'Typewriter Smudge' ;;
 		understory-canopy) printf '%s\n' 'Understory Canopy' ;;
 		understory-clearing) printf '%s\n' 'Understory Clearing' ;;
 		understory-dusk) printf '%s\n' 'Understory Dusk' ;;
@@ -246,7 +252,7 @@ is_positive_integer "$timeout" || die '--timeout must be a positive integer'
 is_nonnegative_integer "$settle" || die '--settle must be a non-negative integer'
 
 if [ -z "$requested_themes" ]; then
-	set -- arcfield-graphite arcfield-porcelain arcfield-surge gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day bathyal-bioluminescence bathyal-marine-snow bathyal-midwater typeset-ink typeset-paper \
+	set -- arcfield-graphite arcfield-porcelain arcfield-surge gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day bathyal-bioluminescence bathyal-marine-snow bathyal-midwater typeset-ink typeset-paper typewriter-carbon typewriter-ink typewriter-low typewriter-ribbon typewriter-smudge \
 		understory-canopy understory-clearing understory-dusk understory-mist ferric-forge ferric-patina
 else
 	# Each value was validated above and public theme names do not contain spaces.

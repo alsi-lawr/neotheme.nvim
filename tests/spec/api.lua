@@ -26,6 +26,11 @@ h.eq({
 	"neritic-night",
 	"typeset-ink",
 	"typeset-paper",
+	"typewriter-carbon",
+	"typewriter-ink",
+	"typewriter-low",
+	"typewriter-ribbon",
+	"typewriter-smudge",
 	"understory-canopy",
 	"understory-clearing",
 	"understory-dusk",
@@ -121,6 +126,21 @@ for name, background in pairs({
 	h.eq(background, themes.background(name), name .. " background metadata")
 end
 
+for name, background in pairs({
+	["typewriter-carbon"] = "dark",
+	["typewriter-ink"] = "light",
+	["typewriter-low"] = "light",
+	["typewriter-ribbon"] = "dark",
+	["typewriter-smudge"] = "light",
+}) do
+	local original = themes.get(name)
+	local mutated = themes.get(name)
+	mutated.surface.base = mutated.diagnostic.error
+	mutated.syntax.injected = mutated.diagnostic.success
+	h.eq(original, themes.get(name), name .. " palette mutation must not leak")
+	h.eq(background, themes.background(name), name .. " background metadata")
+end
+
 local names = engine.themes()
 table.insert(names, "injected")
 h.eq({
@@ -145,6 +165,11 @@ h.eq({
 	"neritic-night",
 	"typeset-ink",
 	"typeset-paper",
+	"typewriter-carbon",
+	"typewriter-ink",
+	"typewriter-low",
+	"typewriter-ribbon",
+	"typewriter-smudge",
 	"understory-canopy",
 	"understory-clearing",
 	"understory-dusk",
