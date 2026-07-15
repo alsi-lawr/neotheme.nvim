@@ -273,7 +273,7 @@ capture_theme() {
 
 	set -- "$alacritty_command" \
 		--class neotheme-capture \
-		--title "neotheme.nvim — $title" \
+		--title "neotheme.nvim - $title" \
 		--working-directory "$repository_root" \
 		-o "window.dimensions.columns=$columns" \
 		-o "window.dimensions.lines=$lines" \
