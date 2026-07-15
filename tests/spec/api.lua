@@ -14,6 +14,8 @@ h.eq({
 	"custom",
 	"ferric-forge",
 	"ferric-patina",
+	"grove-campfire",
+	"grove-parchment",
 	"gruber-dark",
 	"gruber-dark-muted",
 	"gruber-darker",
@@ -97,6 +99,8 @@ end
 for name, background in pairs({
 	["ferric-forge"] = "dark",
 	["ferric-patina"] = "light",
+	["grove-campfire"] = "dark",
+	["grove-parchment"] = "light",
 }) do
 	local original = themes.get(name)
 	local mutated = themes.get(name)
@@ -153,6 +157,8 @@ h.eq({
 	"custom",
 	"ferric-forge",
 	"ferric-patina",
+	"grove-campfire",
+	"grove-parchment",
 	"gruber-dark",
 	"gruber-dark-muted",
 	"gruber-darker",

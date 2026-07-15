@@ -51,8 +51,8 @@ Options:
   -h, --help                Show this help.
 
 The supported public names are arcfield-graphite, arcfield-porcelain,
-arcfield-surge, gruber-dark-muted, gruber-dark, gruber-darker, gruber-light,
-gruber-lighter, gruber-light-muted, neritic-night, neritic-day,
+arcfield-surge, grove-campfire, grove-parchment, gruber-dark-muted, gruber-dark,
+gruber-darker, gruber-light, gruber-lighter, gruber-light-muted, neritic-night, neritic-day,
 neritic-bleached-night, neritic-bleached-day, bathyal-bioluminescence,
 bathyal-marine-snow, bathyal-midwater, typeset-ink, typeset-paper,
 typewriter-carbon, typewriter-ink, typewriter-low, typewriter-ribbon,
@@ -89,7 +89,7 @@ is_nonnegative_integer() {
 
 validate_theme() {
 	case "$1" in
-		arcfield-graphite | arcfield-porcelain | arcfield-surge | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day | bathyal-bioluminescence | bathyal-marine-snow | bathyal-midwater | typeset-ink | typeset-paper | typewriter-carbon | typewriter-ink | typewriter-low | typewriter-ribbon | typewriter-smudge | understory-canopy | understory-clearing | understory-dusk | understory-mist | ferric-forge | ferric-patina) ;;
+		arcfield-graphite | arcfield-porcelain | arcfield-surge | grove-campfire | grove-parchment | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day | bathyal-bioluminescence | bathyal-marine-snow | bathyal-midwater | typeset-ink | typeset-paper | typewriter-carbon | typewriter-ink | typewriter-low | typewriter-ribbon | typewriter-smudge | understory-canopy | understory-clearing | understory-dusk | understory-mist | ferric-forge | ferric-patina) ;;
 		*) die "Unknown theme: $1" ;;
 	esac
 }
@@ -109,6 +109,8 @@ title_for() {
 		arcfield-graphite) printf '%s\n' 'Arcfield Graphite' ;;
 		arcfield-porcelain) printf '%s\n' 'Arcfield Porcelain' ;;
 		arcfield-surge) printf '%s\n' 'Arcfield Surge' ;;
+		grove-campfire) printf '%s\n' 'Grove Campfire' ;;
+		grove-parchment) printf '%s\n' 'Grove Parchment' ;;
 		gruber-dark-muted) printf '%s\n' 'Gruber Dark Muted' ;;
 		gruber-dark) printf '%s\n' 'Gruber Dark' ;;
 		gruber-darker) printf '%s\n' 'Gruber Darker' ;;
@@ -252,7 +254,7 @@ is_positive_integer "$timeout" || die '--timeout must be a positive integer'
 is_nonnegative_integer "$settle" || die '--settle must be a non-negative integer'
 
 if [ -z "$requested_themes" ]; then
-	set -- arcfield-graphite arcfield-porcelain arcfield-surge gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day bathyal-bioluminescence bathyal-marine-snow bathyal-midwater typeset-ink typeset-paper typewriter-carbon typewriter-ink typewriter-low typewriter-ribbon typewriter-smudge \
+	set -- arcfield-graphite arcfield-porcelain arcfield-surge grove-campfire grove-parchment gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day bathyal-bioluminescence bathyal-marine-snow bathyal-midwater typeset-ink typeset-paper typewriter-carbon typewriter-ink typewriter-low typewriter-ribbon typewriter-smudge \
 		understory-canopy understory-clearing understory-dusk understory-mist ferric-forge ferric-patina
 else
 	# Each value was validated above and public theme names do not contain spaces.
