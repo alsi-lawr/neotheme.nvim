@@ -1,7 +1,5 @@
 # Arcfield theme family
 
-[<- neotheme.nvim](../../../../README.md)
-
 Arcfield is a storm-field family built around graphite-blue structure and lightning discharge. Electric cyan controls the visual field, blue-white or cobalt callables carry the strike through navigation and links, and cool teal success, yellow-bearing members, and focused literal cores separate secondary roles.
 
 ## Themes
@@ -12,19 +10,7 @@ Arcfield is a storm-field family built around graphite-blue structure and lightn
 | `arcfield-porcelain` | Cool insulator white with charged cyan and cobalt roles. | Light |
 | `arcfield-surge` | High-energy storm contrast with brighter structural separation. | Dark |
 
-Select any variant during setup and keep the shared colorscheme entrypoint:
-
-```lua
-require("neotheme").setup({
-	theme = "arcfield-graphite",
-})
-
-vim.cmd.colorscheme("neotheme")
-```
-
-## Visual inventory
-
-Every editor preview uses the same integrated Neovim configuration. Each palette card shows the compact colors configured by that theme exactly once. Expanded semantic aliases are intentionally omitted.
+## Previews
 
 ### Arcfield Graphite
 
@@ -55,5 +41,3 @@ Every editor preview uses the same integrated Neovim configuration. Each palette
 **Simplified palette**
 
 ![Arcfield Surge simplified palette](../../../../docs/theme/arcfield/arcfield-surge.svg)
-
-The previews and palette cards can be reproduced with the repository's [asset scripts](../../../../assets/scripts/README.md).
