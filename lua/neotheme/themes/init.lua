@@ -27,6 +27,8 @@ local modules = {
 	},
 	["neritic-day"] = { module = "neotheme.themes.neritic.day", background = "light" },
 	["neritic-night"] = { module = "neotheme.themes.neritic.night", background = "dark" },
+	["typeset-ink"] = { module = "neotheme.themes.typeset.ink", background = "dark" },
+	["typeset-paper"] = { module = "neotheme.themes.typeset.paper", background = "light" },
 }
 
 local function copy(value)

@@ -22,7 +22,7 @@
 ---@field snacks boolean
 
 ---@class NeothemeOptions
----@field theme "arcfield-graphite"|"arcfield-porcelain"|"arcfield-surge"|"bathyal-bioluminescence"|"bathyal-marine-snow"|"bathyal-midwater"|"gruber-dark"|"gruber-dark-muted"|"gruber-darker"|"gruber-light"|"gruber-light-muted"|"gruber-lighter"|"neritic-bleached-day"|"neritic-bleached-night"|"neritic-day"|"neritic-night"|"custom"
+---@field theme "arcfield-graphite"|"arcfield-porcelain"|"arcfield-surge"|"bathyal-bioluminescence"|"bathyal-marine-snow"|"bathyal-midwater"|"gruber-dark"|"gruber-dark-muted"|"gruber-darker"|"gruber-light"|"gruber-light-muted"|"gruber-lighter"|"neritic-bleached-day"|"neritic-bleached-night"|"neritic-day"|"neritic-night"|"typeset-ink"|"typeset-paper"|"custom"
 ---@field configure_palette? NeothemePaletteConfigurator
 ---@field bold boolean
 ---@field italic NeothemeItalicOptions

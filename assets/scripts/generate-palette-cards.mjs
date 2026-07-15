@@ -87,6 +87,16 @@ const themes = {
 		displayName: "Bathyal Midwater",
 		source: "lua/neotheme/themes/bathyal/midwater.lua",
 	},
+	"typeset-ink": {
+		assetDirectory: "docs/theme/typeset",
+		displayName: "Typeset Ink",
+		source: "lua/neotheme/themes/typeset/ink.lua",
+	},
+	"typeset-paper": {
+		assetDirectory: "docs/theme/typeset",
+		displayName: "Typeset Paper",
+		source: "lua/neotheme/themes/typeset/paper.lua",
+	},
 };
 
 const labels = {

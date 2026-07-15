@@ -60,6 +60,7 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 | Bathyal | `bathyal-midwater` | Two dark and one light variant | [Themes and examples](lua/neotheme/themes/bathyal/README.md) |
 | Gruber | `gruber-dark-muted` | Three dark and three light variants | [Themes, examples, and lineage](lua/neotheme/themes/gruber/README.md) |
 | Neritic | `neritic-day` | Two dark and two light variants | [Themes and examples](lua/neotheme/themes/neritic/README.md) |
+| Typeset | `typeset-paper` | One light and one dark variant | [Themes and examples](lua/neotheme/themes/typeset/README.md) |
 
 ### Arcfield - Graphite
 
@@ -116,6 +117,20 @@ A clear coastal light theme with turquoise and fog surfaces, deep-ocean text, se
 ![Neritic Day simplified palette](docs/theme/neritic/neritic-day.svg)
 
 Explore all four variants in the [Neritic family inventory](lua/neotheme/themes/neritic/README.md).
+
+### Typeset - Paper
+
+A warm newsprint theme whose ordinary syntax follows one ageing blue-black ink through violet-grey oxidation, dried sepia edges, and muted residue. Stronger proofing color remains sparse.
+
+**Editor preview**
+
+![Typeset Paper in Neovim](docs/theme/typeset/typeset-paper.png)
+
+**Simplified palette**
+
+![Typeset Paper simplified palette](docs/theme/typeset/typeset-paper.svg)
+
+Explore both variants in the [Typeset family inventory](lua/neotheme/themes/typeset/README.md).
 
 ## Customize semantic roles
 
