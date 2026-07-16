@@ -23,6 +23,7 @@
 
 ---@class NeothemeOptions
 ---@field theme "arcfield-graphite"|"arcfield-porcelain"|"arcfield-surge"|"bathyal-bioluminescence"|"bathyal-marine-snow"|"bathyal-midwater"|"ferric-forge"|"ferric-patina"|"grove-campfire"|"grove-parchment"|"gruber-dark"|"gruber-dark-muted"|"gruber-darker"|"gruber-light"|"gruber-light-muted"|"gruber-lighter"|"neritic-bleached-day"|"neritic-bleached-night"|"neritic-day"|"neritic-night"|"typeset-ink"|"typeset-paper"|"typewriter-carbon"|"typewriter-ink"|"typewriter-low"|"typewriter-ribbon"|"typewriter-smudge"|"understory-canopy"|"understory-clearing"|"understory-dusk"|"understory-mist"|"custom"
+---@field motion "reduced"|"winblend"|"interpolate"
 ---@field configure_palette? NeothemePaletteConfigurator
 ---@field bold boolean
 ---@field italic NeothemeItalicOptions
@@ -33,6 +34,7 @@
 ---@type NeothemeOptions
 local defaults = {
 	theme = "gruber-dark-muted",
+	motion = "interpolate",
 	configure_palette = nil,
 	bold = true,
 	italic = {
@@ -64,6 +66,7 @@ local defaults = {
 
 local schema = {
 	theme = "string",
+	motion = "string",
 	configure_palette = "function",
 	bold = "boolean",
 	italic = {
@@ -91,6 +94,12 @@ local schema = {
 		noice = "boolean",
 		snacks = "boolean",
 	},
+}
+
+local motion_values = {
+	reduced = true,
+	winblend = true,
+	interpolate = true,
 }
 
 local function copy(value)
@@ -144,6 +153,9 @@ local M = {}
 function M._prepare(options)
 	options = options or {}
 	validate(options, schema, "options")
+	if options.motion ~= nil and not motion_values[options.motion] then
+		error("neotheme: options.motion must be one of: reduced, winblend, interpolate", 2)
+	end
 	return merge(copy(defaults), options)
 end
 

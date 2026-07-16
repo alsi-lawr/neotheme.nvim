@@ -200,6 +200,21 @@ function M.switch(theme)
 	return M
 end
 
+---@param theme string
+---@return NeothemePreparedTheme
+function M._prepare_preview(theme)
+	if type(theme) ~= "string" or theme == "" then
+		error("neotheme: preview theme must be a non-empty string", 2)
+	end
+	if theme == "custom" then
+		error("neotheme: cannot preview the custom theme", 2)
+	end
+
+	local options = copy(config.get())
+	options.theme = theme
+	return copy(prepare_theme(options))
+end
+
 ---@return string configured_theme
 function M.reset()
 	local configured = config.get()

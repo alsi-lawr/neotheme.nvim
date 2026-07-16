@@ -167,6 +167,10 @@ local function highlight_link(name)
 	return vim.api.nvim_get_hl(0, { name = name, link = true }).link
 end
 
+local function preview_highlight(state, name)
+	return vim.api.nvim_get_hl(state.preview_namespace, { name = name })
+end
+
 local function tab_marks(state)
 	return vim.api.nvim_buf_get_extmarks(
 		state.list_buffer,
@@ -239,6 +243,7 @@ h.eq(nil, browser._state(), "unloaded entry has no active browser")
 local configured_calls = 0
 engine.setup({
 	theme = "gruber-dark",
+	motion = "reduced",
 	configure_palette = function(palette)
 		configured_calls = configured_calls + 1
 		palette.ui.search = palette.diagnostic.error
@@ -354,7 +359,13 @@ h.eq(
 	"active theme stored"
 )
 h.eq("gruber-dark", state.last_previewed_theme, "active theme is initial preview state")
+h.eq("reduced", state.motion, "browser captures global motion policy")
 h.eq(1, configured_calls, "opening built-in does not switch")
+h.eq(
+	h.highlight("Normal"),
+	preview_highlight(state, "Normal"),
+	"initial preview uses the applied palette"
+)
 
 local selector_lines = vim.api.nvim_buf_get_lines(state.list_buffer, 0, -1, false)
 h.eq("  1 Families    2 Themes  ", selector_lines[1], "tab line")
@@ -574,8 +585,12 @@ local typeset_state = assert(browser._state())
 h.eq("themes", typeset_state.mode, "enter drills into different family")
 h.eq("typeset-ink", typeset_state.last_previewed_theme, "different family previews first theme")
 h.eq(2, configured_calls, "different family preview callback")
-h.eq("typeset-ink", engine.current().active_theme, "different family preview active theme")
-h.eq("dark", engine.current().background, "different family preview background")
+h.eq(entry_state, runtime_state(), "different family preview remains local")
+h.eq(
+	h.color(typeset_state.preview_palette.surface.base),
+	preview_highlight(typeset_state, "Normal").bg,
+	"different family palette reaches preview namespace"
+)
 
 press("<S-Tab>")
 h.eq("families", browser._state().mode, "shift-tab switches to families")
@@ -596,17 +611,21 @@ move_to("typeset-paper")
 local selected_state = assert(browser._state())
 h.eq(3, configured_calls, "theme movement previews once")
 h.eq("typeset-paper", selected_state.last_previewed_theme, "theme movement preview state")
-h.eq("typeset-paper", engine.current().active_theme, "theme movement active theme")
-h.eq("light", engine.current().background, "theme movement background")
-h.eq(true, engine.current().session_override, "theme movement override")
-h.falsy(h.highlight("NeothemeKeyword").bold, "preview retains configured typography")
-h.falsy(h.highlight("NeothemeString").italic, "preview retains configured italics")
-h.eq(
-	h.color(engine.palette().ui.search),
-	h.highlight("TelescopeMatching").fg,
-	"preview integration"
+h.eq(entry_state, runtime_state(), "theme movement preserves complete global state")
+h.falsy(
+	preview_highlight(selected_state, "NeothemeKeyword").bold,
+	"preview retains configured typography"
 )
-h.eq({}, h.highlight("CmpItemAbbrMatch"), "preview disabled integration")
+h.falsy(
+	preview_highlight(selected_state, "NeothemeString").italic,
+	"preview retains configured italics"
+)
+h.eq(
+	{},
+	preview_highlight(selected_state, "TelescopeMatching"),
+	"preview excludes enabled integrations"
+)
+h.eq({}, preview_highlight(selected_state, "CmpItemAbbrMatch"), "preview excludes integrations")
 h.eq(" Preview · typeset-paper ", title(selected_state.preview_window), "preview title updates")
 h.truthy(
 	table
@@ -706,12 +725,13 @@ press_and_close("<Esc>")
 assert_clean(backdrop_state, backdrop_resources, "backdrop close then cancellation")
 
 local acceptance_config = config.get()
+local acceptance_entry = runtime_state()
 local accept_resources = resources()
 browser.open()
 local accept_state = assert(browser._state())
 move_to("typeset")
 press("<CR>")
-h.eq("typeset-ink", engine.current().active_theme, "family drill preview before accept")
+h.eq(acceptance_entry, runtime_state(), "family drill remains local before accept")
 move_to("typeset-paper")
 press_and_close("<CR>")
 h.eq("typeset-paper", engine.current().active_theme, "accept keeps selected theme")
@@ -778,6 +798,7 @@ vim.api.nvim_set_current_win(normal_origin)
 local custom_calls = 0
 engine.setup({
 	theme = "custom",
+	motion = "reduced",
 	configure_palette = function(palette)
 		custom_calls = custom_calls + 1
 		fill_custom(palette)
@@ -796,9 +817,12 @@ h.eq(
 	"custom fallback family"
 )
 h.eq("arcfield-graphite", custom_state.last_previewed_theme, "custom fallback theme")
-h.eq("arcfield-graphite", engine.current().active_theme, "custom fallback active theme")
-h.eq("custom", engine.current().configured_theme, "custom fallback configured theme")
-h.eq(true, engine.current().session_override, "custom fallback override")
+h.eq(custom_entry, runtime_state(), "custom fallback preview remains local")
+h.eq(
+	h.color(custom_state.preview_palette.surface.base),
+	preview_highlight(custom_state, "Normal").bg,
+	"custom fallback palette reaches preview namespace"
+)
 h.eq(2, custom_calls, "custom fallback callback once")
 press("<CR>")
 h.eq("themes", browser._state().mode, "custom fallback drills into themes")
@@ -834,6 +858,7 @@ engine.switch("gruber-dark")
 local mismatch_calls = 0
 engine.setup({
 	theme = "typeset-paper",
+	motion = "reduced",
 	configure_palette = function(palette)
 		mismatch_calls = mismatch_calls + 1
 		palette.ui.accent = palette.diagnostic.information
@@ -905,6 +930,7 @@ local initial_failure_calls = 0
 local initial_failure_enabled = false
 engine.setup({
 	theme = "custom",
+	motion = "reduced",
 	configure_palette = function(palette)
 		initial_failure_calls = initial_failure_calls + 1
 		if initial_failure_enabled then
@@ -936,6 +962,7 @@ local preview_failure_calls = 0
 local preview_failure_enabled = false
 engine.setup({
 	theme = "gruber-dark",
+	motion = "reduced",
 	configure_palette = function(palette)
 		preview_failure_calls = preview_failure_calls + 1
 		if preview_failure_enabled then
