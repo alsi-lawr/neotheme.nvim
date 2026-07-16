@@ -56,6 +56,8 @@ into its themes with `<CR>`, and move through them to preview each palette live.
 families. Press `<CR>` on a theme to keep it for the current session, or `<Esc>` to restore the
 exact entry state. Custom themes are excluded and selections are never persisted.
 
+![Neotheme family drill-in, live preview, cancel, and session acceptance](docs/assets/neotheme-browser.webp)
+
 Switch to another built-in theme for the current session without losing the latest setup
 options:
 
@@ -146,6 +148,9 @@ Documentation previews are reproducible with the pipeline documented in [assets/
 ```sh
 ./assets/scripts/generate-theme-assets.sh
 ```
+
+The live browser recording is reproducible with the local VHS source and tape documented in
+[docs/vhs](docs/vhs/README.md).
 
 ## License
 
