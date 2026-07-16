@@ -50,6 +50,12 @@ require("neotheme").setup({
 vim.cmd.colorscheme("neotheme")
 ```
 
+With Neotheme loaded, open the native visual browser with `:Neotheme`. Choose a family, drill
+into its themes with `<CR>`, and move through them to preview each palette live. Use `<Tab>`,
+`<S-Tab>`, `h`/`l`, or `1`/`2` to switch the `Families` and `Themes` tabs; backspace returns to
+families. Press `<CR>` on a theme to keep it for the current session, or `<Esc>` to restore the
+exact entry state. Custom themes are excluded and selections are never persisted.
+
 Switch to another built-in theme for the current session without losing the latest setup
 options:
 

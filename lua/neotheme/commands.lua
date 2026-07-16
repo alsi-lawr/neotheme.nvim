@@ -65,6 +65,17 @@ local function show_current()
 end
 
 function M.register()
+	create_user_command("Neotheme", function(arguments)
+		if arguments.args ~= "" then
+			error("neotheme: Neotheme accepts no arguments")
+		end
+
+		require("neotheme.browser").open()
+	end, {
+		nargs = "*",
+		desc = "Browse Neotheme themes",
+	})
+
 	create_user_command("NeothemeList", function(arguments)
 		if arguments.args:find("%s") then
 			error("neotheme: NeothemeList accepts at most one family argument")
