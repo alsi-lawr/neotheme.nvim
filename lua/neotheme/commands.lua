@@ -118,6 +118,17 @@ function M.register()
 		nargs = "*",
 		desc = "Reset Neotheme to the configured baseline",
 	})
+
+	create_user_command("NeothemeReload", function(arguments)
+		if arguments.args ~= "" then
+			error("neotheme: NeothemeReload accepts no arguments")
+		end
+
+		require("neotheme").reload()
+	end, {
+		nargs = "*",
+		desc = "Reload the active Neotheme selection",
+	})
 end
 
 return M

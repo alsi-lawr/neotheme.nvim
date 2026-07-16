@@ -69,6 +69,10 @@ Return to the complete latest setup baseline with `:NeothemeReset`, or call
 `require("neotheme").reset()` from Lua. Reset remains session-only and returns the configured
 theme name.
 
+Refresh the current configured theme or session override with `:NeothemeReload`, or call
+`require("neotheme").reload()` from Lua. Reload reruns `configure_palette` against a fresh base,
+reapplies the current selection, returns its theme name, and remains session-only.
+
 See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for installation alternatives, every option, integrations, palette customization, and the public API.
 
 ## Theme families
