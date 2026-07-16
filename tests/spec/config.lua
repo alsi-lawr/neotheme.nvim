@@ -3,6 +3,7 @@ local config = require("neotheme.config")
 
 local defaults = config.get()
 h.eq("gruber-dark-muted", defaults.theme, "default theme")
+h.eq("interpolate", defaults.motion, "default motion")
 h.eq(nil, defaults.configure_palette, "default palette configurator")
 h.eq(true, defaults.bold, "default bold")
 h.eq(true, defaults.italic.comments, "default comment italics")
@@ -15,6 +16,7 @@ end
 local configure_palette = function() end
 config.setup({
 	theme = "custom",
+	motion = "reduced",
 	configure_palette = configure_palette,
 	bold = false,
 	italic = { strings = false },
@@ -23,6 +25,7 @@ config.setup({
 
 local partial = config.get()
 h.eq("custom", partial.theme, "partial theme")
+h.eq("reduced", partial.motion, "configured motion")
 h.eq(configure_palette, partial.configure_palette, "partial palette configurator")
 h.eq(false, partial.bold, "partial bold")
 h.eq(false, partial.italic.strings, "partial string italics")
@@ -33,6 +36,8 @@ h.eq(false, partial.integrations.cmp, "unconfigured integration")
 local invalid = {
 	{ value = { unknown = true }, path = "options.unknown" },
 	{ value = { theme = false }, path = "options.theme" },
+	{ value = { motion = false }, path = "options.motion" },
+	{ value = { motion = "fade" }, path = "options.motion" },
 	{ value = { configure_palette = true }, path = "options.configure_palette" },
 	{ value = { bold = "yes" }, path = "options.bold" },
 	{ value = { italic = false }, path = "options.italic" },

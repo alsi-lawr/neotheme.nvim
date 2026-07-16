@@ -2,7 +2,13 @@ local M = {}
 local augroup_name = "NeothemeBrowser"
 local diagnostic_namespace = nil
 local tab_namespace = nil
+local preview_namespace = nil
 local active = nil
+local cancel_transition = nil
+
+local transition_duration = 120
+local transition_frames = 8
+local winblend_peak = 35
 
 local browser_winhighlight = table.concat({
 	"Normal:NeothemeBrowserFloat",
@@ -79,13 +85,73 @@ local function clamp(value, minimum, maximum)
 	return math.max(minimum, math.min(maximum, value))
 end
 
-local function apply_highlights()
-	vim.api.nvim_set_hl(0, "NeothemeBrowserFloat", { link = "Normal" })
-	vim.api.nvim_set_hl(0, "NeothemeBrowserBorder", { link = "Normal" })
-	vim.api.nvim_set_hl(0, "NeothemeBrowserTitle", { link = "Title" })
-	vim.api.nvim_set_hl(0, "NeothemeBrowserTabActive", { link = "Title" })
-	vim.api.nvim_set_hl(0, "NeothemeBrowserTabInactive", { link = "Comment" })
-	vim.api.nvim_set_hl(0, "NeothemeBrowserBackdrop", { bg = "#000000" })
+local function interpolate_color(source, target, progress)
+	local source_red, source_green, source_blue = source:match("^#(%x%x)(%x%x)(%x%x)$")
+	local target_red, target_green, target_blue = target:match("^#(%x%x)(%x%x)(%x%x)$")
+	if source_red == nil or target_red == nil then
+		return progress < 1 and source or target
+	end
+
+	local function channel(from, to)
+		return math.floor(
+			tonumber(from, 16) + (tonumber(to, 16) - tonumber(from, 16)) * progress + 0.5
+		)
+	end
+
+	return string.format(
+		"#%02x%02x%02x",
+		channel(source_red, target_red),
+		channel(source_green, target_green),
+		channel(source_blue, target_blue)
+	)
+end
+
+---@param source NeothemePalette
+---@param target NeothemePalette
+---@param progress number
+---@return NeothemePalette
+function M._interpolate_palette(source, target, progress)
+	progress = clamp(progress, 0, 1)
+	local result = {}
+	local categories = {}
+	for category in pairs(source) do
+		categories[category] = true
+	end
+	for category in pairs(target) do
+		categories[category] = true
+	end
+
+	for category in pairs(categories) do
+		result[category] = {}
+		local fields = {}
+		for field in pairs(source[category] or {}) do
+			fields[field] = true
+		end
+		for field in pairs(target[category] or {}) do
+			fields[field] = true
+		end
+		for field in pairs(fields) do
+			local from = source[category] and source[category][field] or nil
+			local to = target[category] and target[category][field] or nil
+			if type(from) == "string" and type(to) == "string" then
+				result[category][field] = interpolate_color(from, to, progress)
+			else
+				result[category][field] = progress < 1 and from or to
+			end
+		end
+	end
+
+	return result
+end
+
+local function apply_highlights(namespace)
+	namespace = namespace or 0
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserFloat", { link = "Normal" })
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserBorder", { link = "Normal" })
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTitle", { link = "Title" })
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTabActive", { link = "Title" })
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTabInactive", { link = "Comment" })
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserBackdrop", { bg = "#000000" })
 end
 
 ---@param columns integer
@@ -237,6 +303,9 @@ local function delete_augroup(browser)
 end
 
 local function cleanup_resources(browser)
+	if cancel_transition ~= nil then
+		cancel_transition(browser)
+	end
 	delete_augroup(browser)
 
 	if diagnostic_namespace ~= nil and valid_buffer(browser.preview_buffer) then
@@ -333,6 +402,103 @@ local function resize(browser)
 	browser.layout = layout
 end
 
+local function apply_preview_palette(browser, options, palette)
+	require("neotheme.highlights").apply_preview(options, palette, browser.preview_namespace)
+	apply_highlights(browser.preview_namespace)
+	browser.rendered_options = copy(options)
+	browser.rendered_palette = copy(palette)
+end
+
+cancel_transition = function(browser)
+	browser.transition_generation = (browser.transition_generation or 0) + 1
+	browser.transitioning = false
+	if valid_window(browser.preview_window) then
+		pcall(vim.api.nvim_set_option_value, "winblend", 0, { win = browser.preview_window })
+	end
+end
+
+local function transition_failed(browser, transition_error)
+	if active == browser and not browser.closing then
+		cancel(
+			browser,
+			"neotheme: failed to transition theme preview: " .. tostring(transition_error)
+		)
+	end
+end
+
+local function defer_transition(browser, generation, callback)
+	vim.defer_fn(function()
+		if active ~= browser or browser.closing or browser.transition_generation ~= generation then
+			return
+		end
+
+		local ok, transition_error = pcall(callback)
+		if not ok then
+			transition_failed(browser, transition_error)
+		end
+	end, math.floor(transition_duration / transition_frames))
+end
+
+local function interpolate_preview(browser, prepared, generation)
+	local source = copy(browser.rendered_palette or prepared.palette)
+	local frame = 0
+	browser.transitioning = true
+
+	local function render_frame()
+		frame = frame + 1
+		local linear_progress = frame / transition_frames
+		local progress = 1 - (1 - linear_progress) ^ 3
+		apply_preview_palette(
+			browser,
+			prepared.options,
+			M._interpolate_palette(source, prepared.palette, progress)
+		)
+		if frame < transition_frames then
+			defer_transition(browser, generation, render_frame)
+		else
+			browser.transitioning = false
+		end
+	end
+
+	render_frame()
+end
+
+local function fade_preview(browser, prepared, generation)
+	apply_preview_palette(browser, prepared.options, prepared.palette)
+	vim.api.nvim_set_option_value("winblend", winblend_peak, { win = browser.preview_window })
+	browser.transitioning = true
+	local frame = 0
+
+	local function render_frame()
+		frame = frame + 1
+		local progress = frame / transition_frames
+		local blend = math.floor(winblend_peak * (1 - progress) ^ 2 + 0.5)
+		vim.api.nvim_set_option_value("winblend", blend, { win = browser.preview_window })
+		if frame < transition_frames then
+			defer_transition(browser, generation, render_frame)
+		else
+			browser.transitioning = false
+		end
+	end
+
+	defer_transition(browser, generation, render_frame)
+end
+
+local function transition_preview(browser, prepared)
+	cancel_transition(browser)
+	local generation = browser.transition_generation
+	browser.preview_options = copy(prepared.options)
+	browser.preview_palette = copy(prepared.palette)
+
+	if browser.motion == "reduced" then
+		apply_preview_palette(browser, prepared.options, prepared.palette)
+	elseif browser.motion == "winblend" then
+		fade_preview(browser, prepared, generation)
+	else
+		interpolate_preview(browser, prepared, generation)
+	end
+end
+
 local function perform_preview(browser, theme)
 	if browser.closing or browser.previewing or theme == browser.last_previewed_theme then
 		return true
@@ -341,10 +507,10 @@ local function perform_preview(browser, theme)
 	browser.previewing = true
 	browser.preview_attempted = true
 	local ok, preview_error = pcall(function()
-		require("neotheme").switch(theme)
-		browser.previewed = true
+		local prepared = require("neotheme")._prepare_preview(theme)
+		transition_preview(browser, prepared)
 		browser.last_previewed_theme = theme
-		apply_highlights()
+		browser.preview_matches_checkpoint = false
 		update_preview_metadata(browser, theme)
 	end)
 	browser.previewing = false
@@ -443,7 +609,7 @@ local function handle_movement(browser)
 	end
 end
 
-local function accept(browser)
+local function select_theme(browser, close_after)
 	if browser.closing then
 		return
 	end
@@ -452,13 +618,58 @@ local function accept(browser)
 		return
 	end
 
-	if not preview_or_cancel(browser, selected_theme(browser)) then
+	local theme = selected_theme(browser)
+	if not preview_or_cancel(browser, theme) then
+		return
+	end
+	if browser.preview_matches_checkpoint and theme == browser.entry_snapshot.applied_theme then
+		if close_after then
+			browser.accepted = true
+			browser.closing = true
+			cleanup_resources(browser)
+		end
 		return
 	end
 
-	browser.accepted = true
-	browser.closing = true
-	cleanup_resources(browser)
+	cancel_transition(browser)
+	local ok, selection_error = pcall(require("neotheme").switch, theme)
+	if not ok then
+		local restored, restore_error = restore_entry(browser)
+		apply_highlights()
+		if not restored then
+			cancel(
+				browser,
+				"neotheme: failed to apply theme: "
+					.. tostring(selection_error)
+					.. "; failed to restore the latest selection: "
+					.. tostring(restore_error)
+			)
+			return
+		end
+		report_error("neotheme: failed to apply theme: " .. tostring(selection_error))
+		return
+	end
+
+	apply_highlights()
+	local snapshot = require("neotheme")._snapshot_state()
+	browser.entry_snapshot = snapshot
+	browser.restored = false
+	browser.preview_options = copy(snapshot.applied_options)
+	browser.preview_palette = copy(snapshot.applied_palette)
+	browser.rendered_options = copy(snapshot.applied_options)
+	browser.rendered_palette = copy(snapshot.applied_palette)
+	browser.last_previewed_theme = theme
+	browser.preview_matches_checkpoint = true
+
+	if close_after then
+		browser.accepted = true
+		browser.closing = true
+		cleanup_resources(browser)
+		return
+	end
+
+	apply_preview_palette(browser, snapshot.applied_options, snapshot.applied_palette)
+	update_preview_metadata(browser, theme)
 end
 
 local function create_buffer(name, lines)
@@ -493,7 +704,10 @@ local function configure_list_window(browser)
 		cancel(browser)
 	end, mapping_options)
 	vim.keymap.set("n", "<CR>", function()
-		accept(browser)
+		select_theme(browser, true)
+	end, mapping_options)
+	vim.keymap.set("n", "<Space>", function()
+		select_theme(browser, false)
 	end, mapping_options)
 	vim.keymap.set("n", "<Tab>", function()
 		toggle_mode(browser)
@@ -523,6 +737,7 @@ end
 
 local function configure_preview(browser)
 	configure_browser_window(browser.preview_window)
+	vim.api.nvim_win_set_hl_ns(browser.preview_window, browser.preview_namespace)
 	vim.api.nvim_set_option_value("filetype", "lua", { buf = browser.preview_buffer })
 	vim.api.nvim_set_option_value("signcolumn", "yes", { win = browser.preview_window })
 
@@ -537,7 +752,6 @@ local function configure_preview(browser)
 	})
 	pcall(vim.treesitter.start, browser.preview_buffer, "lua")
 	vim.api.nvim_set_option_value("syntax", "lua", { buf = browser.preview_buffer })
-	update_preview_metadata(browser, browser.initial_theme)
 end
 
 local function configure_backdrop(browser)
@@ -552,7 +766,9 @@ local function create_lifecycle_autocmds(browser)
 
 	vim.api.nvim_create_autocmd("ColorScheme", {
 		group = browser.augroup,
-		callback = apply_highlights,
+		callback = function()
+			apply_highlights()
+		end,
 		desc = "Refresh Neotheme browser float highlights",
 	})
 
@@ -660,6 +876,10 @@ end
 
 local function create_browser(browser)
 	apply_highlights()
+	if preview_namespace == nil then
+		preview_namespace = vim.api.nvim_create_namespace("NeothemeBrowserPreview")
+	end
+	browser.preview_namespace = preview_namespace
 	local family = selected_family(browser)
 	local lines = copy(preview_lines)
 	lines[1] = string.format(lines[1], family)
@@ -707,19 +927,29 @@ local function create_browser(browser)
 	configure_backdrop(browser)
 	configure_list_window(browser)
 	configure_preview(browser)
+	local initial_prepared
+	if browser.initial_theme == browser.entry_snapshot.applied_theme then
+		initial_prepared = {
+			options = copy(browser.entry_snapshot.applied_options),
+			palette = copy(browser.entry_snapshot.applied_palette),
+		}
+	else
+		browser.preview_attempted = true
+		initial_prepared = require("neotheme")._prepare_preview(browser.initial_theme)
+	end
+	apply_preview_palette(browser, initial_prepared.options, initial_prepared.palette)
+	browser.preview_options = copy(initial_prepared.options)
+	browser.preview_palette = copy(initial_prepared.palette)
+	browser.last_previewed_theme = browser.initial_theme
+	browser.preview_matches_checkpoint = browser.initial_theme
+		== browser.entry_snapshot.applied_theme
+	update_preview_metadata(browser, browser.initial_theme)
 	if tab_namespace == nil then
 		tab_namespace = vim.api.nvim_create_namespace("NeothemeBrowserTabs")
 	end
 	render_selector(browser)
 	create_lifecycle_autocmds(browser)
 	active = browser
-
-	if not browser.initial_theme_listed then
-		local ok, preview_error = perform_preview(browser, browser.initial_theme)
-		if not ok then
-			error(preview_error)
-		end
-	end
 end
 
 function M.open()
@@ -758,10 +988,14 @@ function M.open()
 		mode = "families",
 		previewed = false,
 		previewing = false,
+		preview_matches_checkpoint = false,
 		rendering = false,
 		restored = false,
+		transition_generation = 0,
+		transitioning = false,
 		origin_window = vim.api.nvim_get_current_win(),
 		entry_snapshot = engine._snapshot_state(),
+		motion = require("neotheme.config").get().motion,
 		families = families,
 		themes_by_family = themes_by_family,
 		theme_families = theme_families,
@@ -771,7 +1005,7 @@ function M.open()
 		selected_theme_index = theme_index,
 		initial_theme = initial_theme,
 		initial_theme_listed = listed,
-		last_previewed_theme = listed and current.active_theme or nil,
+		last_previewed_theme = nil,
 	}
 
 	local ok, creation_error = xpcall(function()
@@ -805,6 +1039,7 @@ function M._state()
 		preview_window = active.preview_window,
 		list_buffer = active.list_buffer,
 		preview_buffer = active.preview_buffer,
+		preview_namespace = active.preview_namespace,
 		diagnostic_namespace = diagnostic_namespace,
 		tab_namespace = tab_namespace,
 		origin_window = active.origin_window,
@@ -817,6 +1052,12 @@ function M._state()
 		selected_family_index = active.selected_family_index,
 		selected_theme_index = active.selected_theme_index,
 		last_previewed_theme = active.last_previewed_theme,
+		motion = active.motion,
+		transition_generation = active.transition_generation,
+		transitioning = active.transitioning,
+		rendered_palette = active.rendered_palette,
+		preview_palette = active.preview_palette,
+		preview_matches_checkpoint = active.preview_matches_checkpoint,
 	})
 end
 

@@ -50,14 +50,12 @@ require("neotheme").setup({
 vim.cmd.colorscheme("neotheme")
 ```
 
-With Neotheme loaded, open the native visual browser with `:Neotheme`. Choose a family, drill
-into its themes with `<CR>`, and move through them to preview each palette live. Use `<Tab>`,
-`<S-Tab>`, `h`/`l`, or `1`/`2` to switch the `Families` and `Themes` tabs; backspace returns to
-families. Press `<CR>` on a theme to keep it for the current session, or `<Esc>`/`q` to restore
-the exact entry state. The browser re-centers when Neovim is resized and safely cancels if the
-editor becomes too small. Custom themes are excluded and selections are never persisted.
+With Neotheme loaded, `:Neotheme` opens the family-first visual browser. Theme navigation changes
+only the code preview until `<Space>` applies a choice or `<CR>` applies it and closes. Press
+`<Esc>` or `q` to leave at the latest confirmed theme. Transitions default to palette
+interpolation; `motion = "winblend"` and `motion = "reduced"` offer quieter alternatives.
 
-![Neotheme family drill-in, live preview, cancel, and session acceptance](docs/assets/neotheme-browser.webp)
+![Neotheme family drill-in, preview-only navigation, and session confirmation](docs/assets/neotheme-browser.webp)
 
 Switch to another built-in theme for the current session without losing the latest setup
 options:
