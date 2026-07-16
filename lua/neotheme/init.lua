@@ -89,9 +89,19 @@ function M.palette()
 	return copy(palette)
 end
 
+---@param family? string
 ---@return string[]
-function M.themes()
-	return require("neotheme.themes").names()
+function M.themes(family)
+	return require("neotheme.themes").names(family)
+end
+
+---@return string[]
+function M.families()
+	return require("neotheme.themes").families()
+end
+
+function M._register_commands()
+	require("neotheme.commands").register()
 end
 
 function M.load()
