@@ -15,7 +15,7 @@ Usage: assets/scripts/generate-theme-assets.sh [--source-dir DIR] [--check] [roo
 
 Generate only the final static matrix and animated carousel for each target.
 Without --source-dir, temporary palette cards and editor screenshots are
-created under .agent-workspace and removed after composition.
+created in a disposable working directory and removed after composition.
 EOF
 			exit 0
 			;;

@@ -1,4 +1,4 @@
-# Run from the repository root. See docs/vhs/README.md for the exact command.
+# VHS fork: https://github.com/alsi-lawr/vhs/tree/feat/xterm6-capture-modes
 Output docs/assets/neotheme-browser.webp
 
 Require nvim

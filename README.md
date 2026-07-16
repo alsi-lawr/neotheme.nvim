@@ -150,8 +150,9 @@ Documentation previews are reproducible with the pipeline documented in [assets/
 ./assets/scripts/generate-theme-assets.sh
 ```
 
-The live browser recording is reproducible with the local VHS source and tape documented in
-[docs/vhs](docs/vhs/README.md).
+The live browser recording uses the checked-in
+[VHS tape](docs/vhs/neotheme-browser.tape) and the
+[`alsi-lawr/vhs` WebP capture fork](https://github.com/alsi-lawr/vhs/tree/feat/xterm6-capture-modes).
 
 ## License
 

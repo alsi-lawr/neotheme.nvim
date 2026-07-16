@@ -4,7 +4,7 @@ Every script resolves the checkout from its own path, so it can be invoked from 
 
 ## Final theme assets
 
-`generate-theme-assets.sh` is the public asset pipeline. For the root family overview and for every family, it leaves exactly two final files: a static editor-and-palette matrix and an animated 30 FPS WebP carousel. Temporary editor screenshots and palette cards are generated under `.agent-workspace/` and removed when composition finishes.
+`generate-theme-assets.sh` is the public asset pipeline. For the root family overview and for every family, it leaves exactly two final files: a static editor-and-palette matrix and an animated 30 FPS WebP carousel. Temporary editor screenshots and palette cards are generated in a disposable working directory and removed when composition finishes.
 
 It requires Node.js 18 or newer, FFmpeg with `libwebp` and `libwebp_anim`, GNU `timeout`, and a Chromium-compatible browser. Live screenshot capture additionally needs the KDE tools described below.
 
@@ -38,7 +38,7 @@ Generate only selected public themes:
 
 ```sh
 ./assets/scripts/generate-palette-cards.sh \
-	--output-dir .agent-workspace/theme-inputs \
+	--output-dir /tmp/neotheme-theme-inputs \
 	gruber-dark gruber-light
 ```
 
@@ -66,7 +66,7 @@ Capture every current public variant with the normal Neovim config:
 
 ```sh
 ./assets/scripts/capture-theme-screenshots.sh \
-	--output-dir .agent-workspace/theme-inputs
+	--output-dir /tmp/neotheme-theme-inputs
 ```
 
 Use a specific regular config, output directory, or selected variants:
@@ -74,7 +74,7 @@ Use a specific regular config, output directory, or selected variants:
 ```sh
 ./assets/scripts/capture-theme-screenshots.sh \
 	--config ~/.config/nvim/init.lua \
-	--output-dir .agent-workspace/theme-inputs \
+	--output-dir /tmp/neotheme-theme-inputs \
 	gruber-dark-muted gruber-light-muted
 ```
 
@@ -85,5 +85,5 @@ The script opens `lua/neotheme/init.lua` by default; choose another visible file
 ```sh
 ./assets/scripts/capture-theme-screenshots.sh \
 	--check \
-	--output-dir .agent-workspace/theme-inputs
+	--output-dir /tmp/neotheme-theme-inputs
 ```
