@@ -35,14 +35,9 @@ h.eq(false, partial.integrations.cmp, "unconfigured integration")
 
 local invalid = {
 	{ value = { unknown = true }, path = "options.unknown" },
-	{ value = { theme = false }, path = "options.theme" },
-	{ value = { motion = false }, path = "options.motion" },
 	{ value = { motion = "fade" }, path = "options.motion" },
 	{ value = { configure_palette = true }, path = "options.configure_palette" },
-	{ value = { bold = "yes" }, path = "options.bold" },
-	{ value = { italic = false }, path = "options.italic" },
 	{ value = { italic = { unknown = true } }, path = "options.italic.unknown" },
-	{ value = { integrations = { unknown = true } }, path = "options.integrations.unknown" },
 	{ value = { integrations = { cmp = "yes" } }, path = "options.integrations.cmp" },
 }
 

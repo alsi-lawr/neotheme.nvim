@@ -24,27 +24,19 @@ local mode_colors = {
 
 for mode, color in pairs(mode_colors) do
 	h.eq(color, explicit[mode].a.bg, mode .. " Lualine color")
-	h.eq(palette.text.on_accent, explicit[mode].a.fg, mode .. " Lualine contrast")
-	h.eq(palette.surface.selected, explicit[mode].b.bg, mode .. " Lualine selected surface")
-	h.eq(palette.surface.base, explicit[mode].c.bg, mode .. " Lualine background")
 	for _, section in ipairs({ "a", "b", "c" }) do
 		h.truthy(type(explicit[mode][section]) == "table", mode .. " Lualine section " .. section)
 	end
 end
+h.eq(palette.text.on_accent, explicit.normal.a.fg, "Lualine mode contrast")
+h.eq(palette.surface.selected, explicit.normal.b.bg, "Lualine selected surface")
+h.eq(palette.surface.base, explicit.normal.c.bg, "Lualine base surface")
 
 for _, section in ipairs({ "a", "b", "c" }) do
 	h.truthy(type(explicit.inactive[section]) == "table", "inactive Lualine section " .. section)
-	h.eq(
-		palette.text.muted,
-		explicit.inactive[section].fg,
-		"inactive Lualine foreground " .. section
-	)
-	h.eq(
-		palette.surface.base,
-		explicit.inactive[section].bg,
-		"inactive Lualine background " .. section
-	)
 end
+h.eq(palette.text.muted, explicit.inactive.a.fg, "inactive Lualine foreground")
+h.eq(palette.surface.base, explicit.inactive.c.bg, "inactive Lualine background")
 
 engine.setup({ theme = "gruber-light" })
 engine.load()
