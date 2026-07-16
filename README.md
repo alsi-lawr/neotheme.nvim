@@ -61,6 +61,10 @@ The equivalent Lua API is `require("neotheme").switch("gruber-light")`. Session 
 not write configuration. A later `setup()` replaces the in-memory baseline, and loading
 Neotheme applies that baseline.
 
+Use `:NeothemeCurrent` to inspect the active theme, configured baseline, family, background,
+and session-override status. The same read-only state is returned by
+`require("neotheme").current()`.
+
 See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for installation alternatives, every option, integrations, palette customization, and the public API.
 
 ## Theme families

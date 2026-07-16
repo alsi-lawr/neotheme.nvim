@@ -46,6 +46,24 @@ local function list_themes(family)
 	vim.api.nvim_echo({ { table.concat(lines, "\n") } }, true, {})
 end
 
+local function show_current()
+	local current = require("neotheme").current()
+	local lines = {
+		current.active_theme and "active: " .. current.active_theme or "active: not loaded",
+	}
+
+	if current.family then
+		table.insert(lines, "family: " .. current.family)
+	end
+	table.insert(lines, "configured: " .. current.configured_theme)
+	if current.background then
+		table.insert(lines, "background: " .. current.background)
+	end
+	table.insert(lines, "session override: " .. (current.session_override and "yes" or "no"))
+
+	vim.api.nvim_echo({ { table.concat(lines, "\n") } }, true, {})
+end
+
 function M.register()
 	create_user_command("NeothemeList", function(arguments)
 		if arguments.args:find("%s") then
@@ -77,6 +95,17 @@ function M.register()
 			return filtered_themes(argument_lead)
 		end,
 		desc = "Switch Neotheme for the current session",
+	})
+
+	create_user_command("NeothemeCurrent", function(arguments)
+		if arguments.args ~= "" then
+			error("neotheme: NeothemeCurrent accepts no arguments")
+		end
+
+		show_current()
+	end, {
+		nargs = "*",
+		desc = "Show the current Neotheme session state",
 	})
 end
 
