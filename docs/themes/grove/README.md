@@ -11,22 +11,6 @@ Grove is a botanical fantasy-adventure family that aims for a medieval woodland 
 
 ## Previews
 
-### Grove Campfire
+![Animated Grove editor and simplified-palette carousel](./grove-previews.webp)
 
-**Editor preview**
-
-![Grove Campfire in Neovim](./grove-campfire.png)
-
-**Simplified palette**
-
-![Grove Campfire simplified palette](./grove-campfire.svg)
-
-### Grove Parchment
-
-**Editor preview**
-
-![Grove Parchment in Neovim](./grove-parchment.png)
-
-**Simplified palette**
-
-![Grove Parchment simplified palette](./grove-parchment.svg)
+[Open the full-size Grove editor and palette matrix](./grove-matrix.webp).

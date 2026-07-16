@@ -15,65 +15,9 @@ Gruber is a warm family of six coordinated dark and light variants. A shared sem
 
 ## Previews
 
-### Gruber Dark Muted
+![Animated Gruber editor and simplified-palette carousel](./gruber-previews.webp)
 
-**Editor preview**
-
-![Gruber Dark Muted in Neovim](./gruber-dark-muted.png)
-
-**Simplified palette**
-
-![Gruber Dark Muted simplified palette](./gruber-dark-muted.svg)
-
-### Gruber Dark
-
-**Editor preview**
-
-![Gruber Dark in Neovim](./gruber-dark.png)
-
-**Simplified palette**
-
-![Gruber Dark simplified palette](./gruber-dark.svg)
-
-### Gruber Darker
-
-**Editor preview**
-
-![Gruber Darker in Neovim](./gruber-darker.png)
-
-**Simplified palette**
-
-![Gruber Darker simplified palette](./gruber-darker.svg)
-
-### Gruber Light
-
-**Editor preview**
-
-![Gruber Light in Neovim](./gruber-light.png)
-
-**Simplified palette**
-
-![Gruber Light simplified palette](./gruber-light.svg)
-
-### Gruber Lighter
-
-**Editor preview**
-
-![Gruber Lighter in Neovim](./gruber-lighter.png)
-
-**Simplified palette**
-
-![Gruber Lighter simplified palette](./gruber-lighter.svg)
-
-### Gruber Light Muted
-
-**Editor preview**
-
-![Gruber Light Muted in Neovim](./gruber-light-muted.png)
-
-**Simplified palette**
-
-![Gruber Light Muted simplified palette](./gruber-light-muted.svg)
+[Open the full-size Gruber editor and palette matrix](./gruber-matrix.webp).
 
 ## Lineage
 

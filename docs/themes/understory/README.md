@@ -13,42 +13,6 @@ Understory is a naturalistic forest family designed for long editing sessions. C
 
 ## Previews
 
-### Understory Canopy
+![Animated Understory editor and simplified-palette carousel](./understory-previews.webp)
 
-**Editor preview**
-
-![Understory Canopy in Neovim](./understory-canopy.png)
-
-**Simplified palette**
-
-![Understory Canopy simplified palette](./understory-canopy.svg)
-
-### Understory Clearing
-
-**Editor preview**
-
-![Understory Clearing in Neovim](./understory-clearing.png)
-
-**Simplified palette**
-
-![Understory Clearing simplified palette](./understory-clearing.svg)
-
-### Understory Dusk
-
-**Editor preview**
-
-![Understory Dusk in Neovim](./understory-dusk.png)
-
-**Simplified palette**
-
-![Understory Dusk simplified palette](./understory-dusk.svg)
-
-### Understory Mist
-
-**Editor preview**
-
-![Understory Mist in Neovim](./understory-mist.png)
-
-**Simplified palette**
-
-![Understory Mist simplified palette](./understory-mist.svg)
+[Open the full-size Understory editor and palette matrix](./understory-matrix.webp).

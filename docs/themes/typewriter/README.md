@@ -12,32 +12,8 @@ Typewriter evokes paper, ink, carbon, smudges, and worn ribbon through predomina
 | `typewriter-carbon` | Carbon-black surfaces and crisp paper-white text at high contrast. | Dark |
 | `typewriter-ribbon` | Soft worn charcoal with warm gray text and gentler separation. | Dark |
 
-## Typewriter Smudge
+## Previews
 
-![Typewriter Smudge editor screenshot](./typewriter-smudge.png)
+![Animated Typewriter editor and simplified-palette carousel](./typewriter-previews.webp)
 
-![Typewriter Smudge palette card](./typewriter-smudge.svg)
-
-## Typewriter Ink
-
-![Typewriter Ink editor screenshot](./typewriter-ink.png)
-
-![Typewriter Ink palette card](./typewriter-ink.svg)
-
-## Typewriter Low
-
-![Typewriter Low editor screenshot](./typewriter-low.png)
-
-![Typewriter Low palette card](./typewriter-low.svg)
-
-## Typewriter Carbon
-
-![Typewriter Carbon editor screenshot](./typewriter-carbon.png)
-
-![Typewriter Carbon palette card](./typewriter-carbon.svg)
-
-## Typewriter Ribbon
-
-![Typewriter Ribbon editor screenshot](./typewriter-ribbon.png)
-
-![Typewriter Ribbon palette card](./typewriter-ribbon.svg)
+[Open the full-size Typewriter editor and palette matrix](./typewriter-matrix.webp).

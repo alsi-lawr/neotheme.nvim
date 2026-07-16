@@ -25,18 +25,20 @@ requested_themes=""
 preview_pid=""
 ready_file=""
 error_file=""
+registered_themes=$(sed -n 's/^[[:space:]]*\["\([^"]*\)"\].*/\1/p' "$repository_root/lua/neotheme/themes/init.lua")
 
 usage() {
 	cat <<'EOF'
 Usage: assets/scripts/capture-theme-screenshots.sh [options] [theme ...]
 
-Capture live PNG previews for all current built-in themes, or only the named
-public theme(s). Neovim loads its normal configuration unless --config is set;
-the selected theme is changed only inside the capture process.
+Capture temporary live PNG inputs for all registered built-in themes, or only
+the named public theme(s). --output-dir is required. Neovim loads its normal
+configuration unless --config is set; the selected theme is changed only
+inside the capture process.
 
 Options:
   --config PATH             Use this Neovim init.lua instead of the normal config.
-  --output-dir PATH         Write all PNGs here instead of docs/themes/<family>.
+  --output-dir PATH         Write the temporary PNG inputs here (required).
   --file PATH               Open this file in the capture (default: neotheme init.lua).
   --columns NUMBER          Alacritty width in columns (default: 148).
   --lines NUMBER            Alacritty height in lines (default: 52).
@@ -50,14 +52,7 @@ Options:
   --check                   Verify that the requested PNG assets exist; do not capture.
   -h, --help                Show this help.
 
-The supported public names are arcfield-graphite, arcfield-porcelain,
-arcfield-surge, grove-campfire, grove-parchment, gruber-dark-muted, gruber-dark,
-gruber-darker, gruber-light, gruber-lighter, gruber-light-muted, neritic-night, neritic-day,
-neritic-bleached-night, neritic-bleached-day, bathyal-bioluminescence,
-bathyal-marine-snow, bathyal-midwater, typeset-ink, typeset-paper,
-typewriter-carbon, typewriter-ink, typewriter-low, typewriter-ribbon,
-typewriter-smudge, understory-canopy, understory-clearing, understory-dusk,
-understory-mist, ferric-forge, and ferric-patina.
+Supported public names are read from lua/neotheme/themes/init.lua.
 EOF
 }
 
@@ -88,56 +83,16 @@ is_nonnegative_integer() {
 }
 
 validate_theme() {
-	case "$1" in
-		arcfield-graphite | arcfield-porcelain | arcfield-surge | grove-campfire | grove-parchment | gruber-dark-muted | gruber-dark | gruber-darker | gruber-light | gruber-lighter | gruber-light-muted | neritic-night | neritic-day | neritic-bleached-night | neritic-bleached-day | bathyal-bioluminescence | bathyal-marine-snow | bathyal-midwater | typeset-ink | typeset-paper | typewriter-carbon | typewriter-ink | typewriter-low | typewriter-ribbon | typewriter-smudge | understory-canopy | understory-clearing | understory-dusk | understory-mist | ferric-forge | ferric-patina) ;;
-		*) die "Unknown theme: $1" ;;
-	esac
+	printf '%s\n' "$registered_themes" | grep -Fqx "$1" || die "Unknown theme: $1"
 }
 
 output_file_for() {
 	theme=$1
-	if [ -n "$output_directory" ]; then
-		printf '%s/%s.png\n' "$output_directory" "$theme"
-	else
-		family=${theme%%-*}
-		printf '%s/docs/themes/%s/%s.png\n' "$repository_root" "$family" "$theme"
-	fi
+	printf '%s/%s.png\n' "$output_directory" "$theme"
 }
 
 title_for() {
-	case "$1" in
-		arcfield-graphite) printf '%s\n' 'Arcfield Graphite' ;;
-		arcfield-porcelain) printf '%s\n' 'Arcfield Porcelain' ;;
-		arcfield-surge) printf '%s\n' 'Arcfield Surge' ;;
-		grove-campfire) printf '%s\n' 'Grove Campfire' ;;
-		grove-parchment) printf '%s\n' 'Grove Parchment' ;;
-		gruber-dark-muted) printf '%s\n' 'Gruber Dark Muted' ;;
-		gruber-dark) printf '%s\n' 'Gruber Dark' ;;
-		gruber-darker) printf '%s\n' 'Gruber Darker' ;;
-		gruber-light) printf '%s\n' 'Gruber Light' ;;
-		gruber-lighter) printf '%s\n' 'Gruber Lighter' ;;
-		gruber-light-muted) printf '%s\n' 'Gruber Light Muted' ;;
-		neritic-night) printf '%s\n' 'Neritic Night' ;;
-		neritic-day) printf '%s\n' 'Neritic Day' ;;
-		neritic-bleached-night) printf '%s\n' 'Neritic Bleached Night' ;;
-		neritic-bleached-day) printf '%s\n' 'Neritic Bleached Day' ;;
-		bathyal-bioluminescence) printf '%s\n' 'Bathyal Bioluminescence' ;;
-		bathyal-marine-snow) printf '%s\n' 'Bathyal Marine Snow' ;;
-		bathyal-midwater) printf '%s\n' 'Bathyal Midwater' ;;
-		typeset-ink) printf '%s\n' 'Typeset Ink' ;;
-		typeset-paper) printf '%s\n' 'Typeset Paper' ;;
-		typewriter-carbon) printf '%s\n' 'Typewriter Carbon' ;;
-		typewriter-ink) printf '%s\n' 'Typewriter Ink' ;;
-		typewriter-low) printf '%s\n' 'Typewriter Low' ;;
-		typewriter-ribbon) printf '%s\n' 'Typewriter Ribbon' ;;
-		typewriter-smudge) printf '%s\n' 'Typewriter Smudge' ;;
-		understory-canopy) printf '%s\n' 'Understory Canopy' ;;
-		understory-clearing) printf '%s\n' 'Understory Clearing' ;;
-		understory-dusk) printf '%s\n' 'Understory Dusk' ;;
-		understory-mist) printf '%s\n' 'Understory Mist' ;;
-		ferric-forge) printf '%s\n' 'Ferric Forge' ;;
-		ferric-patina) printf '%s\n' 'Ferric Patina' ;;
-	esac
+	printf '%s\n' "$1" | tr '-' ' ' | awk '{ for (i = 1; i <= NF; i++) $i = toupper(substr($i, 1, 1)) substr($i, 2) } 1'
 }
 
 require_executable() {
@@ -252,10 +207,11 @@ is_positive_integer "$columns" || die '--columns must be a positive integer'
 is_positive_integer "$lines" || die '--lines must be a positive integer'
 is_positive_integer "$timeout" || die '--timeout must be a positive integer'
 is_nonnegative_integer "$settle" || die '--settle must be a non-negative integer'
+[ -n "$output_directory" ] || die '--output-dir is required; use generate-theme-assets.sh for final assets'
 
 if [ -z "$requested_themes" ]; then
-	set -- arcfield-graphite arcfield-porcelain arcfield-surge grove-campfire grove-parchment gruber-dark-muted gruber-dark gruber-darker gruber-light gruber-lighter gruber-light-muted neritic-night neritic-day neritic-bleached-night neritic-bleached-day bathyal-bioluminescence bathyal-marine-snow bathyal-midwater typeset-ink typeset-paper typewriter-carbon typewriter-ink typewriter-low typewriter-ribbon typewriter-smudge \
-		understory-canopy understory-clearing understory-dusk understory-mist ferric-forge ferric-patina
+	# Registered names are whitespace-free public identifiers.
+	set -- $registered_themes
 else
 	# Each value was validated above and public theme names do not contain spaces.
 	set -- $requested_themes

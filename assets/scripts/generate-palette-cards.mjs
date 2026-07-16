@@ -6,163 +6,26 @@ import { fileURLToPath } from "node:url";
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(scriptDirectory, "..", "..");
 
-const themes = {
-	"arcfield-graphite": {
-		assetDirectory: "docs/themes/arcfield",
-		displayName: "Arcfield Graphite",
-		source: "lua/neotheme/themes/arcfield/graphite.lua",
-	},
-	"arcfield-porcelain": {
-		assetDirectory: "docs/themes/arcfield",
-		displayName: "Arcfield Porcelain",
-		source: "lua/neotheme/themes/arcfield/porcelain.lua",
-	},
-	"arcfield-surge": {
-		assetDirectory: "docs/themes/arcfield",
-		displayName: "Arcfield Surge",
-		source: "lua/neotheme/themes/arcfield/surge.lua",
-	},
-	"grove-campfire": {
-		assetDirectory: "docs/themes/grove",
-		displayName: "Grove Campfire",
-		source: "lua/neotheme/themes/grove/campfire.lua",
-	},
-	"grove-parchment": {
-		assetDirectory: "docs/themes/grove",
-		displayName: "Grove Parchment",
-		source: "lua/neotheme/themes/grove/parchment.lua",
-	},
-	"gruber-dark-muted": {
-		assetDirectory: "docs/themes/gruber",
-		displayName: "Gruber Dark Muted",
-		source: "lua/neotheme/themes/gruber/dark-muted.lua",
-	},
-	"gruber-dark": {
-		assetDirectory: "docs/themes/gruber",
-		displayName: "Gruber Dark",
-		source: "lua/neotheme/themes/gruber/dark.lua",
-	},
-	"gruber-darker": {
-		assetDirectory: "docs/themes/gruber",
-		displayName: "Gruber Darker",
-		source: "lua/neotheme/themes/gruber/darker.lua",
-	},
-	"gruber-light": {
-		assetDirectory: "docs/themes/gruber",
-		displayName: "Gruber Light",
-		source: "lua/neotheme/themes/gruber/light.lua",
-	},
-	"gruber-lighter": {
-		assetDirectory: "docs/themes/gruber",
-		displayName: "Gruber Lighter",
-		source: "lua/neotheme/themes/gruber/lighter.lua",
-	},
-	"gruber-light-muted": {
-		assetDirectory: "docs/themes/gruber",
-		displayName: "Gruber Light Muted",
-		source: "lua/neotheme/themes/gruber/light-muted.lua",
-	},
-	"neritic-night": {
-		assetDirectory: "docs/themes/neritic",
-		displayName: "Neritic Night",
-		source: "lua/neotheme/themes/neritic/night.lua",
-	},
-	"neritic-day": {
-		assetDirectory: "docs/themes/neritic",
-		displayName: "Neritic Day",
-		source: "lua/neotheme/themes/neritic/day.lua",
-	},
-	"neritic-bleached-night": {
-		assetDirectory: "docs/themes/neritic",
-		displayName: "Neritic Bleached Night",
-		source: "lua/neotheme/themes/neritic/bleached-night.lua",
-	},
-	"neritic-bleached-day": {
-		assetDirectory: "docs/themes/neritic",
-		displayName: "Neritic Bleached Day",
-		source: "lua/neotheme/themes/neritic/bleached-day.lua",
-	},
-	"bathyal-bioluminescence": {
-		assetDirectory: "docs/themes/bathyal",
-		displayName: "Bathyal Bioluminescence",
-		source: "lua/neotheme/themes/bathyal/bioluminescence.lua",
-	},
-	"bathyal-marine-snow": {
-		assetDirectory: "docs/themes/bathyal",
-		displayName: "Bathyal Marine Snow",
-		source: "lua/neotheme/themes/bathyal/marine-snow.lua",
-	},
-	"bathyal-midwater": {
-		assetDirectory: "docs/themes/bathyal",
-		displayName: "Bathyal Midwater",
-		source: "lua/neotheme/themes/bathyal/midwater.lua",
-	},
-	"typeset-ink": {
-		assetDirectory: "docs/themes/typeset",
-		displayName: "Typeset Ink",
-		source: "lua/neotheme/themes/typeset/ink.lua",
-	},
-	"typeset-paper": {
-		assetDirectory: "docs/themes/typeset",
-		displayName: "Typeset Paper",
-		source: "lua/neotheme/themes/typeset/paper.lua",
-	},
-	"typewriter-carbon": {
-		assetDirectory: "docs/themes/typewriter",
-		displayName: "Typewriter Carbon",
-		source: "lua/neotheme/themes/typewriter/carbon.lua",
-	},
-	"typewriter-ink": {
-		assetDirectory: "docs/themes/typewriter",
-		displayName: "Typewriter Ink",
-		source: "lua/neotheme/themes/typewriter/ink.lua",
-	},
-	"typewriter-low": {
-		assetDirectory: "docs/themes/typewriter",
-		displayName: "Typewriter Low",
-		source: "lua/neotheme/themes/typewriter/low.lua",
-	},
-	"typewriter-ribbon": {
-		assetDirectory: "docs/themes/typewriter",
-		displayName: "Typewriter Ribbon",
-		source: "lua/neotheme/themes/typewriter/ribbon.lua",
-	},
-	"typewriter-smudge": {
-		assetDirectory: "docs/themes/typewriter",
-		displayName: "Typewriter Smudge",
-		source: "lua/neotheme/themes/typewriter/smudge.lua",
-	},
-	"understory-canopy": {
-		assetDirectory: "docs/themes/understory",
-		displayName: "Understory Canopy",
-		source: "lua/neotheme/themes/understory/canopy.lua",
-	},
-	"understory-clearing": {
-		assetDirectory: "docs/themes/understory",
-		displayName: "Understory Clearing",
-		source: "lua/neotheme/themes/understory/clearing.lua",
-	},
-	"understory-dusk": {
-		assetDirectory: "docs/themes/understory",
-		displayName: "Understory Dusk",
-		source: "lua/neotheme/themes/understory/dusk.lua",
-	},
-	"understory-mist": {
-		assetDirectory: "docs/themes/understory",
-		displayName: "Understory Mist",
-		source: "lua/neotheme/themes/understory/mist.lua",
-	},
-	"ferric-forge": {
-		assetDirectory: "docs/themes/ferric",
-		displayName: "Ferric Forge",
-		source: "lua/neotheme/themes/ferric/forge.lua",
-	},
-	"ferric-patina": {
-		assetDirectory: "docs/themes/ferric",
-		displayName: "Ferric Patina",
-		source: "lua/neotheme/themes/ferric/patina.lua",
-	},
-};
+function loadThemes() {
+	const registry = readFileSync(join(repositoryRoot, "lua/neotheme/themes/init.lua"), "utf8");
+	const pattern = /\["([^"]+)"\]\s*=\s*\{[^}]*module\s*=\s*"([^"]+)"[^}]*\}/g;
+	const result = {};
+	for (const [, name, moduleName] of registry.matchAll(pattern)) {
+		result[name] = {
+			displayName: name
+				.split("-")
+				.map((part) => part[0].toUpperCase() + part.slice(1))
+				.join(" "),
+			source: `lua/${moduleName.replaceAll(".", "/")}.lua`,
+		};
+	}
+	if (Object.keys(result).length === 0) {
+		throw new Error("Could not read built-in themes from lua/neotheme/themes/init.lua");
+	}
+	return result;
+}
+
+const themes = loadThemes();
 
 const labels = {
 	surface_deepest: "Deepest",
@@ -192,20 +55,34 @@ const labels = {
 };
 
 function usage() {
-	return `Usage: assets/scripts/generate-palette-cards.sh [--check] [theme ...]
+	return `Usage: assets/scripts/generate-palette-cards.sh [options] [theme ...]
 
 Generate the SVG palette cards for all built-in themes backed by the simplified
 palette schema, or only the named public theme(s). --check verifies that the
-checked-in cards are current and exits non-zero when regeneration is needed.`;
+selected output cards are current and exits non-zero when regeneration is needed.
+
+Options:
+  --check            Verify instead of writing.
+  --output-dir PATH  Write a flat set of temporary cards to PATH.
+  -h, --help         Show this help.`;
 }
 
 function parseArguments(arguments_) {
 	let check = false;
+	let outputDirectory;
 	const requestedThemes = [];
 
-	for (const argument of arguments_) {
+	for (let index = 0; index < arguments_.length; index += 1) {
+		const argument = arguments_[index];
 		if (argument === "--check") {
 			check = true;
+			continue;
+		}
+		if (argument === "--output-dir") {
+			const value = arguments_[index + 1];
+			if (value === undefined) throw new Error("--output-dir requires a path");
+			outputDirectory = resolve(value);
+			index += 1;
 			continue;
 		}
 
@@ -226,9 +103,13 @@ function parseArguments(arguments_) {
 			requestedThemes.push(argument);
 		}
 	}
+	if (outputDirectory === undefined) {
+		throw new Error("--output-dir is required; use generate-theme-assets.sh for final assets");
+	}
 
 	return {
 		check,
+		outputDirectory,
 		themeNames: requestedThemes.length === 0 ? Object.keys(themes) : requestedThemes,
 	};
 }
@@ -339,16 +220,16 @@ function svgFor(themeName, colors) {
 </svg>`;
 }
 
-function outputPath(themeName) {
-	return join(repositoryRoot, themes[themeName].assetDirectory, `${themeName}.svg`);
+function outputPath(themeName, outputDirectory) {
+	return join(outputDirectory, `${themeName}.svg`);
 }
 
-function generate({ check, themeNames }) {
+function generate({ check, outputDirectory, themeNames }) {
 	const stalePaths = [];
 
 	for (const themeName of themeNames) {
 		const svg = svgFor(themeName, configuredColors(themeName));
-		const destination = outputPath(themeName);
+		const destination = outputPath(themeName, outputDirectory);
 
 		if (check) {
 			if (!existsSync(destination) || readFileSync(destination, "utf8") !== svg) {
@@ -366,7 +247,7 @@ function generate({ check, themeNames }) {
 		for (const stalePath of stalePaths) {
 			console.error(`Palette card is out of date: ${stalePath}`);
 		}
-		console.error("Run assets/scripts/generate-palette-cards.sh to regenerate it.");
+		console.error("Run assets/scripts/generate-palette-cards.sh with the same --output-dir.");
 		process.exitCode = 1;
 	} else if (check) {
 		console.log("Palette cards are current.");
