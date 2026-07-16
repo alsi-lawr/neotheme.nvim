@@ -18,6 +18,16 @@ local function filtered_families(prefix)
 	return matches
 end
 
+local function filtered_themes(prefix)
+	local matches = {}
+	for _, theme in ipairs(require("neotheme").themes()) do
+		if theme ~= "custom" and vim.startswith(theme, prefix) then
+			table.insert(matches, theme)
+		end
+	end
+	return matches
+end
+
 local function list_themes(family)
 	local neotheme = require("neotheme")
 	local lines = {}
@@ -50,6 +60,23 @@ function M.register()
 			return filtered_families(argument_lead)
 		end,
 		desc = "List Neotheme families or the themes in one family",
+	})
+
+	create_user_command("NeothemeSwitch", function(arguments)
+		if arguments.args == "" then
+			error("neotheme: NeothemeSwitch requires a theme argument")
+		end
+		if arguments.args:find("%s") then
+			error("neotheme: NeothemeSwitch accepts exactly one theme argument")
+		end
+
+		require("neotheme").switch(arguments.args)
+	end, {
+		nargs = "?",
+		complete = function(argument_lead)
+			return filtered_themes(argument_lead)
+		end,
+		desc = "Switch Neotheme for the current session",
 	})
 end
 

@@ -2,8 +2,22 @@ local config = require("neotheme.config")
 
 local M = {}
 local augroup_name = "Neotheme"
----@type NeothemePalette?
-local resolved_palette = nil
+
+local state = {
+	---@type NeothemePalette?
+	configured_palette = nil,
+	---@type NeothemePalette?
+	resolved_palette = nil,
+	---@type string?
+	applied_theme = nil,
+	---@type NeothemeOptions?
+	applied_options = nil,
+	---@type NeothemePalette?
+	applied_palette = nil,
+	loaded = false,
+	---@type string?
+	override_theme = nil,
+}
 
 local function copy(value)
 	if type(value) ~= "table" then
@@ -17,22 +31,48 @@ local function copy(value)
 	return result
 end
 
----@return NeothemePalette
-local function resolve_theme()
-	local options = config.get()
+---@class NeothemePreparedTheme
+---@field options NeothemeOptions
+---@field palette NeothemePalette
+---@field background "dark"|"light"
+
+---@param options NeothemeOptions
+---@return NeothemePreparedTheme
+local function prepare_theme(options)
+	local prepared_options = copy(options)
 	local palette = require("neotheme.palette")
-	local base = options.theme == "custom" and palette.empty()
-		or require("neotheme.themes").get(options.theme)
-	resolved_palette = palette.resolve(base, options)
-	return resolved_palette
+	local themes = require("neotheme.themes")
+	local background = themes.background(prepared_options.theme)
+	local base = prepared_options.theme == "custom" and palette.empty()
+		or themes.get(prepared_options.theme)
+
+	return {
+		options = prepared_options,
+		palette = palette.resolve(base, prepared_options),
+		background = background,
+	}
+end
+
+---@param options NeothemeOptions
+---@param palette NeothemePalette
+---@return NeothemePreparedTheme
+local function prepare_resolved_theme(options, palette)
+	local prepared_options = copy(options)
+	return {
+		options = prepared_options,
+		palette = copy(palette),
+		background = require("neotheme.themes").background(prepared_options.theme),
+	}
 end
 
 ---@return NeothemePalette
-local function ensure_theme()
-	if resolved_palette == nil then
-		return resolve_theme()
+local function ensure_resolved_palette()
+	if state.resolved_palette == nil then
+		local prepared = prepare_theme(config.get())
+		state.configured_palette = copy(prepared.palette)
+		state.resolved_palette = copy(prepared.palette)
 	end
-	return resolved_palette
+	return state.resolved_palette
 end
 
 local function configure_sidebars(event)
@@ -50,6 +90,10 @@ end
 
 function M._cleanup()
 	pcall(vim.api.nvim_del_augroup_by_name, augroup_name)
+	state.applied_theme = nil
+	state.applied_options = nil
+	state.applied_palette = nil
+	state.loaded = false
 end
 
 local function create_autocmds()
@@ -75,18 +119,77 @@ local function invalidate_lualine_theme()
 	package.loaded["lualine.themes.neotheme"] = nil
 end
 
+---@param prepared NeothemePreparedTheme
+local function apply_prepared(prepared)
+	if vim.fn.has("nvim-0.12") ~= 1 then
+		error("neotheme requires Neovim 0.12 or newer")
+	end
+
+	vim.o.background = prepared.background
+	if vim.g.colors_name then
+		vim.cmd("highlight clear")
+	end
+	vim.o.termguicolors = true
+	vim.g.colors_name = "neotheme"
+
+	require("neotheme.highlights").apply(prepared.options, prepared.palette)
+	invalidate_lualine_theme()
+	create_autocmds()
+end
+
+---@param prepared NeothemePreparedTheme
+---@param override_theme string?
+---@param resolved_palette? NeothemePalette
+local function commit_applied(prepared, override_theme, resolved_palette)
+	state.resolved_palette = copy(resolved_palette or prepared.palette)
+	state.applied_theme = prepared.options.theme
+	state.applied_options = copy(prepared.options)
+	state.applied_palette = copy(prepared.palette)
+	state.loaded = true
+	state.override_theme = override_theme
+end
+
 ---@param options? NeothemeOptions
 ---@return table
 function M.setup(options)
-	config.setup(options)
-	resolve_theme()
+	local prepared_options = config._prepare(options)
+	local prepared = prepare_theme(prepared_options)
+
+	config._commit(prepared_options)
+	state.configured_palette = copy(prepared.palette)
+	state.resolved_palette = copy(prepared.palette)
+	state.override_theme = nil
 	return M
 end
 
 ---@return NeothemePalette
 function M.palette()
-	local palette = ensure_theme()
+	local palette = ensure_resolved_palette()
 	return copy(palette)
+end
+
+---@param theme string
+---@return table
+function M.switch(theme)
+	if type(theme) ~= "string" or theme == "" then
+		error("neotheme: switch theme must be a non-empty string", 2)
+	end
+	if theme == "custom" then
+		error("neotheme: cannot switch directly to the custom theme", 2)
+	end
+
+	local configured = config.get()
+	local options = copy(configured)
+	options.theme = theme
+	local prepared = prepare_theme(options)
+	local override_theme = nil
+	if configured.theme ~= theme then
+		override_theme = theme
+	end
+
+	apply_prepared(prepared)
+	commit_applied(prepared, override_theme)
+	return M
 end
 
 ---@param family? string
@@ -104,22 +207,61 @@ function M._register_commands()
 	require("neotheme.commands").register()
 end
 
+---@return table
+function M._state()
+	return {
+		configured_theme = config.get().theme,
+		active_theme = state.loaded and state.applied_theme or nil,
+		loaded = state.loaded,
+		override_theme = state.override_theme,
+	}
+end
+
+---@return table
+function M._snapshot_state()
+	return copy({
+		loaded = state.loaded,
+		applied_theme = state.applied_theme,
+		applied_options = state.applied_options,
+		applied_palette = state.applied_palette,
+		resolved_palette = state.resolved_palette,
+		override_theme = state.override_theme,
+	})
+end
+
+---@param snapshot table
+function M._restore_state(snapshot)
+	if type(snapshot) ~= "table" or snapshot.loaded ~= true then
+		error("neotheme: cannot restore an unloaded theme state", 2)
+	end
+	if
+		type(snapshot.applied_theme) ~= "string"
+		or type(snapshot.applied_options) ~= "table"
+		or type(snapshot.applied_palette) ~= "table"
+		or type(snapshot.resolved_palette) ~= "table"
+	then
+		error("neotheme: invalid theme state snapshot", 2)
+	end
+	if snapshot.applied_options.theme ~= snapshot.applied_theme then
+		error("neotheme: invalid applied theme state snapshot", 2)
+	end
+	if snapshot.override_theme ~= nil and type(snapshot.override_theme) ~= "string" then
+		error("neotheme: invalid override theme state snapshot", 2)
+	end
+
+	local prepared = prepare_resolved_theme(snapshot.applied_options, snapshot.applied_palette)
+	apply_prepared(prepared)
+	commit_applied(prepared, snapshot.override_theme, snapshot.resolved_palette)
+end
+
 function M.load()
-	if vim.fn.has("nvim-0.12") ~= 1 then
-		error("neotheme requires Neovim 0.12 or newer")
-	end
+	local options = config.get()
+	local prepared = state.configured_palette == nil and prepare_theme(options)
+		or prepare_resolved_theme(options, state.configured_palette)
 
-	vim.o.background = require("neotheme.themes").background(config.get().theme)
-	if vim.g.colors_name then
-		vim.cmd("highlight clear")
-	end
-	vim.o.termguicolors = true
-	vim.g.colors_name = "neotheme"
-
-	local palette = ensure_theme()
-	require("neotheme.highlights").apply(config.get(), palette)
-	invalidate_lualine_theme()
-	create_autocmds()
+	apply_prepared(prepared)
+	state.configured_palette = copy(prepared.palette)
+	commit_applied(prepared, nil)
 end
 
 return M

@@ -50,6 +50,17 @@ require("neotheme").setup({
 vim.cmd.colorscheme("neotheme")
 ```
 
+Switch to another built-in theme for the current session without losing the latest setup
+options:
+
+```vim
+:NeothemeSwitch gruber-light
+```
+
+The equivalent Lua API is `require("neotheme").switch("gruber-light")`. Session switches do
+not write configuration. A later `setup()` replaces the in-memory baseline, and loading
+Neotheme applies that baseline.
+
 See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for installation alternatives, every option, integrations, palette customization, and the public API.
 
 ## Theme families
