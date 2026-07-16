@@ -53,8 +53,9 @@ vim.cmd.colorscheme("neotheme")
 With Neotheme loaded, open the native visual browser with `:Neotheme`. Choose a family, drill
 into its themes with `<CR>`, and move through them to preview each palette live. Use `<Tab>`,
 `<S-Tab>`, `h`/`l`, or `1`/`2` to switch the `Families` and `Themes` tabs; backspace returns to
-families. Press `<CR>` on a theme to keep it for the current session, or `<Esc>` to restore the
-exact entry state. Custom themes are excluded and selections are never persisted.
+families. Press `<CR>` on a theme to keep it for the current session, or `<Esc>`/`q` to restore
+the exact entry state. The browser re-centers when Neovim is resized and safely cancels if the
+editor becomes too small. Custom themes are excluded and selections are never persisted.
 
 ![Neotheme family drill-in, live preview, cancel, and session acceptance](docs/assets/neotheme-browser.webp)
 

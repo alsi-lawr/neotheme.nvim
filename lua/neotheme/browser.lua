@@ -295,6 +295,44 @@ local function cancel(browser, message)
 	end
 end
 
+local function set_window_layout(window, layout)
+	if not valid_window(window) then
+		return
+	end
+
+	local config = vim.api.nvim_win_get_config(window)
+	config.row = layout.row
+	config.col = layout.col
+	config.width = layout.width
+	config.height = layout.height
+	vim.api.nvim_win_set_config(window, config)
+end
+
+local function resize(browser)
+	if browser.closing then
+		return
+	end
+
+	local layout, layout_error =
+		M._layout(vim.o.columns, vim.o.lines - vim.o.cmdheight, browser.longest_name)
+	if not layout then
+		cancel(browser, layout_error)
+		return
+	end
+
+	local ok, resize_error = pcall(function()
+		set_window_layout(browser.backdrop_window, layout.backdrop)
+		set_window_layout(browser.list_window, layout.list)
+		set_window_layout(browser.preview_window, layout.preview)
+	end)
+	if not ok then
+		cancel(browser, "neotheme: failed to resize the theme browser: " .. tostring(resize_error))
+		return
+	end
+
+	browser.layout = layout
+end
+
 local function perform_preview(browser, theme)
 	if browser.closing or browser.previewing or theme == browser.last_previewed_theme then
 		return true
@@ -451,6 +489,9 @@ local function configure_list_window(browser)
 	vim.keymap.set("n", "<Esc>", function()
 		cancel(browser)
 	end, mapping_options)
+	vim.keymap.set("n", "q", function()
+		cancel(browser)
+	end, mapping_options)
 	vim.keymap.set("n", "<CR>", function()
 		accept(browser)
 	end, mapping_options)
@@ -524,6 +565,16 @@ local function create_lifecycle_autocmds(browser)
 			end
 		end,
 		desc = "Navigate the Neotheme browser selector",
+	})
+
+	vim.api.nvim_create_autocmd("VimResized", {
+		group = browser.augroup,
+		callback = function()
+			if active == browser then
+				resize(browser)
+			end
+		end,
+		desc = "Resize the Neotheme browser surfaces",
 	})
 
 	for _, window in ipairs({ browser.list_window, browser.preview_window }) do
@@ -715,6 +766,7 @@ function M.open()
 		themes_by_family = themes_by_family,
 		theme_families = theme_families,
 		layout = layout,
+		longest_name = longest_name,
 		selected_family_index = family_index,
 		selected_theme_index = theme_index,
 		initial_theme = initial_theme,

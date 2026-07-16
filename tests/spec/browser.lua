@@ -60,6 +60,16 @@ local function title(window)
 	return result
 end
 
+local function geometry(window)
+	local config = vim.api.nvim_win_get_config(window)
+	return {
+		row = config.row,
+		col = config.col,
+		width = config.width,
+		height = config.height,
+	}
+end
+
 local function index_of(names, expected)
 	for index, name in ipairs(names) do
 		if name == expected then
@@ -391,6 +401,61 @@ h.truthy(
 	preview_config.row + preview_config.height + 2 <= vim.o.lines - vim.o.cmdheight,
 	"actual bottom bound"
 )
+
+local original_layout = browser._layout
+local resize_arguments = nil
+local resized_layout =
+	assert(original_layout(vim.o.columns - 8, vim.o.lines - vim.o.cmdheight - 2, 24))
+browser._layout = function(columns, usable_rows, longest_name)
+	resize_arguments = {
+		columns = columns,
+		usable_rows = usable_rows,
+		longest_name = longest_name,
+	}
+	return resized_layout
+end
+vim.api.nvim_exec_autocmds("VimResized", { modeline = false })
+browser._layout = original_layout
+h.eq(vim.o.columns, resize_arguments.columns, "resize layout columns")
+h.eq(vim.o.lines - vim.o.cmdheight, resize_arguments.usable_rows, "resize layout rows")
+h.truthy(resize_arguments.longest_name > 0, "resize preserves inventory width")
+h.eq(resized_layout, browser._state().layout, "resize updates browser layout")
+h.eq(resized_layout.backdrop, geometry(state.backdrop_window), "resize updates backdrop")
+h.eq(resized_layout.list, geometry(state.list_window), "resize updates selector")
+h.eq(resized_layout.preview, geometry(state.preview_window), "resize updates preview")
+
+vim.api.nvim_exec_autocmds("VimResized", { modeline = false })
+local restored_layout = assert(browser._state()).layout
+h.eq(
+	original_layout(vim.o.columns, vim.o.lines - vim.o.cmdheight, resize_arguments.longest_name),
+	restored_layout,
+	"resize restores current editor layout"
+)
+
+local original_columns = vim.o.columns
+local original_lines = vim.o.lines
+vim.o.columns = math.max(64, original_columns - 8)
+vim.o.lines = math.max(19, original_lines - 4)
+vim.api.nvim_exec_autocmds("VimResized", { modeline = false })
+local actual_resize_state = assert(browser._state())
+h.eq(vim.o.columns, actual_resize_state.layout.backdrop.width, "actual resize backdrop width")
+h.eq(
+	vim.o.lines - vim.o.cmdheight,
+	actual_resize_state.layout.backdrop.height,
+	"actual resize backdrop height"
+)
+h.eq(
+	actual_resize_state.layout.backdrop,
+	geometry(state.backdrop_window),
+	"actual backdrop geometry"
+)
+h.eq(actual_resize_state.layout.list, geometry(state.list_window), "actual selector geometry")
+h.eq(actual_resize_state.layout.preview, geometry(state.preview_window), "actual preview geometry")
+
+vim.o.columns = original_columns
+vim.o.lines = original_lines
+vim.api.nvim_exec_autocmds("VimResized", { modeline = false })
+h.eq(restored_layout, browser._state().layout, "actual resize restores original layout")
 h.eq(60, vim.wo[state.backdrop_window].winblend, "backdrop blend")
 h.eq(0, vim.wo[state.list_window].winblend, "selector remains opaque")
 h.eq(0, vim.wo[state.preview_window].winblend, "preview remains opaque")
@@ -583,6 +648,47 @@ h.eq(1, cancel_restore_count, "escape restores exactly once")
 h.eq(entry_state, runtime_state(), "escape restores exact entry state")
 h.eq(3, configured_calls, "escape restore does not rerun configurator")
 assert_clean(state, entry_resources, "escape cancellation")
+
+local quit_entry = runtime_state()
+local quit_resources = resources()
+browser.open()
+local quit_state = assert(browser._state())
+move_to("typeset")
+press("<CR>")
+local quit_restore_count = with_restore_counter(function()
+	press_and_close("q")
+end)
+h.eq(1, quit_restore_count, "q restores exactly once")
+h.eq(quit_entry, runtime_state(), "q restores exact entry state")
+assert_clean(quit_state, quit_resources, "q cancellation")
+
+local undersized_entry = runtime_state()
+local undersized_resources = resources()
+browser.open()
+local undersized_state = assert(browser._state())
+move_to("typeset")
+press("<CR>")
+local resize_notifications = {}
+local original_notify = vim.notify
+vim.notify = function(message, level)
+	table.insert(resize_notifications, { message = message, level = level })
+end
+browser._layout = function()
+	return nil, "neotheme: deliberate undersized resize"
+end
+local undersized_restore_count = with_restore_counter(function()
+	vim.api.nvim_exec_autocmds("VimResized", { modeline = false })
+end)
+browser._layout = original_layout
+vim.notify = original_notify
+h.eq(1, undersized_restore_count, "undersized resize restores exactly once")
+h.eq(undersized_entry, runtime_state(), "undersized resize restores exact entry state")
+h.eq(1, #resize_notifications, "undersized resize reports once")
+h.truthy(
+	resize_notifications[1].message:find("deliberate undersized resize", 1, true),
+	"undersized resize notification"
+)
+assert_clean(undersized_state, undersized_resources, "undersized resize cancellation")
 
 local backdrop_entry = runtime_state()
 local backdrop_resources = resources()
