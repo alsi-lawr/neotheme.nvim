@@ -224,38 +224,42 @@ h.eq(0, vim.wo[reduced.preview_window].winblend, "reduced motion never changes o
 h.eq(reduced_entry, global_state(), "reduced motion remains preview-only")
 close("<Esc>")
 
-local confirmation_failure = false
-engine.setup({
-	theme = "gruber-dark",
-	motion = "reduced",
-	configure_palette = function()
-		if confirmation_failure then
-			error("intentional confirmation failure")
-		end
-	end,
-})
+engine.setup({ theme = "gruber-dark", motion = "reduced" })
 engine.load()
 local confirmation_entry = global_state()
 browser.open()
 move_to("typeset")
 press("<CR>")
-confirmation_failure = true
 local notifications = {}
 local original_notify = vim.notify
+local original_switch = engine.switch
+local failed_switches = 0
+engine.switch = function()
+	failed_switches = failed_switches + 1
+	vim.o.background = "light"
+	error("intentional partial confirmation failure " .. failed_switches)
+end
 vim.notify = function(message, level)
 	table.insert(notifications, { message = message, level = level })
 end
 press("<Space>")
+h.eq(confirmation_entry, global_state(), "first failed confirmation restores the checkpoint")
+press("<Space>")
+engine.switch = original_switch
 vim.notify = original_notify
 h.truthy(browser._state() ~= nil, "failed confirmation keeps the browser available")
-h.eq(confirmation_entry, global_state(), "failed confirmation restores the checkpoint")
-h.eq(1, #notifications, "failed confirmation reports once")
+h.eq(confirmation_entry, global_state(), "repeated failed confirmation restores the checkpoint")
+h.eq(2, #notifications, "each failed confirmation reports once")
 h.truthy(
-	notifications[1].message:find("intentional confirmation failure", 1, true),
-	"failed confirmation reports its cause"
+	notifications[1].message:find("intentional partial confirmation failure 1", 1, true),
+	"first failed confirmation reports its cause"
 )
-confirmation_failure = false
+h.truthy(
+	notifications[2].message:find("intentional partial confirmation failure 2", 1, true),
+	"second failed confirmation reports its cause"
+)
 close("q")
+h.eq(confirmation_entry, global_state(), "q preserves the checkpoint after repeated failures")
 
 engine.setup({ theme = "gruber-dark", motion = "interpolate" })
 engine.load()

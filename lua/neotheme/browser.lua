@@ -336,13 +336,17 @@ local function report_error(message)
 	pcall(vim.notify, message, vim.log.levels.ERROR)
 end
 
+local function restore_checkpoint(browser)
+	return pcall(require("neotheme")._restore_state, browser.entry_snapshot)
+end
+
 local function restore_entry(browser)
 	if browser.restored then
 		return true
 	end
 
 	browser.restored = true
-	return pcall(require("neotheme")._restore_state, browser.entry_snapshot)
+	return restore_checkpoint(browser)
 end
 
 local function cancel(browser, message)
@@ -634,7 +638,7 @@ local function select_theme(browser, close_after)
 	cancel_transition(browser)
 	local ok, selection_error = pcall(require("neotheme").switch, theme)
 	if not ok then
-		local restored, restore_error = restore_entry(browser)
+		local restored, restore_error = restore_checkpoint(browser)
 		apply_highlights()
 		if not restored then
 			cancel(
