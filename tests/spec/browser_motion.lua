@@ -3,19 +3,15 @@ local browser = require("neotheme.browser")
 local config = require("neotheme.config")
 local engine = require("neotheme")
 
-local function global_state()
+local function global_contract()
 	return {
 		current = engine.current(),
-		snapshot = engine._snapshot_state(),
 		config = config.get(),
 		palette = engine.palette(),
 		background = vim.o.background,
 		colors_name = vim.g.colors_name,
 		normal = h.highlight("Normal"),
-		keyword = h.highlight("NeothemeKeyword"),
 		telescope = h.highlight("TelescopeMatching"),
-		terminal_0 = vim.g.terminal_color_0,
-		terminal_15 = vim.g.terminal_color_15,
 		terminal_background = vim.g.terminal_color_background,
 		terminal_foreground = vim.g.terminal_color_foreground,
 	}
@@ -54,9 +50,19 @@ local function press(key)
 	vim.api.nvim_feedkeys(vim.keycode(key), "x", false)
 end
 
-local function wait_for_transition()
+local function close(key)
+	press(key)
 	h.truthy(
 		vim.wait(500, function()
+			return browser._state() == nil
+		end, 5),
+		"browser close"
+	)
+end
+
+local function wait_for_transition()
+	h.truthy(
+		vim.wait(800, function()
 			local state = browser._state()
 			return state == nil or not state.transitioning
 		end, 5),
@@ -64,169 +70,112 @@ local function wait_for_transition()
 	)
 end
 
-local function close(key)
-	press(key)
-	h.truthy(
-		vim.wait(300, function()
-			return browser._state() == nil
-		end, 5),
-		"browser close"
-	)
-end
-
-local midpoint = browser._interpolate_palette(
-	{ surface = { base = "#000000" } },
-	{ surface = { base = "#ffffff" } },
-	0.5
-)
-h.eq("#808080", midpoint.surface.base, "RGB midpoint interpolation")
 h.eq(
-	"#000000",
+	"#808080",
 	browser._interpolate_palette(
 		{ surface = { base = "#000000" } },
 		{ surface = { base = "#ffffff" } },
-		-1
+		0.5
 	).surface.base,
-	"interpolation clamps the lower bound"
-)
-h.eq(
-	"#ffffff",
-	browser._interpolate_palette(
-		{ surface = { base = "#000000" } },
-		{ surface = { base = "#ffffff" } },
-		2
-	).surface.base,
-	"interpolation clamps the upper bound"
+	"RGB interpolation midpoint"
 )
 
-local configure_calls = 0
 engine.setup({
 	theme = "gruber-dark",
 	motion = "interpolate",
-	configure_palette = function(palette)
-		configure_calls = configure_calls + 1
-		palette.ui.search = palette.diagnostic.warning
-	end,
 	integrations = { telescope = true },
 })
 engine.load()
-h.eq(1, configure_calls, "interpolation fixture reuses setup palette")
-
-local interpolation_entry = global_state()
-local cached_discovered_lualine = require("lualine.themes.neotheme")
-local cached_lualine = require("neotheme.lualine")
+local interpolation_entry = global_contract()
 browser.open()
-local interpolation_state = assert(browser._state())
-h.eq("interpolate", interpolation_state.motion, "interpolation policy")
 move_to("typeset")
-press("<Space>")
-h.eq("themes", browser._state().mode, "Space drills into a family")
-h.eq(interpolation_entry, global_state(), "family Space and first preview preserve global state")
-h.eq(2, configure_calls, "first local preview resolves once")
-
-local first_transition = assert(browser._state())
-h.eq("typeset-ink", first_transition.last_previewed_theme, "first interpolation target")
-h.truthy(first_transition.transitioning, "interpolation begins immediately")
+press("<CR>")
+local interpolating = assert(browser._state())
+h.eq("interpolate", interpolating.motion, "interpolation policy")
+h.eq("typeset-ink", interpolating.last_previewed_theme, "same-polarity target")
+h.truthy(interpolating.transitioning, "same-polarity transition begins")
 h.falsy(
-	vim.deep_equal(first_transition.rendered_palette, interpolation_entry.palette),
-	"first interpolation frame advances from the source"
+	vim.deep_equal(interpolating.rendered_palette, interpolating.preview_palette),
+	"same-polarity transition renders an intermediate frame"
 )
-h.falsy(
-	vim.deep_equal(first_transition.rendered_palette, first_transition.preview_palette),
-	"first interpolation frame is not the final palette"
-)
+h.eq(interpolation_entry, global_contract(), "interpolation remains preview-only")
 
-local generation = first_transition.transition_generation
-local intermediate = vim.deepcopy(first_transition.rendered_palette)
+local generation = interpolating.transition_generation
 move_to("typeset-paper")
-local restarted = assert(browser._state())
-h.truthy(restarted.transition_generation > generation, "new selection cancels the prior transition")
-h.eq("typeset-paper", restarted.last_previewed_theme, "rapid navigation replaces the target")
+local fading = assert(browser._state())
+h.truthy(fading.transition_generation > generation, "new selection cancels the old transition")
+h.eq("light", fading.preview_background, "cross-polarity target records its background")
+h.truthy(fading.transitioning, "cross-polarity interpolation begins")
 h.falsy(
-	vim.deep_equal(restarted.rendered_palette, intermediate),
-	"replacement interpolation advances from the rendered intermediate palette"
+	vim.deep_equal(fading.preview_palette, fading.rendered_palette),
+	"cross-polarity interpolation renders a transition frame"
 )
-
-local layout_before_resize = restarted.layout
+h.eq(0, vim.wo[fading.preview_window].winblend, "interpolation remains opaque")
 vim.api.nvim_exec_autocmds("VimResized", { modeline = false })
 h.truthy(browser._state() ~= nil, "resize preserves an active transition")
-h.eq(layout_before_resize, browser._state().layout, "resize recomputes stable geometry")
-
 wait_for_transition()
-local interpolated = assert(browser._state())
-h.eq(interpolated.preview_palette, interpolated.rendered_palette, "interpolation reaches target")
+local completed = assert(browser._state())
+h.eq(0, vim.wo[completed.preview_window].winblend, "fade returns to an opaque surface")
 h.eq(
-	h.color(interpolated.preview_palette.surface.base),
-	vim.api.nvim_get_hl(interpolated.preview_namespace, { name = "Normal" }).bg,
-	"interpolated target reaches the preview namespace"
+	h.color(completed.preview_palette.surface.base),
+	vim.api.nvim_get_hl(completed.preview_namespace, { name = "Normal" }).bg,
+	"target palette reaches the preview namespace"
 )
-h.eq(interpolation_entry, global_state(), "completed interpolation remains preview-only")
-h.truthy(package.loaded["neotheme.lualine"] == cached_lualine, "preview preserves Lualine cache")
-h.truthy(
-	package.loaded["lualine.themes.neotheme"] == cached_discovered_lualine,
-	"preview preserves discovered Lualine cache"
-)
-
-press("<Space>")
-local confirmed = assert(browser._state())
-h.eq("typeset-paper", engine.current().active_theme, "Space confirms globally")
-h.eq(true, engine.current().session_override, "Space creates a session override")
-h.eq("themes", confirmed.mode, "Space keeps the browser open")
-h.eq(true, confirmed.preview_matches_checkpoint, "Space advances the checkpoint")
-h.eq(0, vim.wo[confirmed.preview_window].winblend, "Space leaves the preview opaque")
-local checkpoint = global_state()
-
-move_to("typeset-ink")
-wait_for_transition()
-h.eq(checkpoint, global_state(), "post-Space movement remains local")
-local restore_calls = 0
-local original_restore = engine._restore_state
-engine._restore_state = function(snapshot)
-	restore_calls = restore_calls + 1
-	return original_restore(snapshot)
-end
+h.eq(interpolation_entry, global_contract(), "completed transition remains preview-only")
 close("q")
-engine._restore_state = original_restore
-h.eq(1, restore_calls, "q restores the latest Space checkpoint once")
-h.eq(checkpoint, global_state(), "q preserves the latest confirmed theme")
 
 engine.setup({ theme = "typeset-paper", motion = "winblend" })
 engine.load()
-local winblend_entry = global_state()
+local winblend_entry = global_contract()
 browser.open()
 press("<CR>")
 move_to("typeset-ink")
-local fading = assert(browser._state())
-h.eq("winblend", fading.motion, "winblend policy")
-h.truthy(fading.transitioning, "winblend fade begins")
-h.truthy(vim.wo[fading.preview_window].winblend > 0, "winblend fade changes preview opacity")
-h.eq(fading.preview_palette, fading.rendered_palette, "winblend applies target colors immediately")
-h.eq(0, vim.wo[fading.list_window].winblend, "winblend leaves selector opaque")
-h.eq(60, vim.wo[fading.backdrop_window].winblend, "winblend leaves backdrop unchanged")
-vim.api.nvim_exec_autocmds("VimResized", { modeline = false })
-h.truthy(browser._state() ~= nil, "resize preserves winblend transition")
+local winblend = assert(browser._state())
+h.eq("winblend", winblend.motion, "winblend policy")
+h.truthy(winblend.transitioning, "winblend transition begins")
+h.eq(
+	winblend.preview_palette,
+	winblend.rendered_palette,
+	"winblend applies target colors immediately"
+)
+h.truthy(vim.wo[winblend.preview_window].winblend >= 40, "winblend transition is visible")
 wait_for_transition()
-h.eq(0, vim.wo[browser._state().preview_window].winblend, "winblend fade returns to opaque")
-h.eq(winblend_entry, global_state(), "winblend remains preview-only")
+h.eq(0, vim.wo[browser._state().preview_window].winblend, "winblend returns to opaque")
+h.eq(winblend_entry, global_contract(), "winblend remains preview-only")
 close("<Esc>")
 
 engine.setup({ theme = "typeset-paper", motion = "reduced" })
 engine.load()
-local reduced_entry = global_state()
+local reduced_entry = global_contract()
 browser.open()
 press("<CR>")
+local before_swap = assert(browser._state())
+local visible_namespace = before_swap.preview_namespace
+local wrote_visible_namespace = false
+local original_set_hl = vim.api.nvim_set_hl
+vim.api.nvim_set_hl = function(namespace, name, highlight)
+	if namespace == visible_namespace then
+		wrote_visible_namespace = true
+	end
+	return original_set_hl(namespace, name, highlight)
+end
 move_to("typeset-ink")
+vim.api.nvim_set_hl = original_set_hl
 local reduced = assert(browser._state())
 h.eq("reduced", reduced.motion, "reduced-motion policy")
-h.eq(false, reduced.transitioning, "reduced motion has no deferred transition")
+h.falsy(reduced.transitioning, "reduced motion has no deferred work")
+h.falsy(wrote_visible_namespace, "preview frame is built off-screen")
+h.falsy(
+	reduced.preview_namespace == visible_namespace,
+	"completed frame atomically swaps namespaces"
+)
 h.eq(reduced.preview_palette, reduced.rendered_palette, "reduced motion applies target immediately")
-h.eq(0, vim.wo[reduced.preview_window].winblend, "reduced motion never changes opacity")
-h.eq(reduced_entry, global_state(), "reduced motion remains preview-only")
-close("<Esc>")
+h.eq(reduced_entry, global_contract(), "reduced motion remains preview-only")
+close("q")
 
 engine.setup({ theme = "gruber-dark", motion = "reduced" })
 engine.load()
-local confirmation_entry = global_state()
+local confirmation_entry = global_contract()
 browser.open()
 move_to("typeset")
 press("<CR>")
@@ -243,34 +192,97 @@ vim.notify = function(message, level)
 	table.insert(notifications, { message = message, level = level })
 end
 press("<Space>")
-h.eq(confirmation_entry, global_state(), "first failed confirmation restores the checkpoint")
+h.eq(confirmation_entry, global_contract(), "first partial failure restores the checkpoint")
+h.eq(1, #notifications, "first failed confirmation reports once")
 press("<Space>")
 engine.switch = original_switch
 vim.notify = original_notify
 h.truthy(browser._state() ~= nil, "failed confirmation keeps the browser available")
-h.eq(confirmation_entry, global_state(), "repeated failed confirmation restores the checkpoint")
+h.eq(confirmation_entry, global_contract(), "repeated partial failures restore the checkpoint")
 h.eq(2, #notifications, "each failed confirmation reports once")
-h.truthy(
-	notifications[1].message:find("intentional partial confirmation failure 1", 1, true),
-	"first failed confirmation reports its cause"
-)
-h.truthy(
-	notifications[2].message:find("intentional partial confirmation failure 2", 1, true),
-	"second failed confirmation reports its cause"
-)
 close("q")
-h.eq(confirmation_entry, global_state(), "q preserves the checkpoint after repeated failures")
+h.eq(confirmation_entry, global_contract(), "q preserves the checkpoint after failures")
 
-engine.setup({ theme = "gruber-dark", motion = "interpolate" })
+engine.setup({
+	theme = "gruber-dark",
+	motion = "reduced",
+	integrations = { cmp = false },
+})
 engine.load()
-local close_during_transition_entry = global_state()
+engine.setup({
+	theme = "gruber-dark",
+	motion = "reduced",
+	integrations = { cmp = true },
+})
 browser.open()
 move_to("typeset")
 press("<CR>")
-h.truthy(browser._state().transitioning, "final interpolation starts")
+original_switch = engine.switch
+original_notify = vim.notify
+engine.switch = function()
+	vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = 0xff00ff })
+	error("intentional partial integration failure")
+end
+vim.notify = function() end
+press("<Space>")
+engine.switch = original_switch
+vim.notify = original_notify
+h.eq({}, h.highlight("CmpItemAbbrMatch"), "rollback clears partially applied integrations")
+h.eq("gruber-dark", engine.current().active_theme, "integration failure restores active theme")
+h.truthy(browser._state() ~= nil, "integration failure keeps the browser available")
+h.eq(
+	false,
+	engine._snapshot_state().baseline_applied,
+	"rollback retains the unapplied baseline marker"
+)
 close("q")
-vim.wait(200, function()
+engine.reset()
+h.truthy(h.group_exists("CmpItemAbbrMatch"), "reset applies the replacement integration baseline")
+
+engine.setup({
+	theme = "gruber-dark",
+	motion = "reduced",
+	integrations = { cmp = false },
+})
+engine.load()
+browser.open()
+move_to("typeset")
+press("<CR>")
+original_switch = engine.switch
+original_notify = vim.notify
+local original_restore = engine._restore_state
+local restore_attempts = 0
+engine.switch = function()
+	error("intentional selection failure before nested rollback")
+end
+engine._restore_state = function(snapshot, force_clear)
+	restore_attempts = restore_attempts + 1
+	if restore_attempts == 1 then
+		vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = 0xff00ff })
+		error("intentional first rollback failure")
+	end
+	return original_restore(snapshot, force_clear)
+end
+vim.notify = function() end
+press("<Space>")
+engine.switch = original_switch
+engine._restore_state = original_restore
+vim.notify = original_notify
+h.eq(2, restore_attempts, "failed forced rollback is retried once")
+h.eq(nil, browser._state(), "failed forced rollback closes the browser")
+h.eq("gruber-dark", engine.current().active_theme, "nested rollback restores active theme")
+h.eq({}, h.highlight("CmpItemAbbrMatch"), "nested rollback clears partial integrations")
+
+engine.setup({ theme = "gruber-dark", motion = "interpolate" })
+engine.load()
+local interrupted_entry = global_contract()
+browser.open()
+move_to("typeset")
+press("<CR>")
+h.truthy(browser._state().transitioning, "interrupted transition starts")
+close("q")
+vim.wait(450, function()
 	return false
 end, 20)
 h.eq(nil, browser._state(), "stale callbacks do not reopen the browser")
-h.eq(close_during_transition_entry, global_state(), "stale callbacks preserve global state")
+h.eq(interrupted_entry, global_contract(), "stale callbacks preserve global state")

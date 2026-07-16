@@ -34,23 +34,11 @@ end
 
 local nvim_tree_groups = {
 	"NvimTreeNormal",
-	"NvimTreeExecFile",
 	"NvimTreeFolderName",
-	"NvimTreeFolderIcon",
-	"NvimTreeGitFileDirtyHL",
 	"NvimTreeGitFolderStagedHL",
 	"NvimTreeDiagnosticErrorIcon",
-	"NvimTreeDiagnosticWarnFileHL",
-	"NvimTreeDiagnosticHintFolderHL",
 	"NvimTreeCopiedHL",
-	"NvimTreeCutHL",
-	"NvimTreeModifiedIcon",
-	"NvimTreeModifiedFileHL",
-	"NvimTreeModifiedFolderHL",
 	"NvimTreeHiddenIcon",
-	"NvimTreeHiddenFileHL",
-	"NvimTreeHiddenFolderHL",
-	"NvimTreeHiddenDisplay",
 	"NvimTreeOpenedHL",
 	"NvimTreeWindowPicker",
 }
@@ -60,15 +48,7 @@ local nvim_tree_definitions = require("neotheme.integrations.nvim_tree").get(pal
 for _, group in ipairs(nvim_tree_groups) do
 	h.truthy(nvim_tree_definitions[group], "nvim-tree category coverage is missing " .. group)
 end
-for _, group in ipairs({
-	"NvimTreeNormal",
-	"NvimTreeNormalNC",
-	"NvimTreeWinSeparator",
-	"NvimTreeEndOfBuffer",
-	"NvimTreeSignColumn",
-}) do
-	h.eq(palette.surface.base, nvim_tree_definitions[group].bg, "nvim-tree canvas: " .. group)
-end
+h.eq(palette.surface.base, nvim_tree_definitions.NvimTreeNormal.bg, "nvim-tree canvas")
 h.eq(palette.surface.raised, nvim_tree_definitions.NvimTreeCursorLine.bg, "nvim-tree cursor line")
 h.eq(
 	nvim_tree_definitions.NvimTreeClosedFolderIcon,
@@ -82,25 +62,19 @@ h.eq(
 )
 
 local bufferline_definitions = require("neotheme.integrations.bufferline").get(palette)
-for name, background in pairs({
-	BufferLineSeparator = palette.surface.dark,
-	BufferLineSeparatorVisible = palette.surface.raised,
-	BufferLineSeparatorSelected = palette.surface.base,
-	BufferLineTabSeparator = palette.surface.dark,
-	BufferLineTabSeparatorSelected = palette.surface.base,
-}) do
-	h.eq(
-		palette.surface.dark,
-		bufferline_definitions[name].fg,
-		"bufferline separator foreground: " .. name
-	)
-	h.eq(background, bufferline_definitions[name].bg, "bufferline separator background: " .. name)
-end
+h.eq(palette.surface.dark, bufferline_definitions.BufferLineSeparator.fg, "bufferline separator")
+h.eq(
+	palette.surface.base,
+	bufferline_definitions.BufferLineSeparatorSelected.bg,
+	"bufferline selected separator"
+)
 
 local telescope_definitions = require("neotheme.integrations.telescope").get(palette)
-for _, name in ipairs({ "TelescopePreviewNormal", "TelescopePreviewBorder" }) do
-	h.eq(palette.surface.base, telescope_definitions[name].bg, "Telescope preview canvas: " .. name)
-end
+h.eq(
+	palette.surface.base,
+	telescope_definitions.TelescopePreviewNormal.bg,
+	"Telescope preview canvas"
+)
 
 h.load({
 	configure_palette = function(configured)

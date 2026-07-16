@@ -2,13 +2,25 @@ local M = {}
 local augroup_name = "NeothemeBrowser"
 local diagnostic_namespace = nil
 local tab_namespace = nil
-local preview_namespace = nil
+local preview_namespaces = nil
 local active = nil
 local cancel_transition = nil
 
-local transition_duration = 120
-local transition_frames = 8
-local winblend_peak = 35
+local transition_duration = 300
+local transition_frames = 12
+local surface_blend = 0
+local winblend_peak = 45
+
+local rounded_border = {
+	{ "", "NeothemeBrowserFrameCap" },
+	{ "─", "NeothemeBrowserBorder" },
+	{ "", "NeothemeBrowserFrameCap" },
+	{ "│", "NeothemeBrowserBorder" },
+	{ "", "NeothemeBrowserFrameCap" },
+	{ "─", "NeothemeBrowserBorder" },
+	{ "", "NeothemeBrowserFrameCap" },
+	{ "│", "NeothemeBrowserBorder" },
+}
 
 local browser_winhighlight = table.concat({
 	"Normal:NeothemeBrowserFloat",
@@ -17,11 +29,13 @@ local browser_winhighlight = table.concat({
 	"FloatTitle:NeothemeBrowserTitle",
 	"EndOfBuffer:NeothemeBrowserFloat",
 }, ",")
-local backdrop_winhighlight = table.concat({
-	"Normal:NeothemeBrowserBackdrop",
-	"NormalFloat:NeothemeBrowserBackdrop",
-	"EndOfBuffer:NeothemeBrowserBackdrop",
-}, ",")
+local function title_chunks(text)
+	return {
+		{ "", "NeothemeBrowserTitleCap" },
+		{ text, "NeothemeBrowserTitle" },
+		{ "", "NeothemeBrowserTitleCap" },
+	}
+end
 
 local preview_lines = {
 	"-- Neotheme preview · family: %s",
@@ -146,12 +160,30 @@ end
 
 local function apply_highlights(namespace)
 	namespace = namespace or 0
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserFloat", { link = "Normal" })
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserBorder", { link = "Normal" })
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTitle", { link = "Title" })
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTabActive", { link = "Title" })
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTabInactive", { link = "Comment" })
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserBackdrop", { bg = "#000000" })
+	local normal = vim.api.nvim_get_hl(namespace, { name = "Normal" })
+	local border = vim.api.nvim_get_hl(namespace, { name = "FloatBorder" })
+	local title = vim.api.nvim_get_hl(namespace, { name = "Title" })
+	local comment = vim.api.nvim_get_hl(namespace, { name = "Comment" })
+	local border_foreground = border.fg or normal.fg
+	local title_definition = copy(title)
+	title_definition.fg = title_definition.fg or normal.fg
+	title_definition.bg = normal.bg
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserFloat", normal)
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserBorder", {
+		fg = border_foreground,
+		bg = normal.bg,
+	})
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserFrameCap", { fg = normal.bg })
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTitle", title_definition)
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTitleCap", { fg = normal.bg })
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTabActive", title)
+	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTabInactive", comment)
+	if namespace ~= 0 then
+		vim.api.nvim_set_hl(namespace, "FloatBorder", {
+			fg = border_foreground,
+			bg = normal.bg,
+		})
+	end
 end
 
 ---@param columns integer
@@ -184,12 +216,6 @@ function M._layout(columns, usable_rows, longest_name)
 			width = total_width,
 			height = outer_height,
 		},
-		backdrop = {
-			row = 0,
-			col = 0,
-			width = columns,
-			height = usable_rows,
-		},
 		list = {
 			row = row,
 			col = col,
@@ -215,7 +241,7 @@ end
 
 local function set_window_title(window, text)
 	local window_config = vim.api.nvim_win_get_config(window)
-	window_config.title = { { text, "NeothemeBrowserTitle" } }
+	window_config.title = title_chunks(text)
 	window_config.title_pos = "center"
 	vim.api.nvim_win_set_config(window, window_config)
 end
@@ -312,14 +338,14 @@ local function cleanup_resources(browser)
 		pcall(vim.diagnostic.reset, diagnostic_namespace, browser.preview_buffer)
 	end
 
-	for _, field in ipairs({ "list_window", "preview_window", "backdrop_window" }) do
+	for _, field in ipairs({ "list_window", "preview_window" }) do
 		local window = browser[field]
 		if valid_window(window) then
 			pcall(vim.api.nvim_win_close, window, true)
 		end
 	end
 
-	for _, field in ipairs({ "list_buffer", "preview_buffer", "backdrop_buffer" }) do
+	for _, field in ipairs({ "list_buffer", "preview_buffer" }) do
 		local buffer = browser[field]
 		if valid_buffer(buffer) then
 			pcall(vim.api.nvim_buf_delete, buffer, { force = true })
@@ -336,26 +362,26 @@ local function report_error(message)
 	pcall(vim.notify, message, vim.log.levels.ERROR)
 end
 
-local function restore_checkpoint(browser)
-	return pcall(require("neotheme")._restore_state, browser.entry_snapshot)
+local function restore_checkpoint(browser, force_clear)
+	return pcall(require("neotheme")._restore_state, browser.entry_snapshot, force_clear)
 end
 
-local function restore_entry(browser)
+local function restore_entry(browser, force_clear)
 	if browser.restored then
 		return true
 	end
 
 	browser.restored = true
-	return restore_checkpoint(browser)
+	return restore_checkpoint(browser, force_clear)
 end
 
-local function cancel(browser, message)
+local function cancel(browser, message, force_clear)
 	if browser.closing then
 		return
 	end
 
 	browser.closing = true
-	local restored, restore_error = restore_entry(browser)
+	local restored, restore_error = restore_entry(browser, force_clear)
 	cleanup_resources(browser)
 
 	if message then
@@ -394,7 +420,6 @@ local function resize(browser)
 	end
 
 	local ok, resize_error = pcall(function()
-		set_window_layout(browser.backdrop_window, layout.backdrop)
 		set_window_layout(browser.list_window, layout.list)
 		set_window_layout(browser.preview_window, layout.preview)
 	end)
@@ -406,18 +431,29 @@ local function resize(browser)
 	browser.layout = layout
 end
 
-local function apply_preview_palette(browser, options, palette)
-	require("neotheme.highlights").apply_preview(options, palette, browser.preview_namespace)
-	apply_highlights(browser.preview_namespace)
+local function apply_preview_palette(browser, options, palette, background)
+	local namespace_index = browser.preview_namespace_index == 1 and 2 or 1
+	local namespace = browser.preview_namespaces[namespace_index]
+	require("neotheme.highlights").apply_preview(options, palette, namespace)
+	apply_highlights(namespace)
+	vim.api.nvim_win_set_hl_ns(browser.preview_window, namespace)
+	browser.preview_namespace_index = namespace_index
+	browser.preview_namespace = namespace
 	browser.rendered_options = copy(options)
 	browser.rendered_palette = copy(palette)
+	browser.rendered_background = background or browser.rendered_background
 end
 
 cancel_transition = function(browser)
 	browser.transition_generation = (browser.transition_generation or 0) + 1
 	browser.transitioning = false
 	if valid_window(browser.preview_window) then
-		pcall(vim.api.nvim_set_option_value, "winblend", 0, { win = browser.preview_window })
+		pcall(
+			vim.api.nvim_set_option_value,
+			"winblend",
+			surface_blend,
+			{ win = browser.preview_window }
+		)
 	end
 end
 
@@ -455,7 +491,8 @@ local function interpolate_preview(browser, prepared, generation)
 		apply_preview_palette(
 			browser,
 			prepared.options,
-			M._interpolate_palette(source, prepared.palette, progress)
+			M._interpolate_palette(source, prepared.palette, progress),
+			prepared.background
 		)
 		if frame < transition_frames then
 			defer_transition(browser, generation, render_frame)
@@ -467,8 +504,52 @@ local function interpolate_preview(browser, prepared, generation)
 	render_frame()
 end
 
+local function collapsed_palette(palette, color)
+	local result = copy(palette)
+	for _, values in pairs(result) do
+		for field, value in pairs(values) do
+			if type(value) == "string" then
+				values[field] = color
+			end
+		end
+	end
+	return result
+end
+
+local function crossfade_preview(browser, prepared, generation)
+	local source = copy(browser.rendered_palette or prepared.palette)
+	local source_blank = collapsed_palette(source, source.surface.base)
+	local target_blank = collapsed_palette(prepared.palette, prepared.palette.surface.base)
+	local half_frames = math.floor(transition_frames / 2)
+	local frame = 0
+	browser.transitioning = true
+
+	local function render_frame()
+		frame = frame + 1
+		local palette
+		local background
+		if frame <= half_frames then
+			palette = M._interpolate_palette(source, source_blank, frame / half_frames)
+			background = browser.rendered_background
+		else
+			local progress = (frame - half_frames) / (transition_frames - half_frames)
+			palette = M._interpolate_palette(target_blank, prepared.palette, progress)
+			background = prepared.background
+		end
+
+		apply_preview_palette(browser, prepared.options, palette, background)
+		if frame < transition_frames then
+			defer_transition(browser, generation, render_frame)
+		else
+			browser.transitioning = false
+		end
+	end
+
+	render_frame()
+end
+
 local function fade_preview(browser, prepared, generation)
-	apply_preview_palette(browser, prepared.options, prepared.palette)
+	apply_preview_palette(browser, prepared.options, prepared.palette, prepared.background)
 	vim.api.nvim_set_option_value("winblend", winblend_peak, { win = browser.preview_window })
 	browser.transitioning = true
 	local frame = 0
@@ -476,7 +557,8 @@ local function fade_preview(browser, prepared, generation)
 	local function render_frame()
 		frame = frame + 1
 		local progress = frame / transition_frames
-		local blend = math.floor(winblend_peak * (1 - progress) ^ 2 + 0.5)
+		local blend =
+			math.floor(surface_blend + (winblend_peak - surface_blend) * (1 - progress) ^ 2 + 0.5)
 		vim.api.nvim_set_option_value("winblend", blend, { win = browser.preview_window })
 		if frame < transition_frames then
 			defer_transition(browser, generation, render_frame)
@@ -493,11 +575,17 @@ local function transition_preview(browser, prepared)
 	local generation = browser.transition_generation
 	browser.preview_options = copy(prepared.options)
 	browser.preview_palette = copy(prepared.palette)
+	browser.preview_background = prepared.background
 
 	if browser.motion == "reduced" then
-		apply_preview_palette(browser, prepared.options, prepared.palette)
+		apply_preview_palette(browser, prepared.options, prepared.palette, prepared.background)
 	elseif browser.motion == "winblend" then
 		fade_preview(browser, prepared, generation)
+	elseif
+		browser.rendered_background ~= nil
+		and prepared.background ~= browser.rendered_background
+	then
+		crossfade_preview(browser, prepared, generation)
 	else
 		interpolate_preview(browser, prepared, generation)
 	end
@@ -638,7 +726,7 @@ local function select_theme(browser, close_after)
 	cancel_transition(browser)
 	local ok, selection_error = pcall(require("neotheme").switch, theme)
 	if not ok then
-		local restored, restore_error = restore_checkpoint(browser)
+		local restored, restore_error = restore_checkpoint(browser, true)
 		apply_highlights()
 		if not restored then
 			cancel(
@@ -646,7 +734,8 @@ local function select_theme(browser, close_after)
 				"neotheme: failed to apply theme: "
 					.. tostring(selection_error)
 					.. "; failed to restore the latest selection: "
-					.. tostring(restore_error)
+					.. tostring(restore_error),
+				true
 			)
 			return
 		end
@@ -662,6 +751,8 @@ local function select_theme(browser, close_after)
 	browser.preview_palette = copy(snapshot.applied_palette)
 	browser.rendered_options = copy(snapshot.applied_options)
 	browser.rendered_palette = copy(snapshot.applied_palette)
+	browser.preview_background = require("neotheme.themes").background(theme)
+	browser.rendered_background = browser.preview_background
 	browser.last_previewed_theme = theme
 	browser.preview_matches_checkpoint = true
 
@@ -672,7 +763,12 @@ local function select_theme(browser, close_after)
 		return
 	end
 
-	apply_preview_palette(browser, snapshot.applied_options, snapshot.applied_palette)
+	apply_preview_palette(
+		browser,
+		snapshot.applied_options,
+		snapshot.applied_palette,
+		browser.preview_background
+	)
 	update_preview_metadata(browser, theme)
 end
 
@@ -691,7 +787,7 @@ local function configure_browser_window(window)
 	vim.api.nvim_set_option_value("number", false, { win = window })
 	vim.api.nvim_set_option_value("relativenumber", false, { win = window })
 	vim.api.nvim_set_option_value("wrap", false, { win = window })
-	vim.api.nvim_set_option_value("winblend", 0, { win = window })
+	vim.api.nvim_set_option_value("winblend", surface_blend, { win = window })
 	vim.api.nvim_set_option_value("winhighlight", browser_winhighlight, { win = window })
 end
 
@@ -741,7 +837,6 @@ end
 
 local function configure_preview(browser)
 	configure_browser_window(browser.preview_window)
-	vim.api.nvim_win_set_hl_ns(browser.preview_window, browser.preview_namespace)
 	vim.api.nvim_set_option_value("filetype", "lua", { buf = browser.preview_buffer })
 	vim.api.nvim_set_option_value("signcolumn", "yes", { win = browser.preview_window })
 
@@ -756,13 +851,6 @@ local function configure_preview(browser)
 	})
 	pcall(vim.treesitter.start, browser.preview_buffer, "lua")
 	vim.api.nvim_set_option_value("syntax", "lua", { buf = browser.preview_buffer })
-end
-
-local function configure_backdrop(browser)
-	vim.api.nvim_set_option_value("winblend", 60, { win = browser.backdrop_window })
-	vim.api.nvim_set_option_value("winhighlight", backdrop_winhighlight, {
-		win = browser.backdrop_window,
-	})
 end
 
 local function create_lifecycle_autocmds(browser)
@@ -880,27 +968,19 @@ end
 
 local function create_browser(browser)
 	apply_highlights()
-	if preview_namespace == nil then
-		preview_namespace = vim.api.nvim_create_namespace("NeothemeBrowserPreview")
+	if preview_namespaces == nil then
+		preview_namespaces = {
+			vim.api.nvim_create_namespace("NeothemeBrowserPreviewA"),
+			vim.api.nvim_create_namespace("NeothemeBrowserPreviewB"),
+		}
 	end
-	browser.preview_namespace = preview_namespace
+	browser.preview_namespaces = preview_namespaces
 	local family = selected_family(browser)
 	local lines = copy(preview_lines)
 	lines[1] = string.format(lines[1], family)
 
-	browser.backdrop_buffer = create_buffer("backdrop", { "" })
 	browser.list_buffer = create_buffer("selector", { "" })
 	browser.preview_buffer = create_buffer("preview", lines)
-	browser.backdrop_window = vim.api.nvim_open_win(browser.backdrop_buffer, false, {
-		relative = "editor",
-		row = browser.layout.backdrop.row,
-		col = browser.layout.backdrop.col,
-		width = browser.layout.backdrop.width,
-		height = browser.layout.backdrop.height,
-		style = "minimal",
-		focusable = false,
-		zindex = 40,
-	})
 	browser.list_window = vim.api.nvim_open_win(browser.list_buffer, true, {
 		relative = "editor",
 		row = browser.layout.list.row,
@@ -908,8 +988,8 @@ local function create_browser(browser)
 		width = browser.layout.list.width,
 		height = browser.layout.list.height,
 		style = "minimal",
-		border = "rounded",
-		title = { { " Neotheme · Families ", "NeothemeBrowserTitle" } },
+		border = rounded_border,
+		title = title_chunks(" Neotheme · Families "),
 		title_pos = "center",
 		focusable = true,
 		zindex = 50,
@@ -921,14 +1001,13 @@ local function create_browser(browser)
 		width = browser.layout.preview.width,
 		height = browser.layout.preview.height,
 		style = "minimal",
-		border = "rounded",
-		title = { { " Preview · " .. browser.initial_theme .. " ", "NeothemeBrowserTitle" } },
+		border = rounded_border,
+		title = title_chunks(" Preview · " .. browser.initial_theme .. " "),
 		title_pos = "center",
 		focusable = false,
 		zindex = 50,
 	})
 
-	configure_backdrop(browser)
 	configure_list_window(browser)
 	configure_preview(browser)
 	local initial_prepared
@@ -936,14 +1015,21 @@ local function create_browser(browser)
 		initial_prepared = {
 			options = copy(browser.entry_snapshot.applied_options),
 			palette = copy(browser.entry_snapshot.applied_palette),
+			background = require("neotheme.themes").background(browser.initial_theme),
 		}
 	else
 		browser.preview_attempted = true
 		initial_prepared = require("neotheme")._prepare_preview(browser.initial_theme)
 	end
-	apply_preview_palette(browser, initial_prepared.options, initial_prepared.palette)
+	apply_preview_palette(
+		browser,
+		initial_prepared.options,
+		initial_prepared.palette,
+		initial_prepared.background
+	)
 	browser.preview_options = copy(initial_prepared.options)
 	browser.preview_palette = copy(initial_prepared.palette)
+	browser.preview_background = initial_prepared.background
 	browser.last_previewed_theme = browser.initial_theme
 	browser.preview_matches_checkpoint = browser.initial_theme
 		== browser.entry_snapshot.applied_theme
@@ -993,6 +1079,7 @@ function M.open()
 		previewed = false,
 		previewing = false,
 		preview_matches_checkpoint = false,
+		preview_namespace_index = 0,
 		rendering = false,
 		restored = false,
 		transition_generation = 0,
@@ -1037,8 +1124,6 @@ function M._state()
 	end
 
 	return copy({
-		backdrop_window = active.backdrop_window,
-		backdrop_buffer = active.backdrop_buffer,
 		list_window = active.list_window,
 		preview_window = active.preview_window,
 		list_buffer = active.list_buffer,
@@ -1061,6 +1146,8 @@ function M._state()
 		transitioning = active.transitioning,
 		rendered_palette = active.rendered_palette,
 		preview_palette = active.preview_palette,
+		preview_background = active.preview_background,
+		rendered_background = active.rendered_background,
 		preview_matches_checkpoint = active.preview_matches_checkpoint,
 	})
 end

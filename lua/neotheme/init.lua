@@ -122,13 +122,26 @@ local function invalidate_lualine_theme()
 end
 
 ---@param prepared NeothemePreparedTheme
-local function apply_prepared(prepared)
+---@return boolean
+local function can_apply_incrementally(prepared)
+	return state.loaded
+		and vim.g.colors_name == "neotheme"
+		and state.applied_options ~= nil
+		and vim.deep_equal(state.applied_options.integrations, prepared.options.integrations)
+end
+
+---@param prepared NeothemePreparedTheme
+---@param force_clear? boolean
+local function apply_prepared(prepared, force_clear)
 	if vim.fn.has("nvim-0.12") ~= 1 then
 		error("neotheme requires Neovim 0.12 or newer")
 	end
 
+	local colors_name = vim.g.colors_name
+	local incremental = not force_clear and can_apply_incrementally(prepared)
+	vim.g.colors_name = nil
 	vim.o.background = prepared.background
-	if vim.g.colors_name then
+	if force_clear or (colors_name and not incremental) then
 		vim.cmd("highlight clear")
 	end
 	vim.o.termguicolors = true
@@ -315,7 +328,8 @@ function M._snapshot_state()
 end
 
 ---@param snapshot table
-function M._restore_state(snapshot)
+---@param force_clear? boolean
+function M._restore_state(snapshot, force_clear)
 	if type(snapshot) ~= "table" or snapshot.loaded ~= true then
 		error("neotheme: cannot restore an unloaded theme state", 2)
 	end
@@ -347,7 +361,7 @@ function M._restore_state(snapshot)
 	end
 
 	local prepared = prepare_resolved_theme(snapshot.applied_options, snapshot.applied_palette)
-	apply_prepared(prepared)
+	apply_prepared(prepared, force_clear)
 	state.configured_palette = copy(snapshot.configured_palette)
 	commit_applied(
 		prepared,
