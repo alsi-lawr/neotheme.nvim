@@ -54,6 +54,16 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 
 ## Theme families
 
+Discover the built-in inventory from Neovim with `:NeothemeList`, or list one family's
+members with `:NeothemeList gruber`. The same registry is available through Lua:
+
+```lua
+local neotheme = require("neotheme")
+
+local families = neotheme.families()
+local gruber_themes = neotheme.themes("gruber")
+```
+
 | Family | Stand-out theme | Range | Full inventory |
 | --- | --- | --- | --- |
 | Arcfield | `arcfield-graphite` | Two dark and one light variant | [Themes and examples](docs/themes/arcfield/README.md) |
