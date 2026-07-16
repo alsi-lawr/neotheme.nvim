@@ -219,6 +219,23 @@ function M.reset()
 	return configured.theme
 end
 
+---@return string reloaded_theme
+function M.reload()
+	local configured = config.get()
+	local override_theme = state.override_theme
+	local target = override_theme or configured.theme
+	local options = copy(configured)
+	options.theme = target
+	local prepared = prepare_theme(options)
+
+	apply_prepared(prepared)
+	if override_theme == nil then
+		state.configured_palette = copy(prepared.palette)
+	end
+	commit_applied(prepared, override_theme, nil, override_theme == nil)
+	return target
+end
+
 ---@param family? string
 ---@return string[]
 function M.themes(family)

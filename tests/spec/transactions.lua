@@ -234,7 +234,7 @@ h.eq("custom", engine._state().active_theme, "custom active theme restored")
 h.eq(custom_reference, engine.palette(), "custom public palette restored")
 
 local cache_calls = 0
-local cache_accents = { "#e06b63", "#93c476", "#6aa9e9" }
+local cache_accents = { "#e06b63", "#93c476", "#6aa9e9", "#d8a657" }
 engine.setup({
 	theme = "gruber-dark",
 	configure_palette = function(palette)
@@ -263,3 +263,17 @@ engine.load()
 h.eq(3, cache_calls, "later load reuses restored entry cache")
 h.eq(entry_accent, engine.palette().ui.accent, "later load ignores cancelled preview cache")
 h.eq(h.color(entry_accent), h.highlight("Title").fg, "later load applies restored cache")
+
+local reload_entry = engine._snapshot_state()
+h.eq("gruber-dark", engine.reload(), "transaction reload return")
+h.eq(4, cache_calls, "transaction reload resolves once")
+h.eq(cache_accents[4], engine.palette().ui.accent, "transaction reload refreshes cache")
+h.eq(true, engine._snapshot_state().baseline_applied, "transaction reload baseline marker")
+
+engine._restore_state(reload_entry)
+h.eq(4, cache_calls, "reload restoration does not rerun configurator")
+h.eq(reload_entry, engine._snapshot_state(), "reload transaction restores exact state")
+vim.cmd.colorscheme("default")
+engine.load()
+h.eq(4, cache_calls, "load reuses restored pre-reload cache")
+h.eq(entry_accent, engine.palette().ui.accent, "restored reload cache remains authoritative")
