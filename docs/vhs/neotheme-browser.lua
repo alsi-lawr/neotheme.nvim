@@ -15,12 +15,12 @@ vim.o.swapfile = false
 vim.o.termguicolors = true
 
 local lines = {
-	"-- neotheme.nvim · live theme browser",
+	"-- neotheme.nvim · preview-only theme browser",
 	"",
 	"local workflow = {",
 	'\tfamily = "typeset",',
 	'\tpreview = { "typeset-ink", "typeset-paper" },',
-	'\ttransaction = "preview → cancel → accept",',
+	'\ttransaction = "preview → confirm → keep browsing",',
 	"}",
 	"",
 	"local function describe(flow)",
