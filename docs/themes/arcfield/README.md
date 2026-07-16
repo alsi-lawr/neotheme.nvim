@@ -12,32 +12,6 @@ Arcfield is a storm-field family built around graphite-blue structure and lightn
 
 ## Previews
 
-### Arcfield Graphite
+![Animated Arcfield editor and simplified-palette carousel](./arcfield-previews.webp)
 
-**Editor preview**
-
-![Arcfield Graphite in Neovim](./arcfield-graphite.png)
-
-**Simplified palette**
-
-![Arcfield Graphite simplified palette](./arcfield-graphite.svg)
-
-### Arcfield Porcelain
-
-**Editor preview**
-
-![Arcfield Porcelain in Neovim](./arcfield-porcelain.png)
-
-**Simplified palette**
-
-![Arcfield Porcelain simplified palette](./arcfield-porcelain.svg)
-
-### Arcfield Surge
-
-**Editor preview**
-
-![Arcfield Surge in Neovim](./arcfield-surge.png)
-
-**Simplified palette**
-
-![Arcfield Surge simplified palette](./arcfield-surge.svg)
+[Open the full-size Arcfield editor and palette matrix](./arcfield-matrix.webp).

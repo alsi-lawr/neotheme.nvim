@@ -12,32 +12,6 @@ Bathyal evokes the permanently dark, cold, high-pressure deep ocean. Near-black 
 
 ## Previews
 
-### Bathyal Midwater
+![Animated Bathyal editor and simplified-palette carousel](./bathyal-previews.webp)
 
-**Editor preview**
-
-![Bathyal Midwater in Neovim](./bathyal-midwater.png)
-
-**Simplified palette**
-
-![Bathyal Midwater simplified palette](./bathyal-midwater.svg)
-
-### Bathyal Marine Snow
-
-**Editor preview**
-
-![Bathyal Marine Snow in Neovim](./bathyal-marine-snow.png)
-
-**Simplified palette**
-
-![Bathyal Marine Snow simplified palette](./bathyal-marine-snow.svg)
-
-### Bathyal Bioluminescence
-
-**Editor preview**
-
-![Bathyal Bioluminescence in Neovim](./bathyal-bioluminescence.png)
-
-**Simplified palette**
-
-![Bathyal Bioluminescence simplified palette](./bathyal-bioluminescence.svg)
+[Open the full-size Bathyal editor and palette matrix](./bathyal-matrix.webp).

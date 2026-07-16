@@ -66,131 +66,11 @@ See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for ins
 | Typewriter | `typewriter-ink` | Three light and two dark variants | [Themes and examples](docs/themes/typewriter/README.md) |
 | Understory | `understory-canopy` | Two dark and two light variants | [Themes and examples](docs/themes/understory/README.md) |
 
-### Arcfield - Graphite
+## Family previews
 
-An electrified storm-dark theme with graphite-blue fields, cyan control flow, blue-white callables, and restrained strike-yellow member and literal flashes.
+![Animated carousel of each theme family's stand-out editor and palette](docs/themes/theme-family-previews.webp)
 
-**Editor preview**
-
-![Arcfield Graphite in Neovim](docs/themes/arcfield/arcfield-graphite.png)
-
-**Simplified palette**
-
-![Arcfield Graphite simplified palette](docs/themes/arcfield/arcfield-graphite.svg)
-
-Explore all three variants in the [Arcfield family inventory](docs/themes/arcfield/README.md).
-
-### Bathyal - Midwater
-
-A near-black pressure-blue theme with cold pale text and sparse cyan, violet, green, and muted-red accents.
-
-**Editor preview**
-
-![Bathyal Midwater in Neovim](docs/themes/bathyal/bathyal-midwater.png)
-
-**Simplified palette**
-
-![Bathyal Midwater simplified palette](docs/themes/bathyal/bathyal-midwater.svg)
-
-Explore all three variants in the [Bathyal family inventory](docs/themes/bathyal/README.md).
-
-### Ferric - Forge
-
-An industrial dark theme with charcoal and steel surfaces, pale metal text, iron-rust accents, rusty copper details, and restrained verdigris.
-
-**Editor preview**
-
-![Ferric Forge in Neovim](docs/themes/ferric/ferric-forge.png)
-
-**Simplified palette**
-
-![Ferric Forge simplified palette](docs/themes/ferric/ferric-forge.svg)
-
-Explore both variants in the [Ferric family inventory](docs/themes/ferric/README.md).
-
-### Grove - Campfire
-
-A forest-dark fantasy-adventure theme with parchment text, oxblood control flow and UI accents, aged-gold navigation, moss additions, ember signals, and restrained arcane violet.
-
-**Editor preview**
-
-![Grove Campfire in Neovim](docs/themes/grove/grove-campfire.png)
-
-**Simplified palette**
-
-![Grove Campfire simplified palette](docs/themes/grove/grove-campfire.svg)
-
-Explore both variants in the [Grove family inventory](docs/themes/grove/README.md).
-
-### Gruber - Dark Muted
-
-The current default: a restrained, warm dark theme with softened syntax colors and measured contrast.
-
-**Editor preview**
-
-![Gruber Dark Muted in Neovim](docs/themes/gruber/gruber-dark-muted.png)
-
-**Simplified palette**
-
-![Gruber Dark Muted simplified palette](docs/themes/gruber/gruber-dark-muted.svg)
-
-Explore all six variants in the [Gruber family inventory](docs/themes/gruber/README.md).
-
-### Neritic - Day
-
-A clear coastal light theme with turquoise and fog surfaces, deep-ocean text, sea-glass greens, and sunlit coral accents.
-
-**Editor preview**
-
-![Neritic Day in Neovim](docs/themes/neritic/neritic-day.png)
-
-**Simplified palette**
-
-![Neritic Day simplified palette](docs/themes/neritic/neritic-day.svg)
-
-Explore all four variants in the [Neritic family inventory](docs/themes/neritic/README.md).
-
-### Typeset - Paper
-
-A warm newsprint theme whose ordinary syntax follows one ageing blue-black ink through violet-grey oxidation, dried sepia edges, and muted residue. Stronger proofing color remains sparse.
-
-**Editor preview**
-
-![Typeset Paper in Neovim](docs/themes/typeset/typeset-paper.png)
-
-**Simplified palette**
-
-![Typeset Paper simplified palette](docs/themes/typeset/typeset-paper.svg)
-
-Explore both variants in the [Typeset family inventory](docs/themes/typeset/README.md).
-
-### Typewriter - Ink
-
-A crisp paper light theme with near-black ink, strong neutral separation, and restrained color reserved for focused signals.
-
-**Editor preview**
-
-![Typewriter Ink in Neovim](docs/themes/typewriter/typewriter-ink.png)
-
-**Simplified palette**
-
-![Typewriter Ink simplified palette](docs/themes/typewriter/typewriter-ink.svg)
-
-Explore all five variants in the [Typewriter family inventory](docs/themes/typewriter/README.md).
-
-### Understory - Canopy
-
-A canopy-filtered dark theme with cool forest shadows, pine-green structure, and distinct moss, fern, lichen, bark, and amber details.
-
-**Editor preview**
-
-![Understory Canopy in Neovim](docs/themes/understory/understory-canopy.png)
-
-**Simplified palette**
-
-![Understory Canopy simplified palette](docs/themes/understory/understory-canopy.svg)
-
-Explore all four variants in the [Understory family inventory](docs/themes/understory/README.md).
+[Open the full-size family editor and palette matrix](docs/themes/theme-family-matrix.webp).
 
 ## Customize semantic roles
 
@@ -222,11 +102,10 @@ stylua --check .
 ./tests/run.sh
 ```
 
-Documentation previews are reproducible with the portable tools in [assets/scripts](assets/scripts/README.md):
+Documentation previews are reproducible with the pipeline documented in [assets/scripts](assets/scripts/README.md):
 
 ```sh
-./assets/scripts/generate-palette-cards.sh
-./assets/scripts/capture-theme-screenshots.sh
+./assets/scripts/generate-theme-assets.sh
 ```
 
 ## License
