@@ -140,10 +140,21 @@ local resolved = copy(defaults)
 local M = {}
 
 ---@param options? NeothemeOptions
-function M.setup(options)
+---@return NeothemeOptions
+function M._prepare(options)
 	options = options or {}
 	validate(options, schema, "options")
-	resolved = merge(copy(defaults), options)
+	return merge(copy(defaults), options)
+end
+
+---@param options NeothemeOptions
+function M._commit(options)
+	resolved = copy(options)
+end
+
+---@param options? NeothemeOptions
+function M.setup(options)
+	M._commit(M._prepare(options))
 end
 
 ---@return NeothemeOptions
