@@ -65,6 +65,10 @@ Use `:NeothemeCurrent` to inspect the active theme, configured baseline, family,
 and session-override status. The same read-only state is returned by
 `require("neotheme").current()`.
 
+Return to the complete latest setup baseline with `:NeothemeReset`, or call
+`require("neotheme").reset()` from Lua. Reset remains session-only and returns the configured
+theme name.
+
 See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for installation alternatives, every option, integrations, palette customization, and the public API.
 
 ## Theme families

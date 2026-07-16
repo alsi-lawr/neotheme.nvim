@@ -107,6 +107,17 @@ function M.register()
 		nargs = "*",
 		desc = "Show the current Neotheme session state",
 	})
+
+	create_user_command("NeothemeReset", function(arguments)
+		if arguments.args ~= "" then
+			error("neotheme: NeothemeReset accepts no arguments")
+		end
+
+		require("neotheme").reset()
+	end, {
+		nargs = "*",
+		desc = "Reset Neotheme to the configured baseline",
+	})
 end
 
 return M

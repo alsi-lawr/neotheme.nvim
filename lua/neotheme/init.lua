@@ -17,6 +17,7 @@ local state = {
 	loaded = false,
 	---@type string?
 	override_theme = nil,
+	baseline_applied = false,
 }
 
 local function copy(value)
@@ -94,6 +95,7 @@ function M._cleanup()
 	state.applied_options = nil
 	state.applied_palette = nil
 	state.loaded = false
+	state.baseline_applied = false
 end
 
 local function create_autocmds()
@@ -140,13 +142,15 @@ end
 ---@param prepared NeothemePreparedTheme
 ---@param override_theme string?
 ---@param resolved_palette? NeothemePalette
-local function commit_applied(prepared, override_theme, resolved_palette)
+---@param baseline_applied boolean
+local function commit_applied(prepared, override_theme, resolved_palette, baseline_applied)
 	state.resolved_palette = copy(resolved_palette or prepared.palette)
 	state.applied_theme = prepared.options.theme
 	state.applied_options = copy(prepared.options)
 	state.applied_palette = copy(prepared.palette)
 	state.loaded = true
 	state.override_theme = override_theme
+	state.baseline_applied = baseline_applied
 end
 
 ---@param options? NeothemeOptions
@@ -159,6 +163,7 @@ function M.setup(options)
 	state.configured_palette = copy(prepared.palette)
 	state.resolved_palette = copy(prepared.palette)
 	state.override_theme = nil
+	state.baseline_applied = false
 	return M
 end
 
@@ -188,8 +193,30 @@ function M.switch(theme)
 	end
 
 	apply_prepared(prepared)
-	commit_applied(prepared, override_theme)
+	if override_theme == nil then
+		state.configured_palette = copy(prepared.palette)
+	end
+	commit_applied(prepared, override_theme, nil, override_theme == nil)
 	return M
+end
+
+---@return string configured_theme
+function M.reset()
+	local configured = config.get()
+	if
+		state.loaded
+		and state.override_theme == nil
+		and state.applied_theme == configured.theme
+		and state.baseline_applied
+	then
+		return configured.theme
+	end
+
+	local prepared = prepare_theme(configured)
+	apply_prepared(prepared)
+	state.configured_palette = copy(prepared.palette)
+	commit_applied(prepared, nil, nil, true)
+	return configured.theme
 end
 
 ---@param family? string
@@ -245,11 +272,13 @@ end
 function M._snapshot_state()
 	return copy({
 		loaded = state.loaded,
+		configured_palette = state.configured_palette,
 		applied_theme = state.applied_theme,
 		applied_options = state.applied_options,
 		applied_palette = state.applied_palette,
 		resolved_palette = state.resolved_palette,
 		override_theme = state.override_theme,
+		baseline_applied = state.baseline_applied,
 	})
 end
 
@@ -272,10 +301,28 @@ function M._restore_state(snapshot)
 	if snapshot.override_theme ~= nil and type(snapshot.override_theme) ~= "string" then
 		error("neotheme: invalid override theme state snapshot", 2)
 	end
+	if snapshot.configured_palette ~= nil and type(snapshot.configured_palette) ~= "table" then
+		error("neotheme: invalid configured palette state snapshot", 2)
+	end
+	if type(snapshot.baseline_applied) ~= "boolean" then
+		error("neotheme: invalid baseline state snapshot", 2)
+	end
+	if
+		snapshot.baseline_applied
+		and (snapshot.override_theme ~= nil or snapshot.applied_theme ~= config.get().theme)
+	then
+		error("neotheme: inconsistent baseline state snapshot", 2)
+	end
 
 	local prepared = prepare_resolved_theme(snapshot.applied_options, snapshot.applied_palette)
 	apply_prepared(prepared)
-	commit_applied(prepared, snapshot.override_theme, snapshot.resolved_palette)
+	state.configured_palette = copy(snapshot.configured_palette)
+	commit_applied(
+		prepared,
+		snapshot.override_theme,
+		snapshot.resolved_palette,
+		snapshot.baseline_applied
+	)
 end
 
 function M.load()
@@ -285,7 +332,7 @@ function M.load()
 
 	apply_prepared(prepared)
 	state.configured_palette = copy(prepared.palette)
-	commit_applied(prepared, nil)
+	commit_applied(prepared, nil, nil, true)
 end
 
 return M
