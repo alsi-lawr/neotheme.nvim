@@ -198,6 +198,20 @@ function M.background(name)
 	return theme.background
 end
 
+---@param name string
+---@return string?
+function M.family(name)
+	if name == "custom" then
+		return nil
+	end
+
+	local theme = modules[name]
+	if not theme then
+		error(string.format("neotheme: unknown theme '%s'", name), 3)
+	end
+	return theme.family
+end
+
 ---@param family? string
 ---@return string[]
 function M.names(family)

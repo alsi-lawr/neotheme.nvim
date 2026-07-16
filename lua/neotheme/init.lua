@@ -203,6 +203,30 @@ function M.families()
 	return require("neotheme.themes").families()
 end
 
+---@class NeothemeCurrentState
+---@field loaded boolean
+---@field active_theme string?
+---@field family string?
+---@field configured_theme string
+---@field background "dark"|"light"?
+---@field session_override boolean
+
+---@return NeothemeCurrentState
+function M.current()
+	local loaded = state.loaded
+	local active_theme = loaded and state.applied_theme or nil
+	local family = active_theme and require("neotheme.themes").family(active_theme) or nil
+
+	return {
+		loaded = loaded,
+		active_theme = active_theme,
+		family = family,
+		configured_theme = config.get().theme,
+		background = loaded and vim.o.background or nil,
+		session_override = state.override_theme ~= nil,
+	}
+end
+
 function M._register_commands()
 	require("neotheme.commands").register()
 end
