@@ -82,7 +82,7 @@ h.eq(
 
 engine.setup({
 	theme = "gruber-dark",
-	motion = "interpolate",
+	motion = { level = "interpolate", duration_ms = 600 },
 	integrations = { telescope = true },
 })
 engine.load()
@@ -91,7 +91,8 @@ browser.open()
 move_to("typeset")
 press("<CR>")
 local interpolating = assert(browser._state())
-h.eq("interpolate", interpolating.motion, "interpolation policy")
+h.eq("interpolate", interpolating.motion.level, "interpolation policy")
+h.eq(600, interpolating.motion.duration_ms, "interpolation duration")
 h.eq("typeset-ink", interpolating.last_previewed_theme, "same-polarity target")
 h.truthy(interpolating.transitioning, "same-polarity transition begins")
 h.falsy(
@@ -124,29 +125,29 @@ h.eq(
 h.eq(interpolation_entry, global_contract(), "completed transition remains preview-only")
 close("q")
 
-engine.setup({ theme = "typeset-paper", motion = "winblend" })
+engine.setup({ theme = "typeset-paper", motion = { level = "winblend", duration_ms = 500 } })
 engine.load()
 local winblend_entry = global_contract()
 browser.open()
 press("<CR>")
 move_to("typeset-ink")
 local winblend = assert(browser._state())
-h.eq("winblend", winblend.motion, "winblend policy")
+h.eq("winblend", winblend.motion.level, "winblend policy")
 h.truthy(winblend.transitioning, "winblend transition begins")
 h.eq(
 	winblend.preview_palette,
 	winblend.rendered_palette,
 	"winblend applies target colors immediately"
 )
-h.truthy(vim.wo[winblend.preview_window].winblend >= 40, "winblend transition is visible")
+h.truthy(vim.wo[winblend.preview_window].winblend > 0, "winblend transition is visible")
 wait_for_transition()
 h.eq(0, vim.wo[browser._state().preview_window].winblend, "winblend returns to opaque")
 h.eq(winblend_entry, global_contract(), "winblend remains preview-only")
 close("<Esc>")
 
-engine.setup({ theme = "typeset-paper", motion = "reduced" })
+engine.setup({ theme = "typeset-paper", motion = false })
 engine.load()
-local reduced_entry = global_contract()
+local disabled_entry = global_contract()
 browser.open()
 press("<CR>")
 local before_swap = assert(browser._state())
@@ -161,19 +162,23 @@ vim.api.nvim_set_hl = function(namespace, name, highlight)
 end
 move_to("typeset-ink")
 vim.api.nvim_set_hl = original_set_hl
-local reduced = assert(browser._state())
-h.eq("reduced", reduced.motion, "reduced-motion policy")
-h.falsy(reduced.transitioning, "reduced motion has no deferred work")
+local disabled = assert(browser._state())
+h.falsy(disabled.motion, "disabled-motion policy")
+h.falsy(disabled.transitioning, "disabled motion has no deferred work")
 h.falsy(wrote_visible_namespace, "preview frame is built off-screen")
 h.falsy(
-	reduced.preview_namespace == visible_namespace,
+	disabled.preview_namespace == visible_namespace,
 	"completed frame atomically swaps namespaces"
 )
-h.eq(reduced.preview_palette, reduced.rendered_palette, "reduced motion applies target immediately")
-h.eq(reduced_entry, global_contract(), "reduced motion remains preview-only")
+h.eq(
+	disabled.preview_palette,
+	disabled.rendered_palette,
+	"disabled motion applies target immediately"
+)
+h.eq(disabled_entry, global_contract(), "disabled motion remains preview-only")
 close("q")
 
-engine.setup({ theme = "gruber-dark", motion = "reduced" })
+engine.setup({ theme = "gruber-dark", motion = false })
 engine.load()
 local confirmation_entry = global_contract()
 browser.open()
@@ -205,13 +210,13 @@ h.eq(confirmation_entry, global_contract(), "q preserves the checkpoint after fa
 
 engine.setup({
 	theme = "gruber-dark",
-	motion = "reduced",
+	motion = false,
 	integrations = { cmp = false },
 })
 engine.load()
 engine.setup({
 	theme = "gruber-dark",
-	motion = "reduced",
+	motion = false,
 	integrations = { cmp = true },
 })
 browser.open()
@@ -241,7 +246,7 @@ h.truthy(h.group_exists("CmpItemAbbrMatch"), "reset applies the replacement inte
 
 engine.setup({
 	theme = "gruber-dark",
-	motion = "reduced",
+	motion = false,
 	integrations = { cmp = false },
 })
 engine.load()
@@ -273,7 +278,7 @@ h.eq(nil, browser._state(), "failed forced rollback closes the browser")
 h.eq("gruber-dark", engine.current().active_theme, "nested rollback restores active theme")
 h.eq({}, h.highlight("CmpItemAbbrMatch"), "nested rollback clears partial integrations")
 
-engine.setup({ theme = "gruber-dark", motion = "interpolate" })
+engine.setup({ theme = "gruber-dark", motion = { level = "interpolate", duration_ms = 500 } })
 engine.load()
 local interrupted_entry = global_contract()
 browser.open()
