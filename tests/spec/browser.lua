@@ -138,7 +138,7 @@ h.eq(unloaded_resources, resources(), "unloaded entry is resource-atomic")
 local configure_calls = 0
 engine.setup({
 	theme = "gruber-dark",
-	motion = "reduced",
+	motion = false,
 	configure_palette = function(palette)
 		configure_calls = configure_calls + 1
 		palette.ui.search = palette.diagnostic.error

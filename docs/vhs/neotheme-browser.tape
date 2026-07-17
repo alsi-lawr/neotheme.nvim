@@ -18,9 +18,9 @@ Set Padding 0
 Set Margin 40
 Set MarginFill "docs/vhs/window-shadow.png"
 
-Set Framerate 15
-Set PlaybackSpeed 1.5
-Set TypingSpeed 20ms
+Set Framerate 30 
+Set PlaybackSpeed 1
+Set TypingSpeed 75ms
 Set CursorBlink false
 
 Hide

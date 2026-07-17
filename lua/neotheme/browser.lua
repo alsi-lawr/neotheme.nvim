@@ -6,19 +6,18 @@ local preview_namespaces = nil
 local active = nil
 local cancel_transition = nil
 
-local transition_duration = 300
 local transition_frames = 12
 local surface_blend = 0
 local winblend_peak = 45
 
 local rounded_border = {
-	{ "", "NeothemeBrowserFrameCap" },
+	{ "╭", "NeothemeBrowserBorder" },
 	{ "─", "NeothemeBrowserBorder" },
-	{ "", "NeothemeBrowserFrameCap" },
+	{ "╮", "NeothemeBrowserBorder" },
 	{ "│", "NeothemeBrowserBorder" },
-	{ "", "NeothemeBrowserFrameCap" },
+	{ "╯", "NeothemeBrowserBorder" },
 	{ "─", "NeothemeBrowserBorder" },
-	{ "", "NeothemeBrowserFrameCap" },
+	{ "╰", "NeothemeBrowserBorder" },
 	{ "│", "NeothemeBrowserBorder" },
 }
 
@@ -30,11 +29,7 @@ local browser_winhighlight = table.concat({
 	"EndOfBuffer:NeothemeBrowserFloat",
 }, ",")
 local function title_chunks(text)
-	return {
-		{ "", "NeothemeBrowserTitleCap" },
-		{ text, "NeothemeBrowserTitle" },
-		{ "", "NeothemeBrowserTitleCap" },
-	}
+	return { { text, "NeothemeBrowserTitle" } }
 end
 
 local preview_lines = {
@@ -161,10 +156,9 @@ end
 local function apply_highlights(namespace)
 	namespace = namespace or 0
 	local normal = vim.api.nvim_get_hl(namespace, { name = "Normal" })
-	local border = vim.api.nvim_get_hl(namespace, { name = "FloatBorder" })
 	local title = vim.api.nvim_get_hl(namespace, { name = "Title" })
 	local comment = vim.api.nvim_get_hl(namespace, { name = "Comment" })
-	local border_foreground = border.fg or normal.fg
+	local border_foreground = normal.fg
 	local title_definition = copy(title)
 	title_definition.fg = title_definition.fg or normal.fg
 	title_definition.bg = normal.bg
@@ -173,9 +167,7 @@ local function apply_highlights(namespace)
 		fg = border_foreground,
 		bg = normal.bg,
 	})
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserFrameCap", { fg = normal.bg })
 	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTitle", title_definition)
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTitleCap", { fg = normal.bg })
 	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTabActive", title)
 	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTabInactive", comment)
 	if namespace ~= 0 then
@@ -476,7 +468,7 @@ local function defer_transition(browser, generation, callback)
 		if not ok then
 			transition_failed(browser, transition_error)
 		end
-	end, math.floor(transition_duration / transition_frames))
+	end, math.floor(browser.motion.duration_ms / (transition_frames - 1)))
 end
 
 local function interpolate_preview(browser, prepared, generation)
@@ -567,7 +559,7 @@ local function fade_preview(browser, prepared, generation)
 		end
 	end
 
-	defer_transition(browser, generation, render_frame)
+	render_frame()
 end
 
 local function transition_preview(browser, prepared)
@@ -577,9 +569,9 @@ local function transition_preview(browser, prepared)
 	browser.preview_palette = copy(prepared.palette)
 	browser.preview_background = prepared.background
 
-	if browser.motion == "reduced" then
+	if browser.motion == false then
 		apply_preview_palette(browser, prepared.options, prepared.palette, prepared.background)
-	elseif browser.motion == "winblend" then
+	elseif browser.motion.level == "winblend" then
 		fade_preview(browser, prepared, generation)
 	elseif
 		browser.rendered_background ~= nil

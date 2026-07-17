@@ -52,8 +52,8 @@ vim.cmd.colorscheme("neotheme")
 
 With Neotheme loaded, `:Neotheme` opens the family-first visual browser. Theme navigation changes
 only the code preview until `<Space>` applies a choice or `<CR>` applies it and closes. Press
-`<Esc>` or `q` to leave at the latest confirmed theme. Transitions default to palette
-interpolation; `motion = "winblend"` and `motion = "reduced"` offer quieter alternatives.
+`<Esc>` or `q` to leave at the latest confirmed theme. Transitions default to 500 ms palette
+interpolation; configure `motion = false` to disable them, or set its level and duration.
 
 ![Neotheme family drill-in, preview-only navigation, and session confirmation](docs/assets/neotheme-browser.webp)
 

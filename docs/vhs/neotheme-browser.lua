@@ -39,6 +39,7 @@ local neotheme = require("neotheme")
 
 neotheme.setup({
 	theme = "gruber-dark-muted",
+	motion = { level = "interpolate", duration_ms = 500 },
 })
 neotheme._register_commands()
 vim.cmd.colorscheme("neotheme")
