@@ -20,10 +20,10 @@ A color being present in the palette does not make it part of the theme's visibl
 
 - **`text_primary`** is ordinary readable text: identifiers, prose, messages, menus, panels, and the terminal foreground.
 - **`text_bright`** is a brighter supporting foreground for punctuation, winbars, filenames, and UI text that needs more presence than normal text without becoming the strongest emphasis.
-- **`text_strong`** is the highest neutral emphasis. It appears in selected rows, active status sections, diff focus, and other places that should remain prominent even without an accent hue.
+- **`text_strong`** is the highest neutral emphasis. It appears in selected rows, active status sections, diff focus, and other places that should remain prominent even without an accent hue. It also supplies the strongest regular terminal text, including ANSI bright white (color 15).
 - **`text_muted`** is annotation text: inactive UI, inlay hints, code lenses, metadata, secondary labels, and de-emphasized content. If omitted, `syntax_type` supplies it.
 - **`text_on_accent`** must remain readable when placed directly on the accent color, including cursors, search blocks, active snippets, prompts, and mode sections. If omitted, `surface_deepest` supplies it.
-- **`text_on_error`** is the foreground for solid error surfaces. It also supplies the current-search emphasis color, so it must work as both readable text and a focused marker.
+- **`text_on_error`** is the foreground placed on semantic error and conflict blocks, including error messages and substitute highlights. It is not a general or terminal text color.
 
 ## Syntax and semantic accents
 
@@ -41,3 +41,39 @@ A color being present in the palette does not make it part of the theme's visibl
 - **`version_control_conflict`** is reserved for merge conflicts, conflicting changes, and substitute-style conflict emphasis. It can be related to the error color, but should remain distinguishable from it.
 
 The authoritative expansion is implemented in [`lua/neotheme/themes/simplified.lua`](lua/neotheme/themes/simplified.lua). After changing a compact field, inspect both the palette card and an editor capture: the card verifies the input, while the capture reveals its full visual footprint.
+
+## Persistent editor records
+
+The `:NeothemePalette` workspace can retain either this 24-field Simplified source or a complete
+59-field Full source. Themes `a` visibly selects **Simplified palette** or **Full palette** before
+asking for a name; cancellation at either step changes nothing. Simplified groups the required flat
+fields into Surface (9), Text (6), Syntax (7), and Signals (`diagnostic_error` and
+`version_control_conflict`). Full uses Surface, Text, Syntax, Diagnostic, Markup, Version control,
+and UI. The role title labels the mode, numeric tabs and `[`/`]` stay within that mode, and the
+adjacent `background = dark|light` row controls theme metadata. Every visible valid token uses its
+color and a readable foreground. An invalid field is diagnosed in place, keeps the last valid
+private preview, and blocks category movement and `:write`; bundled palettes remain templates and
+must be cloned before editing.
+
+The navigator keeps its tabs and contextual controls outside the scrolling inventory. Use `1` for
+Families, `2` for Themes, or `<Tab>`/`<S-Tab>` to cycle. Families provide `a` create, `v` visibility,
+and `d` deletion for empty user-created families. On Themes, `a` adds the selected mode from its
+separate fixed neutral dark or light source following `vim.o.background`; it does not inherit
+another palette. Use `c` to clone the selected theme instead. Persisted user clones preserve mode
+and authoritative source; bundled, configured, custom, and empty-family configured snapshots clone
+as Full expanded palettes. `e` edits user themes, while `d` deletes user themes that are not
+configured, active, or retained session overrides. Built-in and user entries are labelled
+explicitly. Delete actions use `delete? Y/n`; only `Y`, `y`, or the default confirms.
+
+Use `C` in either editable panel for the confirmed `commit? Y/n` path, or `:write` for an
+unprompted commit. Both validate and atomically persist the complete palette. Declining or
+cancelling a confirmed commit leaves the dirty in-memory palette and the existing JSON bytes
+unchanged. Press `q` or `<Esc>` from either panel to close a clean workspace. Dirty workspaces stay
+open with every edit preserved; use `C` or `:write` to save, or `:q!` to discard and close.
+
+New and committed theme records use schema version 2 with an explicit `simplified` or `full` mode.
+Strict mode-less v1 records continue to load as Full and upgrade on commit without changing their
+expanded palette. Simplified records must contain exactly all 24 compact colors, including
+`text_muted` and `text_on_accent`; runtime lookup always returns a fresh complete expansion through
+this module. Mode conversion and overrides of roles derived from a Simplified source are out of
+scope.

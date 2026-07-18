@@ -156,10 +156,11 @@ local terminal = {
 	[1] = palette.version_control.conflict,
 	[2] = palette.diagnostic.success,
 	[8] = palette.surface.base,
-	[15] = palette.text.on_error,
+	[15] = palette.text.strong,
 }
 for index, color in pairs(terminal) do
 	h.eq(color, vim.g["terminal_color_" .. index], "terminal color " .. index)
 end
 h.eq(palette.surface.base, vim.g.terminal_color_background, "terminal background")
 h.eq(palette.text.primary, vim.g.terminal_color_foreground, "terminal foreground")
+h.eq(palette.text.strong, vim.g.terminal_color_15, "ANSI bright white uses strong text")

@@ -76,6 +76,19 @@ function M.register()
 		desc = "Browse Neotheme themes",
 	})
 
+	create_user_command("NeothemePalette", function(arguments)
+		if arguments.args:find("%s") then
+			error("neotheme: NeothemePalette accepts at most one theme argument")
+		end
+		require("neotheme.palette_editor").open(arguments.args ~= "" and arguments.args or nil)
+	end, {
+		nargs = "?",
+		complete = function(argument_lead)
+			return filtered_themes(argument_lead)
+		end,
+		desc = "Manage and edit persistent Neotheme palettes",
+	})
+
 	create_user_command("NeothemeList", function(arguments)
 		if arguments.args:find("%s") then
 			error("neotheme: NeothemeList accepts at most one family argument")

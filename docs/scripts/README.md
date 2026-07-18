@@ -1,4 +1,4 @@
-# Asset-generation scripts
+# Documentation-generation scripts
 
 Every script resolves the checkout from its own path, so it can be invoked from any working directory.
 
@@ -11,13 +11,13 @@ It requires Node.js 18 or newer, FFmpeg with `libwebp` and `libwebp_anim`, GNU `
 Generate every final asset:
 
 ```sh
-./assets/scripts/generate-theme-assets.sh
+./docs/scripts/generate-theme-assets.sh
 ```
 
 Recompose from an existing flat directory of temporary `<theme>.png` and `<theme>.svg` inputs without recapturing:
 
 ```sh
-./assets/scripts/generate-theme-assets.sh --source-dir /path/to/theme-inputs
+./docs/scripts/generate-theme-assets.sh --source-dir /path/to/theme-inputs
 ```
 
 Pass `--check` with `--source-dir` to regenerate in scratch space and verify the checked-in matrix and carousel files byte for byte.
@@ -31,13 +31,13 @@ It requires Node.js 18 or newer. There are no package installation steps.
 Generate every current card in a temporary source directory:
 
 ```sh
-./assets/scripts/generate-palette-cards.sh --output-dir /path/to/theme-inputs
+./docs/scripts/generate-palette-cards.sh --output-dir /path/to/theme-inputs
 ```
 
 Generate only selected public themes:
 
 ```sh
-./assets/scripts/generate-palette-cards.sh \
+./docs/scripts/generate-palette-cards.sh \
 	--output-dir /tmp/neotheme-theme-inputs \
 	gruber-dark gruber-light
 ```
@@ -45,13 +45,13 @@ Generate only selected public themes:
 Verify cards in a selected output directory without changing files:
 
 ```sh
-./assets/scripts/generate-palette-cards.sh --check --output-dir /path/to/theme-inputs
+./docs/scripts/generate-palette-cards.sh --check --output-dir /path/to/theme-inputs
 ```
 
 To run it while outside the repository root, use the path to the checkout's script, for example:
 
 ```sh
-/path/to/neotheme.nvim/assets/scripts/generate-palette-cards.sh --output-dir /path/to/theme-inputs
+/path/to/neotheme.nvim/docs/scripts/generate-palette-cards.sh --output-dir /path/to/theme-inputs
 ```
 
 The generator reads the direct color literals in each registered theme's `NeothemeSimplifiedPalette` input table, coalesces duplicate display colors, and emits one square tile for each resulting color. Theme names and source modules come from the runtime theme registry, so adding a registered simplified-palette theme does not require another asset manifest.
@@ -65,14 +65,14 @@ The default capture backend needs a graphical KDE Linux session plus Neovim, Ala
 Capture every current public variant with the normal Neovim config:
 
 ```sh
-./assets/scripts/capture-theme-screenshots.sh \
+./docs/scripts/capture-theme-screenshots.sh \
 	--output-dir /tmp/neotheme-theme-inputs
 ```
 
 Use a specific regular config, output directory, or selected variants:
 
 ```sh
-./assets/scripts/capture-theme-screenshots.sh \
+./docs/scripts/capture-theme-screenshots.sh \
 	--config ~/.config/nvim/init.lua \
 	--output-dir /tmp/neotheme-theme-inputs \
 	gruber-dark-muted gruber-light-muted
@@ -83,7 +83,7 @@ The script opens `lua/neotheme/init.lua` by default; choose another visible file
 `--check` only verifies that requested PNG files exist; it cannot prove visual freshness because the screenshots intentionally reflect the selected regular Neovim configuration:
 
 ```sh
-./assets/scripts/capture-theme-screenshots.sh \
+./docs/scripts/capture-theme-screenshots.sh \
 	--check \
 	--output-dir /tmp/neotheme-theme-inputs
 ```

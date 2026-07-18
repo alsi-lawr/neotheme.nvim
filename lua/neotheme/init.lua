@@ -186,6 +186,19 @@ function M.palette()
 	return copy(palette)
 end
 
+---@return table snapshot
+function M._configured_snapshot()
+	local options = config.get()
+	local configured_palette = state.configured_palette
+	if configured_palette == nil then
+		configured_palette = prepare_theme(options).palette
+	end
+	return {
+		background = require("neotheme.themes").background(options.theme),
+		palette = copy(configured_palette),
+	}
+end
+
 ---@param theme string
 ---@return table
 function M.switch(theme)
@@ -297,6 +310,12 @@ function M.current()
 		background = loaded and vim.o.background or nil,
 		session_override = state.override_theme ~= nil,
 	}
+end
+
+---@param theme string
+---@return boolean
+function M._retains_session_theme(theme)
+	return state.override_theme == theme
 end
 
 function M._register_commands()

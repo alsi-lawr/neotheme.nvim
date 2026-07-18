@@ -55,7 +55,7 @@ const labels = {
 };
 
 function usage() {
-	return `Usage: assets/scripts/generate-palette-cards.sh [options] [theme ...]
+	return `Usage: docs/scripts/generate-palette-cards.sh [options] [theme ...]
 
 Generate the SVG palette cards for all built-in themes backed by the simplified
 palette schema, or only the named public theme(s). --check verifies that the
@@ -247,7 +247,7 @@ function generate({ check, outputDirectory, themeNames }) {
 		for (const stalePath of stalePaths) {
 			console.error(`Palette card is out of date: ${stalePath}`);
 		}
-		console.error("Run assets/scripts/generate-palette-cards.sh with the same --output-dir.");
+		console.error("Run docs/scripts/generate-palette-cards.sh with the same --output-dir.");
 		process.exitCode = 1;
 	} else if (check) {
 		console.log("Palette cards are current.");

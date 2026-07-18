@@ -11,8 +11,8 @@
 ---@field text_primary string
 ---@field text_bright string
 ---@field text_strong string
----@field text_muted? string
----@field text_on_accent? string
+---@field text_muted string
+---@field text_on_accent string
 ---@field text_on_error string
 ---@field syntax_comment string
 ---@field syntax_string string
@@ -25,6 +25,105 @@
 ---@field version_control_conflict string
 
 local M = {}
+
+local categories = {
+	{
+		key = "surface",
+		label = "Surface",
+		fields = {
+			"surface_deepest",
+			"surface_dark",
+			"surface_base",
+			"surface_raised",
+			"surface_selected",
+			"surface_border",
+			"surface_muted",
+			"surface_addition",
+			"surface_error",
+		},
+	},
+	{
+		key = "text",
+		label = "Text",
+		fields = {
+			"text_primary",
+			"text_bright",
+			"text_strong",
+			"text_muted",
+			"text_on_accent",
+			"text_on_error",
+		},
+	},
+	{
+		key = "syntax",
+		label = "Syntax",
+		fields = {
+			"syntax_comment",
+			"syntax_string",
+			"syntax_keyword",
+			"syntax_function_name",
+			"syntax_type",
+			"syntax_property",
+			"syntax_literal",
+		},
+	},
+	{
+		key = "signals",
+		label = "Signals",
+		fields = { "diagnostic_error", "version_control_conflict" },
+	},
+}
+
+local function copy(value)
+	if type(value) ~= "table" then
+		return value
+	end
+	local result = {}
+	for key, item in pairs(value) do
+		result[key] = copy(item)
+	end
+	return result
+end
+
+local known_fields = {}
+for _, category in ipairs(categories) do
+	for _, field in ipairs(category.fields) do
+		known_fields[field] = true
+	end
+end
+
+---@return table[]
+function M.categories()
+	return copy(categories)
+end
+
+---@param simplified unknown
+---@return boolean valid
+---@return string? error_message
+function M.is_complete(simplified)
+	if type(simplified) ~= "table" then
+		return false, "palette must be an object"
+	end
+	for _, category in ipairs(categories) do
+		for _, field in ipairs(category.fields) do
+			local color = simplified[field]
+			if type(color) ~= "string" or not color:match("^#%x%x%x%x%x%x$") then
+				return false, "palette." .. field .. " must be a #RRGGBB color"
+			end
+		end
+	end
+	local unknown = {}
+	for field in pairs(simplified) do
+		if not known_fields[field] then
+			table.insert(unknown, tostring(field))
+		end
+	end
+	table.sort(unknown)
+	if #unknown > 0 then
+		return false, "unknown palette entry " .. unknown[1]
+	end
+	return true
+end
 
 ---@param simplified NeothemeSimplifiedPalette
 ---@return NeothemePalette

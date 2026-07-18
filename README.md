@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/neotheme.svg" width="128" alt="Neotheme logo">
+<img src="docs/assets/neotheme.svg" width="128" alt="Neotheme logo">
 
 # neotheme.nvim
 
@@ -80,6 +80,64 @@ Refresh the current configured theme or session override with `:NeothemeReload`,
 `require("neotheme").reload()` from Lua. Reload reruns `configure_palette` against a fresh base,
 reapplies the current selection, returns its theme name, and remains session-only.
 
+## Persistent palette editor
+
+`:NeothemePalette` opens a browser-styled palette workspace without requiring Neotheme to be
+loaded. Its left navigator lists every bundled and user family, including disabled families and
+isolated state-file diagnostics. Its tabs and contextual actions stay fixed while the inventory
+scrolls. `1` selects Families, `2` selects Themes, and `<Tab>`/`<S-Tab>` cycle between them. Entries
+use explicit `built-in` and `user` labels. On Families, `a` creates a family, `v` toggles visibility,
+and `d` deletes an empty user-created family after `delete? Y/n` confirmation. Built-in and
+non-empty families are never deleted. Disabled families disappear from the main browser,
+`:NeothemeList`, and command completion, but exact theme names still work with switching, reset,
+reload, and current-state inspection.
+
+![Creating, editing, previewing, and committing Simplified and Full palette sources](docs/assets/neotheme-palette-editor.webp)
+
+On Themes, `a` first offers **Simplified palette** or **Full palette**, then asks for the theme name.
+Either cancellation is a no-op. Both choices use separate fixed neutral dark or light templates
+selected by the current `vim.o.background`; neither inherits the selected or configured palette or
+creates a bundled theme. Simplified keeps 24 direct source colours grouped as Surface, Text, Syntax,
+and Signals, then derives the complete runtime palette. Full keeps all 59 semantic roles in the
+seven categories below. `c` clones the selected theme instead: persisted user themes retain their
+source mode and source palette, while bundled, configured, custom, and empty-family configured
+snapshots clone as Full because only their expanded runtime palette is authoritative. `e` opens a
+selected user theme in the role editor; bundled themes remain read-only and report how to clone
+them. `d` uses the same `delete? Y/n` confirmation to delete a selected user theme, except when it
+is configured, active, or retained as a session override. Only `Y`, `y`, or accepting the default
+confirms deletion; no and cancellation leave state unchanged.
+
+`:NeothemePalette theme-name` opens an exact user theme directly. A bundled theme argument starts
+the same clone flow. The centre panel labels the source mode and shows one source category at a time
+as direct `field = #RRGGBB` lines; it never exposes the persisted JSON tree. Simplified uses
+`1` through `4` for Surface, Text, Syntax, and Signals; Full uses `1` through `7` for Surface, Text,
+Syntax, Diagnostic, Markup, Version control, and UI. `[`/`]` cycle within the active mode. `<C-h>`
+and `<C-l>` move between the navigator and role editor. A compact `background = dark|light` row
+edits theme metadata alongside the authoritative source palette. `:write` atomically saves both
+palette and metadata. Press `q` or `<Esc>` from either the navigator or role editor to close a clean
+workspace; a dirty workspace instead preserves every edit and directs you to use `C` or `:write`
+to save, or `:q!` to discard and close. Valid edits expand into and update only the non-focusable
+private code preview; invalid fields are diagnosed in place, retain the last valid preview, and
+block movement and saving.
+
+Press `C` from either the navigator or role editor to validate and commit the complete editable
+palette after `commit? Y/n`; its default is `Y`, and no or cancellation preserves both the dirty
+model and existing file. `:write` performs the same complete validation and atomic persistence
+without prompting.
+
+Neotheme writes JSON lazily under
+`stdpath("state")/neotheme/families/<family>.json` and
+`stdpath("state")/neotheme/palettes/<family>/<theme>.json`. Built-in themes are read-only
+templates. Theme records use schema version 2 and include `mode = "simplified"|"full"`; current
+strict mode-less v1 theme records load as Full and upgrade without palette drift on their next
+commit. Simplified records require all 24 compact fields, while Full records require all 59 expanded
+roles. User family and theme names remain lowercase ASCII slugs. Records are atomically replaced.
+Malformed records are omitted from runtime selection and reported in sorted order by the workspace,
+without preventing startup. To recover a malformed record, inspect its named navigator diagnostic,
+repair or remove that JSON file under `stdpath("state")/neotheme`, then reopen `:NeothemePalette` to
+refresh the inventory. Converting an existing theme between modes and overriding roles derived from
+a Simplified source are not supported.
+
 See the [Neotheme wiki](https://github.com/alsi-lawr/neotheme.nvim/wiki) for installation alternatives, every option, integrations, palette customization, and the public API.
 
 ## Theme families
@@ -142,14 +200,14 @@ stylua --check .
 ./tests/run.sh
 ```
 
-Documentation previews are reproducible with the pipeline documented in [assets/scripts](assets/scripts/README.md):
+Documentation previews are reproducible with the pipeline documented in [docs/scripts](docs/scripts/README.md):
 
 ```sh
-./assets/scripts/generate-theme-assets.sh
+./docs/scripts/generate-theme-assets.sh
 ```
 
-The live browser recording uses the checked-in
-[VHS tape](docs/vhs/neotheme-browser.tape) and the
+The live browser and palette-editor recordings use the checked-in
+[VHS tapes](docs/vhs/README.md) and the
 [`alsi-lawr/vhs` WebP capture fork](https://github.com/alsi-lawr/vhs/tree/feat/xterm6-capture-modes).
 
 ## License

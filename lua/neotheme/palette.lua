@@ -209,6 +209,39 @@ end
 
 local M = {}
 
+local function complete_error(palette)
+	if type(palette) ~= "table" then
+		return "palette must be an object"
+	end
+
+	for category, fields in pairs(schema) do
+		local values = palette[category]
+		if type(values) ~= "table" then
+			return string.format("palette.%s must be an object", category)
+		end
+		local known = {}
+		for _, field in ipairs(fields) do
+			known[field] = true
+			local color = values[field]
+			if type(color) ~= "string" or not color:match("^#%x%x%x%x%x%x$") then
+				return string.format("palette.%s.%s must be a #RRGGBB color", category, field)
+			end
+		end
+		for field in pairs(values) do
+			if not known[field] then
+				return string.format("unknown palette entry %s.%s", category, tostring(field))
+			end
+		end
+	end
+
+	for category in pairs(palette) do
+		if schema[category] == nil then
+			return string.format("unknown palette category %s", tostring(category))
+		end
+	end
+	return nil
+end
+
 ---@return NeothemePalette
 function M.empty()
 	return empty()
@@ -244,6 +277,16 @@ end
 ---@return string[]
 function M.paths()
 	return missing_paths(empty())
+end
+
+---Validate a persisted palette. Persisted themes intentionally cannot use the
+---partial palette contract accepted by configure_palette.
+---@param palette unknown
+---@return boolean valid
+---@return string? error_message
+function M.is_complete(palette)
+	local message = complete_error(palette)
+	return message == nil, message
 end
 
 return M
