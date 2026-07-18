@@ -18,7 +18,7 @@ function M.apply(p)
 		{ "diagnostic", "information" },
 		{ "diagnostic", "hint" },
 		{ "text", "muted" },
-		{ "text", "on_error" },
+		{ "text", "strong" },
 	}
 
 	for index, path in ipairs(paths) do

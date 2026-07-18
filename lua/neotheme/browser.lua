@@ -154,28 +154,7 @@ function M._interpolate_palette(source, target, progress)
 end
 
 local function apply_highlights(namespace)
-	namespace = namespace or 0
-	local normal = vim.api.nvim_get_hl(namespace, { name = "Normal" })
-	local title = vim.api.nvim_get_hl(namespace, { name = "Title" })
-	local comment = vim.api.nvim_get_hl(namespace, { name = "Comment" })
-	local border_foreground = normal.fg
-	local title_definition = copy(title)
-	title_definition.fg = title_definition.fg or normal.fg
-	title_definition.bg = normal.bg
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserFloat", normal)
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserBorder", {
-		fg = border_foreground,
-		bg = normal.bg,
-	})
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTitle", title_definition)
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTabActive", title)
-	vim.api.nvim_set_hl(namespace, "NeothemeBrowserTabInactive", comment)
-	if namespace ~= 0 then
-		vim.api.nvim_set_hl(namespace, "FloatBorder", {
-			fg = border_foreground,
-			bg = normal.bg,
-		})
-	end
+	require("neotheme.ui").apply_browser_chrome(namespace)
 end
 
 ---@param columns integer

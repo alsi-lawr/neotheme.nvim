@@ -11,7 +11,7 @@ while [ "$#" -gt 0 ]; do
 	case "$1" in
 		-h | --help)
 			cat <<'EOF'
-Usage: assets/scripts/generate-theme-assets.sh [--source-dir DIR] [--check] [root|family ...]
+Usage: docs/scripts/generate-theme-assets.sh [--source-dir DIR] [--check] [root|family ...]
 
 Generate only the final static matrix and animated carousel for each target.
 Without --source-dir, temporary palette cards and editor screenshots are

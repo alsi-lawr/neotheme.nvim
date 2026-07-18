@@ -29,7 +29,7 @@ registered_themes=$(sed -n 's/^[[:space:]]*\["\([^"]*\)"\].*/\1/p' "$repository_
 
 usage() {
 	cat <<'EOF'
-Usage: assets/scripts/capture-theme-screenshots.sh [options] [theme ...]
+Usage: docs/scripts/capture-theme-screenshots.sh [options] [theme ...]
 
 Capture temporary live PNG inputs for all registered built-in themes, or only
 the named public theme(s). --output-dir is required. Neovim loads its normal
