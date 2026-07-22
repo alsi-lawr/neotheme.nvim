@@ -39,13 +39,13 @@ end
 
 ---@param options NeothemeOptions
 ---@return NeothemePreparedTheme
-local function prepare_theme(options)
+local function prepare_theme(options, provider_candidate)
 	local prepared_options = copy(options)
 	local palette = require("neotheme.palette")
 	local themes = require("neotheme.themes")
-	local background = themes.background(prepared_options.theme)
+	local background = themes.background(prepared_options.theme, provider_candidate)
 	local base = prepared_options.theme == "custom" and palette.empty()
-		or themes.get(prepared_options.theme)
+		or themes.get(prepared_options.theme, provider_candidate)
 
 	return {
 		options = prepared_options,
@@ -170,9 +170,12 @@ end
 ---@return table
 function M.setup(options)
 	local prepared_options = config._prepare(options)
-	local prepared = prepare_theme(prepared_options)
+	local themes = require("neotheme.themes")
+	local provider_candidate = themes._prepare_providers(prepared_options.palette_packs)
+	local prepared = prepare_theme(prepared_options, provider_candidate)
 
 	config._commit(prepared_options)
+	themes._commit_providers(provider_candidate)
 	state.configured_palette = copy(prepared.palette)
 	state.resolved_palette = copy(prepared.palette)
 	state.override_theme = nil

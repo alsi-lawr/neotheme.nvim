@@ -218,9 +218,22 @@ local function user_inventory()
 	return families, themes, state.diagnostics
 end
 
+local function provider_inventory(candidate)
+	return require("neotheme.providers").get(candidate)
+end
+
+function M._prepare_providers(configured)
+	local families, themes = user_inventory()
+	return require("neotheme.providers").prepare(configured, modules, families, themes)
+end
+
+function M._commit_providers(candidate)
+	require("neotheme.providers").commit(candidate)
+end
+
 ---@param name string
 ---@return NeothemePalette
-function M.get(name)
+function M.get(name, candidate)
 	if name == "custom" then
 		return require("neotheme.palette").empty()
 	end
@@ -228,6 +241,10 @@ function M.get(name)
 	local theme = modules[name]
 	if theme then
 		return copy(require(theme.module))
+	end
+	local provider_theme = provider_inventory(candidate).themes[name]
+	if provider_theme then
+		return expand_record(provider_theme)
 	end
 	local _, user_themes = user_inventory()
 	local user_theme = user_themes[name]
@@ -245,7 +262,7 @@ end
 
 ---@param name string
 ---@return "dark"|"light"
-function M.background(name)
+function M.background(name, candidate)
 	if name == "custom" then
 		return "dark"
 	end
@@ -253,6 +270,10 @@ function M.background(name)
 	local theme = modules[name]
 	if theme then
 		return theme.background
+	end
+	local provider_theme = provider_inventory(candidate).themes[name]
+	if provider_theme then
+		return provider_theme.background
 	end
 	local _, user_themes = user_inventory()
 	local user_theme = user_themes[name]
@@ -272,6 +293,10 @@ function M.family(name)
 	local theme = modules[name]
 	if theme then
 		return theme.family
+	end
+	local provider_theme = provider_inventory().themes[name]
+	if provider_theme then
+		return provider_theme.family
 	end
 	local _, user_themes = user_inventory()
 	local user_theme = user_themes[name]
