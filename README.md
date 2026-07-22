@@ -36,18 +36,26 @@ The default theme is `gruber-dark-muted`. Run `:Neotheme` to browse themes and
 
 ## Palette packs
 
-[`neotheme-packs.nvim`](https://github.com/alsi-lawr/neotheme-packs.nvim) adds opt-in Kanagawa,
-Rosé Pine, Solarized, Tokyo Night, and Catppuccin themes. See
+[`neotheme-packs.nvim`](https://github.com/alsi-lawr/neotheme-packs.nvim) adds opt-in curated
+themes. See
 [Palette Providers](https://github.com/alsi-lawr/neotheme.nvim/wiki/Palette-Providers) for setup and
 behaviour.
 
 ## Previews
 
-![Neotheme family browser](docs/assets/neotheme-browser.webp)
+<div align="center">
 
-![Theme family previews](docs/themes/theme-family-previews.webp)
+<h3>Theme browser</h3>
 
-[Open the full-size theme matrix](docs/themes/theme-family-matrix.webp).
+<img src="docs/assets/neotheme-browser.webp" alt="Neotheme family browser">
+
+<h3>Theme families</h3>
+
+<img src="docs/themes/theme-family-previews.webp" alt="Theme family previews">
+
+<p><a href="docs/themes/theme-family-matrix.webp">Open the full-size theme matrix</a>.</p>
+
+</div>
 
 ## Documentation
 
