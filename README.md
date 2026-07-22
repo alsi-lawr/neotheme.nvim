@@ -54,8 +54,8 @@ vim.cmd.colorscheme("neotheme")
 
 Palette providers are optional Lua modules. Installing one does not change Neotheme's inventory;
 it must also be named in `palette_packs`, with either an explicit family list or `include = "*"`.
-The curated pack repository is currently local and unpublished, has no remote, and must be prepared
-at a local path before using this lazy.nvim example:
+The curated provider is published separately as
+[`neotheme-packs.nvim`](https://github.com/alsi-lawr/neotheme-packs.nvim):
 
 ```lua
 {
@@ -63,10 +63,7 @@ at a local path before using this lazy.nvim example:
 	lazy = false,
 	priority = 1000,
 	dependencies = {
-		{
-			dir = "/path/to/neotheme-packs.nvim",
-			name = "neotheme-packs.nvim",
-		},
+		"alsi-lawr/neotheme-packs.nvim",
 	},
 	config = function()
 		require("neotheme").setup({
