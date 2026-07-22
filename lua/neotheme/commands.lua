@@ -55,6 +55,9 @@ local function show_current()
 	if current.family then
 		table.insert(lines, "family: " .. current.family)
 	end
+	if current.source then
+		table.insert(lines, "source: " .. current.source)
+	end
 	table.insert(lines, "configured: " .. current.configured_theme)
 	if current.background then
 		table.insert(lines, "background: " .. current.background)

@@ -50,6 +50,48 @@ require("neotheme").setup({
 vim.cmd.colorscheme("neotheme")
 ```
 
+## Opt-in palette providers
+
+Palette providers are optional Lua modules. Installing one does not change Neotheme's inventory;
+it must also be named in `palette_packs`, with either an explicit family list or `include = "*"`.
+The curated provider is published separately as
+[`neotheme-packs.nvim`](https://github.com/alsi-lawr/neotheme-packs.nvim):
+
+```lua
+{
+	"alsi-lawr/neotheme.nvim",
+	lazy = false,
+	priority = 1000,
+	dependencies = {
+		"alsi-lawr/neotheme-packs.nvim",
+	},
+	config = function()
+		require("neotheme").setup({
+			theme = "tokyonight-moon",
+			palette_packs = {
+				{ provider = "neotheme_packs", include = "*" },
+			},
+		})
+		vim.cmd.colorscheme("neotheme")
+	end,
+}
+```
+
+A provider module returns schema v1 data with its identity and keyed packs. Runtime packs contain
+only `family` and strict `themes`; every theme contains `background`, `mode`, and a complete
+Simplified or Full palette. Neotheme defensively copies and validates all selected providers before
+resolving the configured theme. Unknown records and provider, pack, family, built-in, user, or
+provider-theme collisions reject the whole setup. The previous working configuration and provider
+inventory remain active; Neotheme never chooses an implicit fallback.
+
+Provider themes are read-only templates and report their source as `pack:<provider>` in current
+state and the palette workspace. They can be previewed, switched to, or cloned into editable local
+v2 state, but cannot be edited, saved, or deleted in place. Provider families obey the same
+visibility state as existing families: disabled families leave browsers, lists, and completion,
+while exact theme lookup remains available. Omitting a provider removes only its in-memory themes
+and does not rewrite persistent user state. If the new setup still configures a removed theme, the
+setup fails atomically and retains the prior provider registry.
+
 With Neotheme loaded, `:Neotheme` opens the family-first visual browser. Theme navigation changes
 only the code preview until `<Space>` applies a choice or `<CR>` applies it and closes. Press
 `<Esc>` or `q` to leave at the latest confirmed theme. Transitions default to 500 ms palette

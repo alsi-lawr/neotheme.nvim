@@ -26,6 +26,7 @@ h.eq({
 	loaded = true,
 	active_theme = "gruber-dark-muted",
 	family = "gruber",
+	source = "built-in",
 	configured_theme = "gruber-dark-muted",
 	background = "dark",
 	session_override = false,
