@@ -297,6 +297,7 @@ end
 ---@field family string?
 ---@field configured_theme string
 ---@field background "dark"|"light"?
+---@field source string?
 ---@field session_override boolean
 
 ---@return NeothemeCurrentState
@@ -311,6 +312,7 @@ function M.current()
 		family = family,
 		configured_theme = config.get().theme,
 		background = loaded and vim.o.background or nil,
+		source = active_theme and require("neotheme.themes").source(active_theme) or nil,
 		session_override = state.override_theme ~= nil,
 	}
 end

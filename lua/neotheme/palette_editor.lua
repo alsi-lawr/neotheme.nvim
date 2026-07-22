@@ -887,7 +887,7 @@ local function render_navigator(surface)
 		local members = family and surface.themes_by_family[family] or {}
 		for index, theme in ipairs(members) do
 			local selected = index == surface.selected_theme_index
-			local kind = require("neotheme.themes").is_user(theme) and "user" or "built-in"
+			local kind = require("neotheme.themes").source(theme) or "unknown"
 			local prefix = (selected and "> " or "  ") .. kind .. " "
 			local line = prefix .. display_name(theme, width - vim.fn.strdisplaywidth(prefix))
 			table.insert(lines, line)
@@ -1193,7 +1193,9 @@ local function edit_selected_theme(surface)
 		return
 	end
 	if not require("neotheme.themes").is_user(theme) then
-		report("neotheme: bundled themes are read-only; press c to clone the selected theme")
+		report(
+			"neotheme: built-in and provider themes are read-only; press c to clone the selected theme"
+		)
 		return
 	end
 	load_user_theme(surface, theme)
@@ -1696,7 +1698,7 @@ end
 
 function M.edit(theme)
 	if not require("neotheme.themes").is_user(theme) then
-		error("neotheme: bundled themes are read-only; clone one before editing", 2)
+		error("neotheme: built-in and provider themes are read-only; clone one before editing", 2)
 	end
 	open_workspace(theme, true)
 end
@@ -1711,7 +1713,11 @@ function M.open(argument)
 		return M.manager()
 	end
 	local themes = require("neotheme.themes")
-	if not themes.is_builtin(argument) and not themes.is_user(argument) then
+	if
+		not themes.is_builtin(argument)
+		and not themes.is_provider(argument)
+		and not themes.is_user(argument)
+	then
 		error("neotheme: unknown theme '" .. argument .. "'", 2)
 	end
 	if themes.is_user(argument) then

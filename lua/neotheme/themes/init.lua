@@ -184,13 +184,23 @@ end
 
 local function user_inventory()
 	local state = require("neotheme.state").load()
+	local providers = require("neotheme.providers").get()
 	local families = {}
 	for name, record in pairs(state.families) do
-		families[name] = { enabled = record.enabled, user = not bundled_families[name] }
+		families[name] = {
+			enabled = record.enabled,
+			user = not bundled_families[name] and providers.families[name] == nil,
+			provider = providers.families[name] and providers.families[name].provider or nil,
+		}
 	end
 	for _, theme in pairs(modules) do
 		if families[theme.family] == nil then
 			families[theme.family] = { enabled = true, user = false }
+		end
+	end
+	for name, record in pairs(providers.families) do
+		if families[name] == nil then
+			families[name] = { enabled = true, user = false, provider = record.provider }
 		end
 	end
 
@@ -204,6 +214,15 @@ local function user_inventory()
 					.. "/"
 					.. name
 					.. ".json: name collides with a bundled theme"
+			)
+		elseif providers.themes[name] ~= nil then
+			table.insert(
+				state.diagnostics,
+				"palettes/"
+					.. record.family
+					.. "/"
+					.. name
+					.. ".json: name collides with a provider theme"
 			)
 		elseif families[record.family] == nil then
 			table.insert(
@@ -224,6 +243,12 @@ end
 
 function M._prepare_providers(configured)
 	local families, themes = user_inventory()
+	local current = provider_inventory()
+	for name in pairs(current.families) do
+		if families[name] and families[name].provider then
+			families[name] = nil
+		end
+	end
 	return require("neotheme.providers").prepare(configured, modules, families, themes)
 end
 
@@ -310,6 +335,7 @@ end
 ---@return string[]
 function M.names(family)
 	local families, user_themes = user_inventory()
+	local providers = provider_inventory()
 	local names = family == nil and { "custom" } or {}
 	if family ~= nil and families[family] == nil then
 		error(string.format("neotheme: unknown family '%s'", family), 3)
@@ -331,6 +357,14 @@ function M.names(family)
 			table.insert(names, name)
 		end
 	end
+	for name, theme in pairs(providers.themes) do
+		if
+			(family == nil and families[theme.family].enabled)
+			or (family == theme.family and families[family].enabled)
+		then
+			table.insert(names, name)
+		end
+	end
 
 	table.sort(names)
 	return names
@@ -339,12 +373,16 @@ end
 ---@return string[]
 function M.families()
 	local inventory, user_themes = user_inventory()
+	local providers = provider_inventory()
 	local families = {}
 	local has_theme = {}
 	for _, theme in pairs(modules) do
 		has_theme[theme.family] = true
 	end
 	for _, theme in pairs(user_themes) do
+		has_theme[theme.family] = true
+	end
+	for _, theme in pairs(providers.themes) do
 		has_theme[theme.family] = true
 	end
 
@@ -363,6 +401,7 @@ end
 ---@return string[] diagnostics
 function M.inventory()
 	local families, user_themes, diagnostics = user_inventory()
+	local providers = provider_inventory()
 	local names = {}
 	local by_family = {}
 	for family in pairs(families) do
@@ -373,6 +412,9 @@ function M.inventory()
 		table.insert(by_family[theme.family], name)
 	end
 	for name, theme in pairs(user_themes) do
+		table.insert(by_family[theme.family], name)
+	end
+	for name, theme in pairs(providers.themes) do
 		table.insert(by_family[theme.family], name)
 	end
 	for _, values in pairs(by_family) do
@@ -397,6 +439,25 @@ end
 
 ---@param name string
 ---@return boolean
+function M.is_provider(name)
+	return provider_inventory().themes[name] ~= nil
+end
+
+---@param name string
+---@return string?
+function M.source(name)
+	if modules[name] then
+		return "built-in"
+	end
+	if M.is_user(name) then
+		return "user"
+	end
+	local provider_theme = provider_inventory().themes[name]
+	return provider_theme and ("pack:" .. provider_theme.provider) or nil
+end
+
+---@param name string
+---@return boolean
 function M.family_exists(name)
 	local families = user_inventory()
 	return families[name] ~= nil
@@ -414,6 +475,13 @@ end
 function M.is_user_family(name)
 	local families = user_inventory()
 	return families[name] ~= nil and families[name].user
+end
+
+---@param name string
+---@return boolean
+function M.is_provider_family(name)
+	local families = user_inventory()
+	return families[name] ~= nil and families[name].provider ~= nil
 end
 
 ---@param name string
@@ -458,7 +526,7 @@ local function validate_clone_target(family, name)
 	if not M.family_exists(family) then
 		error("neotheme: unknown family '" .. family .. "'", 2)
 	end
-	if name == "custom" or modules[name] ~= nil or M.is_user(name) then
+	if name == "custom" or modules[name] ~= nil or M.is_provider(name) or M.is_user(name) then
 		error("neotheme: theme '" .. name .. "' already exists", 2)
 	end
 end
@@ -509,7 +577,7 @@ end
 ---@param record table
 function M.save(record)
 	if not M.is_user(record.name) then
-		error("neotheme: bundled themes are read-only templates", 2)
+		error("neotheme: built-in and provider themes are read-only templates", 2)
 	end
 	if not M.family_exists(record.family) then
 		error("neotheme: unknown family '" .. tostring(record.family) .. "'", 2)
@@ -521,6 +589,9 @@ end
 function M.delete_theme(name)
 	if modules[name] ~= nil then
 		error("neotheme: bundled theme '" .. name .. "' cannot be deleted", 2)
+	end
+	if M.is_provider(name) then
+		error("neotheme: provider theme '" .. name .. "' cannot be deleted", 2)
 	end
 	local _, user_themes = user_inventory()
 	local record = user_themes[name]

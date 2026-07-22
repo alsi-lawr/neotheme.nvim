@@ -30,6 +30,9 @@ engine.setup({
 })
 h.eq("external-dark", require("neotheme.config").get().theme, "provider theme config")
 h.eq("dark", require("neotheme.themes").background("external-dark"), "provider background")
+h.eq("pack:test-provider", require("neotheme.themes").source("external-dark"), "provider source")
+h.truthy(vim.tbl_contains(require("neotheme").families(), "external"), "provider family is public")
+h.eq({ "external-dark" }, require("neotheme").themes("external"), "provider theme is public")
 
 local returned = require("neotheme.themes").get("external-dark")
 returned.surface.base = "#000000"
@@ -56,6 +59,39 @@ ok = pcall(engine.setup, {
 })
 h.falsy(ok, "built-in collision fails")
 h.eq(before, require("neotheme.config").get(), "collision retains config")
+
+local themes = require("neotheme.themes")
+themes.set_family_enabled("external", false)
+h.falsy(vim.tbl_contains(engine.families(), "external"), "hidden provider family is omitted")
+h.eq("dark", themes.background("external-dark"), "hidden provider theme has exact lookup")
+
+engine.setup({
+	theme = "external-dark",
+	palette_packs = { { provider = "test_provider", include = "*" } },
+})
+h.falsy(
+	vim.tbl_contains(engine.families(), "external"),
+	"provider visibility survives reconfiguration"
+)
+themes.create_family("copies")
+local clone = themes.clone("external-dark", "copies", "external-copy")
+h.eq("full", clone.mode, "provider clone becomes editable full state")
+h.truthy(themes.is_user("external-copy"), "provider clone is user-owned")
+h.falsy(pcall(themes.delete_theme, "external-dark"), "provider cannot be deleted in place")
+
+engine.load()
+h.eq("pack:test-provider", engine.current().source, "current state reports provider source")
+
+local state_file =
+	vim.fs.joinpath(require("neotheme.state").root(), "palettes", "copies", "external-copy.json")
+local before_bytes = table.concat(vim.fn.readfile(state_file), "\n")
+engine.setup({ theme = "gruber-dark", palette_packs = {} })
+h.falsy(themes.is_provider("external-dark"), "provider removal clears in-memory themes")
+h.eq(
+	before_bytes,
+	table.concat(vim.fn.readfile(state_file), "\n"),
+	"provider removal preserves user bytes"
+)
 
 package.loaded.test_provider = nil
 package.loaded.collision_provider = nil

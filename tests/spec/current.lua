@@ -52,6 +52,7 @@ local loaded = {
 	loaded = true,
 	active_theme = "gruber-dark",
 	family = "gruber",
+	source = "built-in",
 	configured_theme = "gruber-dark",
 	background = "dark",
 	session_override = false,
@@ -59,7 +60,7 @@ local loaded = {
 h.eq(loaded, engine.current(), "loaded current state")
 output = command_output()
 h.eq(
-	"active: gruber-dark\nfamily: gruber\nconfigured: gruber-dark\nbackground: dark\nsession override: no",
+	"active: gruber-dark\nfamily: gruber\nsource: built-in\nconfigured: gruber-dark\nbackground: dark\nsession override: no",
 	output,
 	"loaded current output"
 )
@@ -69,6 +70,7 @@ h.eq({
 	loaded = true,
 	active_theme = "typeset-paper",
 	family = "typeset",
+	source = "built-in",
 	configured_theme = "gruber-dark",
 	background = "light",
 	session_override = true,
@@ -87,6 +89,7 @@ h.eq({
 	loaded = true,
 	active_theme = "gruber-dark",
 	family = "gruber",
+	source = "built-in",
 	configured_theme = "typewriter-ink",
 	background = "dark",
 	session_override = false,
