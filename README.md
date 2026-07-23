@@ -6,9 +6,8 @@
 
 A palette-based colorscheme for Neovim 0.12+.
 
-[![CI](https://github.com/alsi-lawr/neotheme.nvim/actions/workflows/ci.yml/badge.svg)](https://github.com/alsi-lawr/neotheme.nvim/actions/workflows/ci.yml)
-[![Neovim 0.12+](https://img.shields.io/badge/Neovim-0.12%2B-57A143?logo=neovim&logoColor=white)](https://neovim.io/)
-[![MIT](https://img.shields.io/github/license/alsi-lawr/neotheme.nvim)](LICENSE)
+[![CI](https://github.com/alsi-lawr/neotheme.nvim/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/alsi-lawr/neotheme.nvim/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/alsi-lawr/neotheme.nvim?display_name=tag&sort=semver)](https://github.com/alsi-lawr/neotheme.nvim/releases/latest)
 
 </div>
 
